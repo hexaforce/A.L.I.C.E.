@@ -1,4 +1,4 @@
-package io.hexaforce.A.L.I.C.E;
+package io.hexaforce.alice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
