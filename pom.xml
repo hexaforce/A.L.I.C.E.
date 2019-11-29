@@ -10,6 +10,7 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>io.hexaforce</groupId>
 	<artifactId>A.L.I.C.E.</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
