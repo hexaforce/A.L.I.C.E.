@@ -1,4 +1,5 @@
 package org.alicebot.ab;
+
 /* Program AB Reference AIML 2.0 implementation
         Copyright (C) 2013 ALICE A.I. Foundation
         Contact: info@alicebot.org
@@ -24,11 +25,15 @@ import java.util.Set;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * This is just a stub to make the contactaction.aiml file work on a PC with
  * some extension tags that are defined for mobile devices.
  */
+@Slf4j
 public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
+	
 	public Set<String> extensionTagNames = Utilities.stringSet("contactid", "multipleids", "displayname", "dialnumber", "emailaddress", "contactbirthday", "addinfo");
 
 	public Set<String> extensionTagSet() {
@@ -44,26 +49,21 @@ public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
 		String phoneType = "unknown";
 		String birthday = "unknown";
 		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("birthday")) {
+			String nodeName = childList.item(i).getNodeName();
+			if ("birthday".equals(nodeName))
 				birthday = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("phonetype")) {
+			else if ("phonetype".equals(nodeName))
 				phoneType = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("emailtype")) {
+			else if ("emailtype".equals(nodeName))
 				emailType = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("dialnumber")) {
+			else if ("dialnumber".equals(nodeName))
 				dialNumber = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("displayname")) {
+			else if ("displayname".equals(nodeName))
 				displayName = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("emailaddress")) {
+			else if ("emailaddress".equals(nodeName))
 				emailAddress = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
 		}
-		System.out.println("Adding new contact " + displayName + " " + phoneType + " " + dialNumber + " " + emailType + " " + emailAddress + " " + birthday);
+		log.info("Adding new contact {} {} {} {} {} {}", displayName, phoneType, dialNumber, emailType, emailAddress, birthday);
 		Contact contact = new Contact(displayName, phoneType, dialNumber, emailType, emailAddress, birthday);
 		return "";
 	}
@@ -71,21 +71,18 @@ public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
 	private String contactId(Node node, ParseState ps) {
 		String displayName = AIMLProcessor.evalTagContent(node, ps, null);
 		String result = Contact.contactId(displayName);
-		// System.out.println("contactId("+displayName+")="+result);
 		return result;
 	}
 
 	private String multipleIds(Node node, ParseState ps) {
 		String contactName = AIMLProcessor.evalTagContent(node, ps, null);
 		String result = Contact.multipleIds(contactName);
-		// System.out.println("multipleIds("+contactName+")="+result);
 		return result;
 	}
 
 	private String displayName(Node node, ParseState ps) {
 		String id = AIMLProcessor.evalTagContent(node, ps, null);
 		String result = Contact.displayName(id);
-		// System.out.println("displayName("+id+")="+result);
 		return result;
 	}
 
@@ -94,15 +91,13 @@ public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
 		String id = "unknown";
 		String type = "unknown";
 		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("id")) {
+			String nodeName = childList.item(i).getNodeName();
+			if ("id".equals(nodeName))
 				id = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
-			if (childList.item(i).getNodeName().equals("type")) {
+			else if ("type".equals(nodeName))
 				type = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
-			}
 		}
 		String result = Contact.dialNumber(type, id);
-		// System.out.println("dialNumber("+id+")="+result);
 		return result;
 	}
 
@@ -119,38 +114,36 @@ public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
 			}
 		}
 		String result = Contact.emailAddress(type, id);
-		// System.out.println("emailAddress("+id+")="+result);
 		return result;
 	}
 
 	private String contactBirthday(Node node, ParseState ps) {
 		String id = AIMLProcessor.evalTagContent(node, ps, null);
 		String result = Contact.birthday(id);
-		// System.out.println("birthday("+id+")="+result);
 		return result;
 	}
 
 	public String recursEval(Node node, ParseState ps) {
 		try {
 			String nodeName = node.getNodeName();
-			if (nodeName.equals("contactid"))
+			if ("contactid".equals(nodeName))
 				return contactId(node, ps);
-			else if (nodeName.equals("multipleids"))
+			else if ("multipleids".equals(nodeName))
 				return multipleIds(node, ps);
-			else if (nodeName.equals("dialnumber"))
+			else if ("dialnumber".equals(nodeName))
 				return dialNumber(node, ps);
-			else if (nodeName.equals("addinfo"))
+			else if ("addinfo".equals(nodeName))
 				return newContact(node, ps);
-			else if (nodeName.equals("displayname"))
+			else if ("displayname".equals(nodeName))
 				return displayName(node, ps);
-			else if (nodeName.equals("emailaddress"))
+			else if ("emailaddress".equals(nodeName))
 				return emailAddress(node, ps);
-			else if (nodeName.equals("contactbirthday"))
+			else if ("contactbirthday".equals(nodeName))
 				return contactBirthday(node, ps);
 			else
 				return (AIMLProcessor.genericXML(node, ps));
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
 			return "";
 		}
 	}
