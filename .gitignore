@@ -24,3 +24,8 @@ hs_err_pid*
 
 .DS_Store
 .history
+target/
+.classpath
+.factorypath
+.project
+.settings/
