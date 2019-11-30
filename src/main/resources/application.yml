@@ -12,7 +12,7 @@ logging:
       eclipse:
         jetty: INFO
       alicebot:
-        ab: INFO
+        ab: TRACE
 
 org:
   alicebot:

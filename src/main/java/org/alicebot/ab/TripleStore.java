@@ -162,8 +162,7 @@ public class TripleStore {
 	public String deleteTriple(String subject, String predicate, String object) {
 		if (subject == null || predicate == null || object == null)
 			return MagicStrings.undefined_triple;
-		if (MagicBooleans.trace_mode)
-			log.info("Deleting " + subject + " " + predicate + " " + object);
+		log.trace("Deleting " + subject + " " + predicate + " " + object);
 		Triple triple = new Triple(subject, predicate, object);
 		String id = unMapTriple(triple);
 		return id;
@@ -185,8 +184,7 @@ public class TripleStore {
 		Set<String> predicateSet;
 		Set<String> objectSet;
 		Set<String> resultSet;
-		if (MagicBooleans.trace_mode)
-			log.info("TripleStore: getTriples [" + idTriple.size() + "] " + s + ":" + p + ":" + o);
+		log.trace("TripleStore: getTriples [" + idTriple.size() + "] " + s + ":" + p + ":" + o);
 		if (s == null || s.startsWith("?")) {
 			subjectSet = allTriples();
 		} else {
@@ -299,10 +297,9 @@ public class TripleStore {
 
 			Tuple tuple = new Tuple(vars, visibleVars);
 			result = selectFromRemainingClauses(tuple, clauses);
-			if (MagicBooleans.trace_mode)
-				for (Tuple t : result) {
-					log.info(t.printTuple());
-				}
+			for (Tuple t : result) {
+				log.trace(t.printTuple());
+			}
 
 		} catch (Exception ex) {
 			log.info("Something went wrong with select " + visibleVars);

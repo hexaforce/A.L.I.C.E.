@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Chat {
-	
+
 	public Bot bot;
 	public boolean doWrites;
 	public String customerId = MagicStrings.default_Customer_id;
@@ -82,8 +82,7 @@ public class Chat {
 		addTriples();
 		predicates.put("topic", MagicStrings.default_topic);
 		predicates.put("jsenabled", MagicStrings.js_enabled);
-		if (MagicBooleans.trace_mode)
-			log.info("Chat Session Created for bot " + bot.name);
+		log.trace("Chat Session Created for bot " + bot.name);
 	}
 
 	/**
@@ -103,8 +102,7 @@ public class Chat {
 
 	int addTriples() {
 		int tripleCnt = 0;
-		if (MagicBooleans.trace_mode)
-			log.info("Loading Triples from " + bot.config_path + "/triples.txt");
+		log.trace("Loading Triples from " + bot.config_path + "/triples.txt");
 		File f = new File(bot.config_path + "/triples.txt");
 		if (f.exists())
 			try {
@@ -126,8 +124,7 @@ public class Chat {
 			} catch (Exception ex) {
 				log.error(ex.getMessage(), ex);
 			}
-		if (MagicBooleans.trace_mode)
-			log.info("Loaded " + tripleCnt + " triples");
+		log.trace("Loaded " + tripleCnt + " triples");
 		return tripleCnt;
 	}
 
@@ -254,5 +251,5 @@ public class Chat {
 	public static void setMatchTrace(String newMatchTrace) {
 		matchTrace = newMatchTrace;
 	}
-	
+
 }

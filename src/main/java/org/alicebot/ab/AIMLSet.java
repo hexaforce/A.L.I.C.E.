@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AIMLSet extends HashSet<String> {
 	private static final long serialVersionUID = 1L;
-	
+
 	public String setName;
 	int maxLength = 1; // there are no empty sets
 	String host; // for external sets
@@ -139,8 +139,7 @@ public class AIMLSet extends HashSet<String> {
 
 	public int readAIMLSet(Bot bot) {
 		int cnt = 0;
-		if (MagicBooleans.trace_mode)
-			log.info("Reading AIML Set " + bot.sets_path + "/" + setName + ".txt");
+		log.trace("Reading AIML Set " + bot.sets_path + "/" + setName + ".txt");
 		try {
 			// Open the file that is the first command line parameter
 			File file = new File(bot.sets_path + "/" + setName + ".txt");

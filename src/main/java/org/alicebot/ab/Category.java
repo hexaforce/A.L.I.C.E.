@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Category {
-	
+
 	private String pattern;
 	private String that;
 	private String topic;

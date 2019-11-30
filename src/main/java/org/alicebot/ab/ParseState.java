@@ -23,7 +23,7 @@ package org.alicebot.ab;
  * ParseState is a helper class for AIMLProcessor
  */
 public class ParseState {
-	
+
 	public Nodemapper leaf;
 	public String input;
 	public String that;
@@ -53,5 +53,5 @@ public class ParseState {
 		this.vars = new Predicates();
 		this.starBindings = leaf.starBindings;
 	}
-	
+
 }

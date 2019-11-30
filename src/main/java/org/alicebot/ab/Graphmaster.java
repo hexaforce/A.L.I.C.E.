@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Graphmaster {
-	
+
 	static private boolean DEBUG = false;
 
 	public Bot bot;
@@ -233,7 +233,7 @@ public class Graphmaster {
 				log.info("findNode: node contains " + path.word);
 			Nodemapper nextNode = NodemapperOperator.get(node, path.word.toUpperCase());
 			return findNode(nextNode, path.next);
-		}else {
+		} else {
 			if (verbose)
 				log.info("findNode: returning null");
 			return null;
@@ -254,21 +254,17 @@ public class Graphmaster {
 			String inputThatTopic = inputThatTopic(input, that, topic);
 			Path p = Path.sentenceToPath(inputThatTopic);
 			n = match(p, inputThatTopic);
-			if (MagicBooleans.trace_mode) {
-				if (n != null) {
-					if (MagicBooleans.trace_mode)
-						log.info("Matched: " + n.category.inputThatTopic() + " " + n.category.getFilename());
-				} else {
-					if (MagicBooleans.trace_mode)
-						log.info("No match.");
-				}
-
+			if (n != null) {
+				log.trace("Matched: " + n.category.inputThatTopic() + " " + n.category.getFilename());
+			} else {
+				log.trace("No match.");
 			}
+
 		} catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
 			n = null;
 		}
-		if (MagicBooleans.trace_mode && Chat.matchTrace.length() < MagicNumbers.max_trace_length) {
+		if (Chat.matchTrace.length() < MagicNumbers.max_trace_length) {
 			if (n != null) {
 				Chat.setMatchTrace(Chat.matchTrace + n.category.inputThatTopic() + "\n");
 			}
@@ -338,7 +334,7 @@ public class Graphmaster {
 			return matchedNode;
 		else if (path.length < node.height) {
 			return null;
-		}else if ((matchedNode = dollarMatch(path, node, inputThatTopic, starState, starIndex, inputStars, thatStars, topicStars, matchTrace)) != null)
+		} else if ((matchedNode = dollarMatch(path, node, inputThatTopic, starState, starIndex, inputStars, thatStars, topicStars, matchTrace)) != null)
 			return matchedNode;
 		else if ((matchedNode = sharpMatch(path, node, inputThatTopic, starState, starIndex, inputStars, thatStars, topicStars, matchTrace)) != null)
 			return matchedNode;
@@ -354,9 +350,9 @@ public class Graphmaster {
 			return matchedNode;
 		else if ((matchedNode = starMatch(path, node, inputThatTopic, starState, starIndex, inputStars, thatStars, topicStars, matchTrace)) != null)
 			return matchedNode;
-		else 
+		else
 			return null;
-		
+
 	}
 
 	/**
@@ -633,8 +629,8 @@ public class Graphmaster {
 		naryCnt = 0;
 		nodeStatsGraph(root);
 		resultNote = bot.name + " (" + name + "): " + getCategories().size() + " categories " + nodeCnt + " nodes " + singletonCnt + " singletons " + leafCnt + " leaves " + shortCutCnt + " shortcuts " + naryCnt + " n-ary " + nodeSize + " branches " + (float) nodeSize / (float) nodeCnt + " average branching ";
-		if (MagicBooleans.trace_mode)
-			log.info(resultNote);
+
+		log.trace(resultNote);
 	}
 
 	public void nodeStatsGraph(Nodemapper node) {

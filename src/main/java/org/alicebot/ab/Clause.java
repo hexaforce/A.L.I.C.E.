@@ -1,7 +1,7 @@
 package org.alicebot.ab;
 
 public class Clause {
-	
+
 	public String subj;
 	public String pred;
 	public String obj;
@@ -21,5 +21,5 @@ public class Clause {
 	public Clause(Clause clause) {
 		this(clause.subj, clause.pred, clause.obj, clause.affirm);
 	}
-	
+
 }

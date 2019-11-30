@@ -72,8 +72,7 @@ public class Sraix {
 			if (custIdMap.containsKey(key))
 				custid = custIdMap.get(key);
 			String spec = NetworkUtils.spec(host, botid, custid, input);
-			if (MagicBooleans.trace_mode)
-				log.info("Spec = " + spec);
+			log.trace("Spec = " + spec);
 			String responseContent = NetworkUtils.responseContent(spec);
 			return responseContent;
 		} catch (Exception ex) {
@@ -148,16 +147,13 @@ public class Sraix {
 					if (actions.has("reminder")) {
 						Object obj = actions.get("reminder");
 						if (obj instanceof JSONObject) {
-							if (MagicBooleans.trace_mode)
-								log.info("Found JSON Object");
+							log.trace("Found JSON Object");
 							JSONObject sObj = (JSONObject) obj;
 							String date = sObj.getString("date");
 							date = date.substring(0, "2012-10-24T14:32".length());
-							if (MagicBooleans.trace_mode)
-								log.info("date=" + date);
+							log.trace("date=" + date);
 							String duration = sObj.getString("duration");
-							if (MagicBooleans.trace_mode)
-								log.info("duration=" + duration);
+							log.trace("duration=" + duration);
 							Pattern datePattern = Pattern.compile("(.*)-(.*)-(.*)T(.*):(.*)");
 							Matcher m = datePattern.matcher(date);
 							String year = "", month = "", day = "", hour = "", minute = "";

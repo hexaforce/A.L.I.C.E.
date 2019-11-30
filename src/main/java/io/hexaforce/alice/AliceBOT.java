@@ -17,19 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 public class AliceBOT {
 
 	public static void main(String[] args) {
-		AIMLProcessor.extension = new PCAIMLProcessorExtension();
-		mainFunction(args);
+		mainFunction();
 	}
 
-	public static void mainFunction(String[] args) {
+	public static void mainFunction() {
 
+		AIMLProcessor.extension = new PCAIMLProcessorExtension();
 		String botName = "alice2";
-		MagicBooleans.jp_tokenize = false;
-		MagicBooleans.trace_mode = true;
+		MagicBooleans.jp_tokenize = true;
 		log.info(MagicStrings.program_name_version);
 		
-		if (MagicBooleans.trace_mode)
-			log.info("Working Directory = " + MagicStrings.root_path);
+			log.trace("Working Directory = " + MagicStrings.root_path);
 
 		Graphmaster.enableShortCuts = true;
 		Bot bot = new Bot(botName, MagicStrings.root_path);

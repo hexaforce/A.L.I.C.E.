@@ -65,7 +65,7 @@ public class AIMLProcessor {
 			String mName = m.getNodeName();
 			if (mName.equals("#text")) {
 				/* skip */
-				} else if (mName.equals("pattern"))
+			} else if (mName.equals("pattern"))
 				pattern = DomUtils.nodeToString(m);
 			else if (mName.equals("that"))
 				that = DomUtils.nodeToString(m);
@@ -93,7 +93,7 @@ public class AIMLProcessor {
 			String morphTopicPattern = JapaneseUtils.tokenizeSentence(topic);
 			topic = morphTopicPattern;
 		}
-		
+
 		Category c = new Category(0, pattern, that, topic, template, aimlFile);
 		if (template == null || template.length() == 0) {
 			log.info("Category " + c.inputThatTopic() + " discarded due to blank or missing <template>.");
@@ -204,7 +204,7 @@ public class AIMLProcessor {
 		response = MagicStrings.default_bot_response;
 		try {
 			Nodemapper leaf = chatSession.bot.brain.match(input, that, topic);
-			if (leaf == null) 
+			if (leaf == null)
 				return (response);
 			ParseState ps = new ParseState(0, chatSession, input, that, topic, leaf);
 			String template = leaf.category.getTemplate();
@@ -307,7 +307,7 @@ public class AIMLProcessor {
 		String attributes = "";
 		if (node.hasAttributes()) {
 			NamedNodeMap XMLAttributes = node.getAttributes();
-			for (int i = 0; i < XMLAttributes.getLength(); i++){
+			for (int i = 0; i < XMLAttributes.getLength(); i++) {
 				attributes += " " + XMLAttributes.item(i).getNodeName() + "=\"" + XMLAttributes.item(i).getNodeValue() + "\"";
 			}
 		}
@@ -340,10 +340,10 @@ public class AIMLProcessor {
 			result = ps.chatSession.bot.preProcessor.normalize(result);
 			result = JapaneseUtils.tokenizeSentence(result);
 			String topic = ps.chatSession.predicates.get("topic"); // the that stays the same, but the topic may have changed
-			if (MagicBooleans.trace_mode) {
-				log.info(trace_count + ". <srai>" + result + "</srai> from " + ps.leaf.category.inputThatTopic() + " topic=" + topic + ") ");
-				trace_count++;
-			}
+
+			log.trace(trace_count + ". <srai>" + result + "</srai> from " + ps.leaf.category.inputThatTopic() + " topic=" + topic + ") ");
+			trace_count++;
+
 			Nodemapper leaf = ps.chatSession.bot.brain.match(result, ps.that, topic);
 			if (leaf == null) {
 				return (response);
@@ -476,9 +476,9 @@ public class AIMLProcessor {
 		String tupleName = getAttributeOrTagValue(node, ps, "tuple");
 		if (predicateName != null)
 			result = ps.chatSession.predicates.get(predicateName).trim();
-		else if (varName != null && tupleName != null) 
+		else if (varName != null && tupleName != null)
 			result = tupleGet(tupleName, varName);
-		 else if (varName != null) 
+		else if (varName != null)
 			result = ps.vars.get(varName).trim();
 		return result;
 	}
@@ -991,8 +991,8 @@ public class AIMLProcessor {
 					}
 				}
 				pattern = pattern.substring("<pattern>".length(), pattern.length() - "</pattern>".length());
-				if (MagicBooleans.trace_mode)
-					log.info("Learn Pattern = " + pattern);
+
+				log.trace("Learn Pattern = " + pattern);
 				if (template.length() >= "<template></template>".length())
 					template = template.substring("<template>".length(), template.length() - "</template>".length());
 				if (that.length() >= "<that></that>".length())
@@ -1003,11 +1003,10 @@ public class AIMLProcessor {
 				that = that.toUpperCase();
 				that = that.replaceAll("\n", " ");
 				that = that.replaceAll("[ ]+", " ");
-				if (MagicBooleans.trace_mode) {
-					log.info("Learn Pattern = " + pattern);
-					log.info("Learn That = " + that);
-					log.info("Learn Template = " + template);
-				}
+				log.trace("Learn Pattern = " + pattern);
+				log.trace("Learn That = " + that);
+				log.trace("Learn Template = " + template);
+
 				Category c;
 				if (node.getNodeName().equals("learn")) {
 					c = new Category(0, pattern, that, "*", template, MagicStrings.null_aiml_file);
@@ -1065,7 +1064,7 @@ public class AIMLProcessor {
 		ArrayList<Node> liList = new ArrayList<Node>();
 		String predicate = null, varName = null, value = null; // Node p=null, v=null;
 		HashSet<String> attributeNames = Utilities.stringSet("name", "var", "value");
-		// First check if the <condition> has an attribute "name". 
+		// First check if the <condition> has an attribute "name".
 		// If so, get the predicate name.
 		predicate = getAttributeOrTagValue(node, ps, "name");
 		varName = getAttributeOrTagValue(node, ps, "var");
@@ -1096,8 +1095,9 @@ public class AIMLProcessor {
 						return evalTagContent(n, ps, attributeNames);
 					else if (liVarName != null && value != null && (ps.vars.get(liVarName).equalsIgnoreCase(value) || (ps.vars.containsKey(liPredicate) && value.equals("*"))))
 						return evalTagContent(n, ps, attributeNames);
-				} else 
-					// this is a terminal <li> with no predicate or value, i.e. the default condition.
+				} else
+					// this is a terminal <li> with no predicate or value, i.e. the default
+					// condition.
 					return evalTagContent(n, ps, attributeNames);
 			}
 		return "";

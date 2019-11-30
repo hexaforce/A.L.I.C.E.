@@ -23,7 +23,7 @@ package org.alicebot.ab;
  * Specialized timer function for program instrumentation
  */
 public class Timer {
-	
+
 	private long startTimeMillis;
 
 	public Timer() {
@@ -51,5 +51,5 @@ public class Timer {
 	public float elapsedTimeMins() {
 		return elapsedTimeSecs() / 60F;
 	}
-	
+
 }

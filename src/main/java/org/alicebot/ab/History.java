@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class History<T> {
-	
+
 	private Object[] history;
 	private String name;
 
@@ -106,5 +106,5 @@ public class History<T> {
 				((History<?>) get(i)).printHistory();
 		}
 	}
-	
+
 }
