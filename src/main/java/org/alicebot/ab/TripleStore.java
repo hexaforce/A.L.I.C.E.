@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TripleStore {
+
 	public int idCnt = 0;
 	public String name = "unknown";
 	public Chat chatSession;
@@ -26,6 +27,7 @@ public class TripleStore {
 	}
 
 	public class Triple {
+
 		public String id;
 		public String subject;
 		public String predicate;
@@ -39,13 +41,10 @@ public class TripleStore {
 				o = bot.preProcessor.normalize(o);
 			}
 			if (s != null && p != null && o != null) {
-				// log.info("New triple "+s+":"+p+":"+o);
 				subject = s;
 				predicate = p;
 				object = o;
 				id = name + idCnt++;
-				// log.info("New triple "+id+"="+s+":"+p+":"+o);
-
 			}
 		}
 	}
@@ -66,11 +65,8 @@ public class TripleStore {
 		tripleString = tripleString.toUpperCase();
 
 		if (tripleStringId.keySet().contains(tripleString)) {
-			// log.info("Found "+tripleString+"
-			// "+tripleStringId.get(tripleString));
 			return tripleStringId.get(tripleString); // triple already exists
 		} else {
-			// log.info(tripleString+" not found");
 			tripleStringId.put(tripleString, id);
 
 			HashSet<String> existingTriples;
@@ -191,20 +187,15 @@ public class TripleStore {
 		Set<String> resultSet;
 		if (MagicBooleans.trace_mode)
 			log.info("TripleStore: getTriples [" + idTriple.size() + "] " + s + ":" + p + ":" + o);
-		// printAllTriples();
 		if (s == null || s.startsWith("?")) {
 			subjectSet = allTriples();
 		} else {
 			s = s.toUpperCase();
-			// log.info("subjectTriples.keySet()="+subjectTriples.keySet());
-			// log.info("subjectTriples.get("+s+")="+subjectTriples.get(s));
-			// log.info("subjectTriples.containsKey("+s+")="+subjectTriples.containsKey(s));
 			if (subjectTriples.containsKey(s))
 				subjectSet = subjectTriples.get(s);
 			else
 				subjectSet = emptySet();
 		}
-		// log.info("subjectSet="+subjectSet);
 
 		if (p == null || p.startsWith("?")) {
 			predicateSet = allTriples();
@@ -231,15 +222,6 @@ public class TripleStore {
 		resultSet.retainAll(objectSet);
 
 		HashSet<String> finalResultSet = new HashSet<String>(resultSet);
-
-		// log.info("TripleStore.getTriples: "+finalResultSet.size()+"
-		// results");
-		/*
-		 * log.info("getTriples subjectSet="+subjectSet);
-		 * log.info("getTriples predicateSet="+predicateSet);
-		 * log.info("getTriples objectSet="+objectSet);
-		 * log.info("getTriples result="+resultSet);
-		 */
 
 		return finalResultSet;
 	}
@@ -316,7 +298,6 @@ public class TripleStore {
 		try {
 
 			Tuple tuple = new Tuple(vars, visibleVars);
-			// log.info("TripleStore: select vars = "+tuple.printVars());
 			result = selectFromRemainingClauses(tuple, clauses);
 			if (MagicBooleans.trace_mode)
 				for (Tuple t : result) {
@@ -340,19 +321,19 @@ public class TripleStore {
 		if (vars.contains(subj)) {
 			String value = tuple.getValue(subj);
 			if (!value.equals(MagicStrings.unbound_variable)) {
-				/* log.info("adjusting "+subj+" "+value); */ newClause.subj = value;
+				newClause.subj = value;
 			}
 		}
 		if (vars.contains(pred)) {
 			String value = tuple.getValue(pred);
 			if (!value.equals(MagicStrings.unbound_variable)) {
-				/* log.info("adjusting "+pred+" "+value); */ newClause.pred = value;
+				newClause.pred = value;
 			}
 		}
 		if (vars.contains(obj)) {
 			String value = tuple.getValue(obj);
 			if (!value.equals(MagicStrings.unbound_variable)) {
-				/* log.info("adjusting "+obj+" "+value); */newClause.obj = value;
+				newClause.obj = value;
 			}
 		}
 		return newClause;
@@ -373,8 +354,6 @@ public class TripleStore {
 	public HashSet<Tuple> selectFromSingleClause(Tuple partial, Clause clause, Boolean affirm) {
 		HashSet<Tuple> result = new HashSet<Tuple>();
 		HashSet<String> triples = getTriples(clause.subj, clause.pred, clause.obj);
-		// log.info("TripleStore: selected "+triples.size()+" from single
-		// clause "+clause.subj+" "+clause.pred+" "+clause.obj);
 		if (affirm) {
 			for (String triple : triples) {
 				Tuple tuple = bindTuple(partial, triple, clause);
@@ -388,8 +367,6 @@ public class TripleStore {
 	}
 
 	public HashSet<Tuple> selectFromRemainingClauses(Tuple partial, ArrayList<Clause> clauses) {
-		// log.info("TripleStore: partial = "+partial.printTuple()+"
-		// clauses.size()=="+clauses.size());
 		HashSet<Tuple> result = new HashSet<Tuple>();
 		Clause clause = clauses.get(0);
 		clause = adjustClause(partial, clause);

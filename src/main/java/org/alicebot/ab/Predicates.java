@@ -46,8 +46,6 @@ public class Predicates extends HashMap<String, String> {
 	 * @return predicate value
 	 */
 	public String put(String key, String value) {
-		// MagicBooleans.trace("predicates.put(key: " + key + ", value: " + value +
-		// ")");
 		if (MagicBooleans.jp_tokenize) {
 			if (key.equals("topic"))
 				value = JapaneseUtils.tokenizeSentence(value);
@@ -56,9 +54,7 @@ public class Predicates extends HashMap<String, String> {
 			value = MagicStrings.default_get;
 		if (value.equals(MagicStrings.too_much_recursion))
 			value = MagicStrings.default_list_item;
-		// MagicBooleans.trace("Setting predicate key: " + key + " to value: " + value);
 		String result = super.put(key, value);
-		// MagicBooleans.trace("in predicates.put, returning: " + result);
 		return result;
 	}
 
@@ -69,11 +65,9 @@ public class Predicates extends HashMap<String, String> {
 	 * @return predicate value
 	 */
 	public String get(String key) {
-		// MagicBooleans.trace("predicates.get(key: " + key + ")");
 		String result = super.get(key);
 		if (result == null)
 			result = MagicStrings.default_get;
-		// MagicBooleans.trace("in predicates.get, returning: " + result);
 		return result;
 	}
 
@@ -106,8 +100,7 @@ public class Predicates extends HashMap<String, String> {
 	 */
 	public void getPredicateDefaults(String filename) {
 		try {
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			File file = new File(filename);
 			if (file.exists()) {
 				FileInputStream fstream = new FileInputStream(filename);
@@ -115,7 +108,8 @@ public class Predicates extends HashMap<String, String> {
 				getPredicateDefaultsFromInputStream(fstream);
 				fstream.close();
 			}
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 	}

@@ -121,17 +121,6 @@ public class Bot {
 	 * @param path
 	 */
 	public Bot(String name, String path) {
-		this(name, path, "auto");
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param name   name of bot
-	 * @param path   root path of Program AB
-	 * @param action Program AB action
-	 */
-	public Bot(String name, String path, String action) {
 		
 		int cnt = 0;
 		
@@ -169,15 +158,7 @@ public class Bot {
 
 		MagicStrings.pannous_api_key = Utilities.getPannousAPIKey(this);
 		MagicStrings.pannous_login = Utilities.getPannousLogin(this);
-		if (action.equals("aiml2csv"))
-			addCategoriesFromAIML();
-		else if (action.equals("csv2aiml"))
-			addCategoriesFromAIMLIF();
-		else if (action.equals("chat-app")) {
-			if (MagicBooleans.trace_mode)
-				log.info("Loading only AIMLIF files");
-			cnt = addCategoriesFromAIMLIF();
-		} else if (aimlDate.after(aimlIFDate)) {
+		if (aimlDate.after(aimlIFDate)) {
 			if (MagicBooleans.trace_mode)
 				log.info("AIML modified after AIMLIF");
 			cnt = addCategoriesFromAIML();

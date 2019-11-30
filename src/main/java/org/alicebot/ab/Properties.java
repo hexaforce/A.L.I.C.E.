@@ -84,8 +84,7 @@ public class Properties extends HashMap<String, String> {
 		if (MagicBooleans.trace_mode)
 			log.info("Get Properties: " + filename);
 		try {
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			File file = new File(filename);
 			if (file.exists()) {
 				if (MagicBooleans.trace_mode)
@@ -96,7 +95,8 @@ public class Properties extends HashMap<String, String> {
 				// Close the input stream
 				fstream.close();
 			}
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 		return cnt;
