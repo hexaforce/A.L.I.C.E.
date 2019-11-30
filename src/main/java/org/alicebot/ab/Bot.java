@@ -445,6 +445,9 @@ public class Bot {
 		brain.addCategory(b);
 		ArrayList<Category> brainCategories = brain.getCategories();
 		Collections.sort(brainCategories, Category.CATEGORY_NUMBER_COMPARATOR);
+		File aimlif = new File(aimlif_path);
+		if (!aimlif.exists())
+			aimlif.mkdir();
 		for (Category c : brainCategories) {
 			try {
 				BufferedWriter bw;
