@@ -64,7 +64,8 @@ public class PCAIMLProcessorExtension implements AIMLProcessorExtension {
 				emailAddress = AIMLProcessor.evalTagContent(childList.item(i), ps, null);
 		}
 		log.info("Adding new contact {} {} {} {} {} {}", displayName, phoneType, dialNumber, emailType, emailAddress, birthday);
-		Contact contact = new Contact(displayName, phoneType, dialNumber, emailType, emailAddress, birthday);
+		//Contact contact = 
+				new Contact(displayName, phoneType, dialNumber, emailType, emailAddress, birthday);
 		return "";
 	}
 

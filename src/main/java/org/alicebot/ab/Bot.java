@@ -129,7 +129,7 @@ public class Bot {
 	 */
 	public Bot(String name, String path, String action) {
 		int cnt = 0;
-		int elementCnt = 0;
+		// int elementCnt = 0;
 		this.name = name;
 		setAllPaths(path, name);
 		this.brain = new Graphmaster(this);

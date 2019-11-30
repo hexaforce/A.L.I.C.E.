@@ -167,7 +167,7 @@ public class Chat {
 	 *                           interaction
 	 * @return bot's reply
 	 */
-	String respond(String input, String that, String topic, History contextThatHistory) {
+	String respond(String input, String that, String topic, History<String> contextThatHistory) {
 		// MagicBooleans.trace("chat.respond(input: " + input + ", that: " + that + ",
 		// topic: " + topic + ", contextThatHistory: " + contextThatHistory + ")");
 		boolean repetition = true;
@@ -216,7 +216,7 @@ public class Chat {
 	 * @return bot's reply
 	 */
 	String respond(String input, History<String> contextThatHistory) {
-		History hist = thatHistory.get(0);
+		History<?> hist = thatHistory.get(0);
 		String that;
 		if (hist == null)
 			that = MagicStrings.default_that;

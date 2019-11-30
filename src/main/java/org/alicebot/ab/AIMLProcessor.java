@@ -39,8 +39,6 @@ import org.w3c.dom.NodeList;
  */
 public class AIMLProcessor {
 
-	static private boolean DEBUG = false;
-
 	/**
 	 * when parsing an AIML file, process a category element.
 	 *
@@ -188,11 +186,7 @@ public class AIMLProcessor {
 	 * @return bot's response.
 	 */
 	public static String respond(String input, String that, String topic, Chat chatSession) {
-		if (false /* checkForRepeat(input, chatSession) > 0 */)
-			return "Repeat!";
-		else {
-			return respond(input, that, topic, chatSession, 0);
-		}
+		return respond(input, that, topic, chatSession, 0);
 	}
 
 	/**
@@ -1009,7 +1003,8 @@ public class AIMLProcessor {
 	private static String random(Node node, ParseState ps) {
 		NodeList childList = node.getChildNodes();
 		ArrayList<Node> liList = new ArrayList<Node>();
-		String setName = getAttributeOrTagValue(node, ps, "set");
+		// String setName = 
+				//getAttributeOrTagValue(node, ps, "set");
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("li"))
 				liList.add(childList.item(i));

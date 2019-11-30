@@ -226,6 +226,7 @@ public class Main {
 				String response = chatSession.multisentenceRespond(strLine);
 				System.out.println("Robot: " + response);
 			}
+			br.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

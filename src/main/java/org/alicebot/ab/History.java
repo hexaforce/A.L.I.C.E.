@@ -63,6 +63,7 @@ public class History<T> {
 	 * @param index history index
 	 * @return history item
 	 */
+	@SuppressWarnings("unchecked")
 	public T get(int index) {
 		if (index < MagicNumbers.max_history) {
 			if (history[index] == null)
@@ -98,7 +99,7 @@ public class History<T> {
 			System.out.println(name + "History " + (i + 1) + " = " + get(i));
 			System.out.println(String.valueOf(get(i).getClass()).contains("History"));
 			if (String.valueOf(get(i).getClass()).contains("History"))
-				((History) get(i)).printHistory();
+				((History<?>) get(i)).printHistory();
 		}
 	}
 }
