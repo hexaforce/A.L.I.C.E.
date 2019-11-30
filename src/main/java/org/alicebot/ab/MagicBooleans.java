@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MagicBooleans {
 
-//	public static boolean trace_mode = true;
 	public static boolean enable_external_sets = true;
 	public static boolean enable_external_maps = true;
 	public static boolean jp_tokenize = false;
@@ -40,4 +39,5 @@ public class MagicBooleans {
 	public static void trace(String traceString) {
 		log.trace(traceString);
 	}
+
 }

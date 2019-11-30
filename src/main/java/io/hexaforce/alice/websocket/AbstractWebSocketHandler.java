@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractWebSocketHandler implements WebSocketHandler {
 
-	public static final String PATH = "/ws/{customerTel}/{restaurantTel}/{botId}";
+	public static final String PATH = "/ws";
 
 	protected final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 

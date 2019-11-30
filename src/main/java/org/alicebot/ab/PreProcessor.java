@@ -36,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class PreProcessor {
-	static private boolean DEBUG = false;
 
 	public int normalCount = 0;
 	public int denormalCount = 0;
@@ -77,12 +76,10 @@ public class PreProcessor {
 	 * @return normalized client input
 	 */
 	public String normalize(String request) {
-		if (DEBUG)
-			log.info("PreProcessor.normalize(request: " + request + ")");
+		log.debug("PreProcessor.normalize(request: " + request + ")");
 		String result = substitute(request, normalPatterns, normalSubs, normalCount);
 		result = result.replaceAll("(\r\n|\n\r|\r|\n)", " ");
-		if (DEBUG)
-			log.info("PreProcessor.normalize() returning: " + result);
+		log.debug("PreProcessor.normalize() returning: " + result);
 		return result;
 	}
 
@@ -104,7 +101,6 @@ public class PreProcessor {
 	 */
 	public String person(String input) {
 		return substitute(input, personPatterns, personSubs, personCount);
-
 	}
 
 	/**
@@ -115,7 +111,6 @@ public class PreProcessor {
 	 */
 	public String person2(String input) {
 		return substitute(input, person2Patterns, person2Subs, person2Count);
-
 	}
 
 	/**
@@ -126,7 +121,6 @@ public class PreProcessor {
 	 */
 	public String gender(String input) {
 		return substitute(input, genderPatterns, genderSubs, genderCount);
-
 	}
 
 	/**
@@ -175,6 +169,7 @@ public class PreProcessor {
 		// Read File Line By Line
 		int subCount = 0;
 		try {
+
 			while ((strLine = br.readLine()) != null) {
 				strLine = strLine.trim();
 				if (!strLine.startsWith(MagicStrings.text_comment_mark)) {
@@ -206,7 +201,6 @@ public class PreProcessor {
 	int readSubstitutions(String filename, Pattern[] patterns, String[] subs) {
 		int subCount = 0;
 		try {
-
 			// Open the file that is the first command line parameter
 			File file = new File(filename);
 			if (file.exists()) {

@@ -15,7 +15,7 @@
 	<artifactId>A.L.I.C.E.</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>A.L.I.C.E.</name>
-	<description>Demo project for Spring Boot</description>
+	<description>A.L.I.C.E. project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -54,7 +54,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>logging-interceptor</artifactId>

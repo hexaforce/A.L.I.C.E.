@@ -23,15 +23,14 @@ package org.alicebot.ab;
  * Global values for many strings in Program AB
  */
 public class MagicStrings {
+
 	// General global strings
 	public static String program_name_version = "Program AB 0.0.6.26 beta -- AI Foundation Reference AIML 2.1 implementation";
-	public static String comment = "Added repetition detection.";
 	public static String aimlif_split_char = ",";
 	public static String default_bot = "alice2";
 	public static String default_language = "EN";
 	public static String aimlif_split_char_name = "\\#Comma";
 	public static String aimlif_file_suffix = ".csv";
-	public static String ab_sample_file = "sample.txt";
 	public static String text_comment_mark = ";;";
 	// <sraix> defaults
 	public static String pannous_api_key = "guest";
