@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class NodemapperOperator {
 	/**
 	 * number of branches from node
@@ -86,7 +88,7 @@ public class NodemapperOperator {
 	 * @return true or false
 	 */
 	public static boolean containsKey(Nodemapper node, String key) {
-		// System.out.println("containsKey: Node="+node+" Map="+node.map);
+		// log.info("containsKey: Node="+node+" Map="+node.map);
 		if (node.map != null) {
 			return node.map.containsKey(key);
 		} else {// node.type == unary_node_mapper
@@ -106,7 +108,7 @@ public class NodemapperOperator {
 		Set<String> set = keySet(node);
 		Iterator<String> iter = set.iterator();
 		while (iter.hasNext()) {
-			System.out.println("" + iter.next());
+			log.info("" + iter.next());
 		}
 	}
 
@@ -144,7 +146,7 @@ public class NodemapperOperator {
 	 * @param node Nodemapper object
 	 */
 	public static void upgrade(Nodemapper node) {
-		// System.out.println("Upgrading "+node.id);
+		// log.info("Upgrading "+node.id);
 		// node.type = MagicNumbers.hash_node_mapper;
 		node.map = new HashMap<String, Nodemapper>();
 		node.map.put(node.key, node.value);

@@ -26,10 +26,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Bot Properties
  */
-
+@Slf4j
 public class Properties extends HashMap<String, String> {
 	private static final long serialVersionUID = 1L;
 
@@ -80,14 +82,14 @@ public class Properties extends HashMap<String, String> {
 	public int getProperties(String filename) {
 		int cnt = 0;
 		if (MagicBooleans.trace_mode)
-			System.out.println("Get Properties: " + filename);
+			log.info("Get Properties: " + filename);
 		try {
 			// Open the file that is the first
 			// command line parameter
 			File file = new File(filename);
 			if (file.exists()) {
 				if (MagicBooleans.trace_mode)
-					System.out.println("Exists: " + filename);
+					log.info("Exists: " + filename);
 				FileInputStream fstream = new FileInputStream(filename);
 				// Get the object
 				cnt = getPropertiesFromInputStream(fstream);
@@ -95,7 +97,7 @@ public class Properties extends HashMap<String, String> {
 				fstream.close();
 			}
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 		return cnt;
 	}

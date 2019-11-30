@@ -21,9 +21,12 @@ import java.util.ArrayList;
         Boston, MA  02110-1301, USA.
 */
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Linked list representation of Pattern Path and Input Path
  */
+@Slf4j
 public class Path extends ArrayList<String> {
 	private static final long serialVersionUID = 1L;
 	public String word;
@@ -125,7 +128,7 @@ public class Path extends ArrayList<String> {
 		}
 		if (result.endsWith(","))
 			result = result.substring(0, result.length() - 1);
-		System.out.println(result);
+		log.info(result);
 	}
 
 }

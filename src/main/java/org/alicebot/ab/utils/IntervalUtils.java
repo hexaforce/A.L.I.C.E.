@@ -9,6 +9,8 @@ import org.joda.time.chrono.LenientChronology;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class IntervalUtils {
 
 	public static void test() {
@@ -16,12 +18,12 @@ public class IntervalUtils {
 		String date2 = "12:00:00.00";
 		String format = "HH:mm:ss.SS";
 		int hours = getHoursBetween(date2, date1, format);
-		System.out.println("Hours = " + hours);
+		log.info("Hours = " + hours);
 		date1 = "January 30, 2013";
 		date2 = "August 2, 1960";
 		format = "MMMMMMMMM dd, yyyy";
 		int years = getYearsBetween(date2, date1, format);
-		System.out.println("Years = " + years);
+		log.info("Years = " + years);
 	}
 
 	// http://docs.oracle.com/javase/1.4.2/docs/api/java/text/SimpleDateFormat.html

@@ -19,11 +19,14 @@ package org.alicebot.ab;
         Boston, MA  02110-1301, USA.
 */
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * History object to maintain history of input, that request and response
  *
  * @param <T> type of history object
  */
+@Slf4j
 public class History<T> {
 	private Object[] history;
 	private String name;
@@ -96,8 +99,8 @@ public class History<T> {
 	public void printHistory() {
 		int i;
 		for (i = 0; get(i) != null; i++) {
-			System.out.println(name + "History " + (i + 1) + " = " + get(i));
-			System.out.println(String.valueOf(get(i).getClass()).contains("History"));
+			log.info(name + "History " + (i + 1) + " = " + get(i));
+			log.info("History {}", String.valueOf(get(i).getClass()).contains("History"));
 			if (String.valueOf(get(i).getClass()).contains("History"))
 				((History<?>) get(i)).printHistory();
 		}

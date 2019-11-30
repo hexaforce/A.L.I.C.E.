@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class IOUtils {
 
 	BufferedReader reader;
@@ -26,7 +28,7 @@ public class IOUtils {
 				writer = new BufferedWriter(new FileWriter(filePath, true));
 			}
 		} catch (IOException e) {
-			System.err.println("error: " + e);
+			log.error("error: " + e);
 		}
 	}
 
@@ -35,7 +37,7 @@ public class IOUtils {
 		try {
 			result = reader.readLine();
 		} catch (IOException e) {
-			System.err.println("error: " + e);
+			log.error("error: " + e);
 		}
 		return result;
 	}
@@ -45,7 +47,7 @@ public class IOUtils {
 			writer.write(line);
 			writer.newLine();
 		} catch (IOException e) {
-			System.err.println("error: " + e);
+			log.error("error: " + e);
 		}
 	}
 
@@ -56,13 +58,13 @@ public class IOUtils {
 			if (writer != null)
 				writer.close();
 		} catch (IOException e) {
-			System.err.println("error: " + e);
+			log.error("error: " + e);
 		}
 
 	}
 
 	public static void writeOutputTextLine(String prompt, String text) {
-		System.out.println(prompt + ": " + text);
+		log.info(prompt + ": " + text);
 	}
 
 	public static String readInputTextLine() {
@@ -89,7 +91,7 @@ public class IOUtils {
 
 	public static String system(String evaluatedContents, String failedString) {
 		Runtime rt = Runtime.getRuntime();
-		// System.out.println("System "+evaluatedContents);
+		// log.info("System "+evaluatedContents);
 		try {
 			Process p = rt.exec(evaluatedContents);
 			InputStream istrm = p.getInputStream();
@@ -100,7 +102,7 @@ public class IOUtils {
 			while ((data = buffrdr.readLine()) != null) {
 				result += data + "\n";
 			}
-			// System.out.println("Result = "+result);
+			// log.info("Result = "+result);
 			return result;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -110,7 +112,7 @@ public class IOUtils {
 	}
 
 	public static String evalScript(String engineName, String script) throws Exception {
-		// System.out.println("evaluating "+script);
+		// log.info("evaluating "+script);
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		String result = "" + engine.eval(script);

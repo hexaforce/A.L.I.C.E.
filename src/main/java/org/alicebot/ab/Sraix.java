@@ -30,6 +30,8 @@ import org.alicebot.ab.utils.NetworkUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class Sraix {
 
 	public static HashMap<String, String> custIdMap = new HashMap<String, String>();
@@ -44,7 +46,7 @@ public class Sraix {
 			response = sraixPandorabots(input, chatSession, host, botid);
 		} else
 			response = sraixPannous(input, hint, chatSession);
-		System.out.println("Sraix: response = " + response + " defaultResponse = " + defaultResponse);
+		log.info("Sraix: response = " + response + " defaultResponse = " + defaultResponse);
 		if (response.equals(MagicStrings.sraix_failed)) {
 			if (chatSession != null && defaultResponse == null)
 				response = AIMLProcessor.respond(MagicStrings.sraix_failed, "nothing", "nothing", chatSession);
@@ -55,7 +57,7 @@ public class Sraix {
 	}
 
 	public static String sraixPandorabots(String input, Chat chatSession, String host, String botid) {
-		// System.out.println("Entering SRAIX with input="+input+" host ="+host+"
+		// log.info("Entering SRAIX with input="+input+" host ="+host+"
 		// botid="+botid);
 		String responseContent = pandorabotsRequest(input, host, botid);
 		if (responseContent == null)
@@ -70,8 +72,8 @@ public class Sraix {
 			String key = host + ":" + botid;
 			if (custIdMap.containsKey(key))
 				custid = custIdMap.get(key);
-			// System.out.println("--> custid = "+custid);
-			// System.out.println("Pandorabots Request "+input);
+			// log.info("--> custid = "+custid);
+			// log.info("Pandorabots Request "+input);
 			String spec = NetworkUtils.spec(host, botid, custid, input);
 			// String fragment = "?botid="+botid+"&custid="+custid+"input="+input;
 			// URI uri = new URI("http", host, "/pandora/talk-xml", fragment);
@@ -90,12 +92,12 @@ public class Sraix {
 			// spec =
 			// "http://"+host+"/pandora/talk-xml?botid="+botid+"&custid="+custid+"input="+subInput;
 			if (MagicBooleans.trace_mode)
-				System.out.println("Spec = " + spec);
-			// System.out.println("URI="+uri);
+				log.info("Spec = " + spec);
+			// log.info("URI="+uri);
 			// http://isengard.pandorabots.com:8008/pandora/talk-xml?botid=835f69388e345ab2&custid=dd3155d18e344a7c&input=%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF
 
 			String responseContent = NetworkUtils.responseContent(spec);
-			// System.out.println("Sraix: Response="+responseContent);
+			// log.info("Sraix: Response="+responseContent);
 			return responseContent;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -120,7 +122,7 @@ public class Sraix {
 				else
 					custid = "0";
 				String key = host + ":" + botid;
-				// System.out.println("--> Map "+key+" --> "+custid);
+				// log.info("--> Map "+key+" --> "+custid);
 				custIdMap.put(key, custid);
 			}
 			if (botResponse.endsWith("."))
@@ -147,7 +149,7 @@ public class Sraix {
 			input = input.trim();
 			input = input.replace(" ", "+");
 			int offset = CalendarUtils.timeZoneOffset();
-			// System.out.println("OFFSET = "+offset);
+			// log.info("OFFSET = "+offset);
 			String locationString = "";
 			if (Chat.locationKnown) {
 				locationString = "&location=" + Chat.latitude + "," + Chat.longitude;
@@ -181,15 +183,15 @@ public class Sraix {
 						Object obj = actions.get("reminder");
 						if (obj instanceof JSONObject) {
 							if (MagicBooleans.trace_mode)
-								System.out.println("Found JSON Object");
+								log.info("Found JSON Object");
 							JSONObject sObj = (JSONObject) obj;
 							String date = sObj.getString("date");
 							date = date.substring(0, "2012-10-24T14:32".length());
 							if (MagicBooleans.trace_mode)
-								System.out.println("date=" + date);
+								log.info("date=" + date);
 							String duration = sObj.getString("duration");
 							if (MagicBooleans.trace_mode)
-								System.out.println("duration=" + duration);
+								log.info("duration=" + duration);
 
 							Pattern datePattern = Pattern.compile("(.*)-(.*)-(.*)T(.*):(.*)");
 							Matcher m = datePattern.matcher(date);
@@ -229,12 +231,12 @@ public class Sraix {
 						MagicBooleans.trace("in Sraix.sraixPannous, found show action");
 						JSONArray arr = actions.getJSONObject("show").getJSONArray("images");
 						int i = (int) (arr.length() * Math.random());
-						// for (int j = 0; j < arr.length(); j++) System.out.println(arr.getString(j));
+						// for (int j = 0; j < arr.length(); j++) log.info(arr.getString(j));
 						imgRef = arr.getString(i);
 						if (imgRef.startsWith("//"))
 							imgRef = "http:" + imgRef;
 						imgRef = "<a href=\"" + imgRef + "\"><img src=\"" + imgRef + "\"/></a>";
-						// System.out.println("IMAGE REF="+imgRef);
+						// log.info("IMAGE REF="+imgRef);
 
 					}
 					if (hint.equals(MagicStrings.sraix_shopping_hint) && actions.has("open") && actions.getJSONObject("open").has("url")) {
@@ -252,12 +254,12 @@ public class Sraix {
 					text = text.replaceAll("\\[(.*)\\]", "");
 					String[] sentences;
 					sentences = text.split("\\. ");
-					// System.out.println("Sraix: text has "+sentences.length+" sentences:");
+					// log.info("Sraix: text has "+sentences.length+" sentences:");
 					String clippedPage = sentences[0];
 					for (int i = 1; i < sentences.length; i++) {
 						if (clippedPage.length() < 500)
 							clippedPage = clippedPage + ". " + sentences[i];
-						// System.out.println(i+". "+sentences[i]);
+						// log.info(i+". "+sentences[i]);
 					}
 
 					clippedPage = clippedPage + " " + imgRef + " " + urlRef;
@@ -268,13 +270,13 @@ public class Sraix {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("Sraix '" + input + "' failed");
+			log.info("Sraix '" + input + "' failed");
 		}
 		return MagicStrings.sraix_failed;
 	} // sraixPannous
 
 	public static void log(String pattern, String template) {
-		System.out.println("Logging " + pattern);
+		log.info("Logging " + pattern);
 		template = template.trim();
 		if (MagicBooleans.cache_sraix)
 			try {
@@ -292,7 +294,7 @@ public class Sraix {
 					}
 				}
 			} catch (Exception e) {
-				System.out.println("Error: " + e.getMessage());
+				log.info("Error: " + e.getMessage());
 			}
 	}
 }

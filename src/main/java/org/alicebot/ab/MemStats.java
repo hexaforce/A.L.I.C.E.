@@ -2,6 +2,8 @@ package org.alicebot.ab;
 
 import org.alicebot.ab.utils.MemoryUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /* Program AB Reference AIML 2.0 implementation
         Copyright (C) 2013 ALICE A.I. Foundation
         Contact: info@alicebot.org
@@ -26,6 +28,7 @@ import org.alicebot.ab.utils.MemoryUtils;
  * Memory statistics for program instrumentation
  *
  */
+@Slf4j
 public class MemStats {
 	public static long prevHeapSize = 0;
 
@@ -45,7 +48,7 @@ public class MemStats {
 		long heapFreeSize = MemoryUtils.freeMemory();
 		long diff = heapSize - prevHeapSize;
 		prevHeapSize = heapSize;
-		System.out.println("Heap " + heapSize + " MaxSize " + heapMaxSize + " Free " + heapFreeSize + " Diff " + diff);
+		log.info("Heap " + heapSize + " MaxSize " + heapMaxSize + " Free " + heapFreeSize + " Diff " + diff);
 
 	}
 

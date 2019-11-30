@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class Verbs {
 	static Set<String> es = Utilities.stringSet("sh", "ch", "th", "ss", "x");
 	static Set<String> ies = Utilities.stringSet("ly", "ry", "ny", "fy", "dy", "py");
@@ -149,7 +151,7 @@ public class Verbs {
 			String wasForm = was(verb);
 			String beenForm = been(verb);
 			String beingForm = being(verb);
-			System.out.println(verb + "," + isForm + "," + wasForm + "," + beingForm + "," + beenForm);
+			log.info(verb + "," + isForm + "," + wasForm + "," + beingForm + "," + beenForm);
 			be.add(beForm);
 			is.add(isForm);
 			was.add(wasForm);

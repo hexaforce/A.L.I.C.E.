@@ -29,9 +29,12 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * AIML Preprocessor and substitutions
  */
+@Slf4j
 public class PreProcessor {
 	static private boolean DEBUG = false;
 
@@ -64,7 +67,7 @@ public class PreProcessor {
 		person2Count = readSubstitutions(bot.config_path + "/person2.txt", person2Patterns, person2Subs);
 		genderCount = readSubstitutions(bot.config_path + "/gender.txt", genderPatterns, genderSubs);
 		if (MagicBooleans.trace_mode)
-			System.out.println("Preprocessor: " + normalCount + " norms " + personCount + " persons " + person2Count + " person2 ");
+			log.info("Preprocessor: " + normalCount + " norms " + personCount + " persons " + person2Count + " person2 ");
 	}
 
 	/**
@@ -75,11 +78,11 @@ public class PreProcessor {
 	 */
 	public String normalize(String request) {
 		if (DEBUG)
-			System.out.println("PreProcessor.normalize(request: " + request + ")");
+			log.info("PreProcessor.normalize(request: " + request + ")");
 		String result = substitute(request, normalPatterns, normalSubs, normalCount);
 		result = result.replaceAll("(\r\n|\n\r|\r|\n)", " ");
 		if (DEBUG)
-			System.out.println("PreProcessor.normalize() returning: " + result);
+			log.info("PreProcessor.normalize() returning: " + result);
 		return result;
 	}
 
@@ -144,22 +147,22 @@ public class PreProcessor {
 				String replacement = subs[i];
 				Pattern p = patterns[i];
 				Matcher m = p.matcher(result);
-				// System.out.println(i+" "+patterns[i].pattern()+"-->"+subs[i]);
+				// log.info(i+" "+patterns[i].pattern()+"-->"+subs[i]);
 				if (m.find()) {
-					// System.out.println(i+" "+patterns[i].pattern()+"-->"+subs[i]);
-					// System.out.println(m.group());
+					// log.info(i+" "+patterns[i].pattern()+"-->"+subs[i]);
+					// log.info(m.group());
 					result = m.replaceAll(replacement);
 				}
 
-				// System.out.println(result);
+				// log.info(result);
 			}
 			while (result.contains("  "))
 				result = result.replace("  ", " ");
 			result = result.trim();
-			// System.out.println("Normalized: "+result);
+			// log.info("Normalized: "+result);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("Request " + request + " Result " + result + " at " + index + " " + patterns[index] + " " + subs[index]);
+			log.info("Request " + request + " Result " + result + " at " + index + " " + patterns[index] + " " + subs[index]);
 		}
 		return result.trim();
 	}
@@ -179,7 +182,7 @@ public class PreProcessor {
 		int subCount = 0;
 		try {
 			while ((strLine = br.readLine()) != null) {
-				// System.out.println(strLine);
+				// log.info(strLine);
 				strLine = strLine.trim();
 				if (!strLine.startsWith(MagicStrings.text_comment_mark)) {
 					Pattern pattern = Pattern.compile("\"(.*?)\",\"(.*?)\"", Pattern.DOTALL);
@@ -187,7 +190,7 @@ public class PreProcessor {
 					if (matcher.find() && subCount < MagicNumbers.max_substitutions) {
 						subs[subCount] = matcher.group(2);
 						String quotedPattern = Pattern.quote(matcher.group(1));
-						// System.out.println("quoted pattern="+quotedPattern);
+						// log.info("quoted pattern="+quotedPattern);
 						patterns[subCount] = Pattern.compile(quotedPattern, Pattern.CASE_INSENSITIVE);
 						subCount++;
 					}
@@ -223,7 +226,7 @@ public class PreProcessor {
 				fstream.close();
 			}
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 		return (subCount);
 	}
@@ -239,7 +242,7 @@ public class PreProcessor {
 		line = line.replace("。", ".");
 		line = line.replace("？", "?");
 		line = line.replace("！", "!");
-		// System.out.println("Sentence split "+line);
+		// log.info("Sentence split "+line);
 		String result[] = line.split("[\\.!\\?]");
 		for (int i = 0; i < result.length; i++)
 			result[i] = result[i].trim();
@@ -268,12 +271,12 @@ public class PreProcessor {
 					{
 						if (sentences.length > 1) {
 							for (String s : sentences)
-								System.out.println(norm + "-->" + s);
+								log.info(norm + "-->" + s);
 						}
 						for (String sentence : sentences) {
 							sentence = sentence.trim();
 							if (sentence.length() > 0) {
-								// System.out.println("'"+strLine+"'-->'"+norm+"'");
+								// log.info("'"+strLine+"'-->'"+norm+"'");
 								bw.write(sentence);
 								bw.newLine();
 							}

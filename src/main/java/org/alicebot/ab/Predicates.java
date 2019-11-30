@@ -28,10 +28,13 @@ import java.util.HashMap;
 
 import org.alicebot.ab.utils.JapaneseUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Manage client predicates
  *
  */
+@Slf4j
 public class Predicates extends HashMap<String, String> {
 	private static final long serialVersionUID = 1L;
 
@@ -113,7 +116,7 @@ public class Predicates extends HashMap<String, String> {
 				fstream.close();
 			}
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 	}
 }

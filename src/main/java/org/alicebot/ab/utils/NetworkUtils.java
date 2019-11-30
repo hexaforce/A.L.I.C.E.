@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class NetworkUtils {
 
 	public static String localIPAddress() {
@@ -28,7 +30,7 @@ public class NetworkUtils {
 						int p = ipAddress.indexOf("%");
 						if (p > 0)
 							ipAddress = ipAddress.substring(0, p);
-						// if (MagicBooleans.trace_mode) System.out.println("--> localIPAddress =
+						// if (MagicBooleans.trace_mode) log.info("--> localIPAddress =
 						// "+ipAddress);
 						return ipAddress;
 					}
@@ -78,7 +80,7 @@ public class NetworkUtils {
 	 * 
 	 * // Execute the request HttpResponse response = httpclient.execute(httpget);
 	 * 
-	 * // Examine the response status System.out.println(response.getStatusLine());
+	 * // Examine the response status log.info(response.getStatusLine());
 	 * 
 	 * // Get hold of the response entity HttpEntity entity = response.getEntity();
 	 * 
@@ -90,7 +92,7 @@ public class NetworkUtils {
 	 * inb.readLine()) != null) { sb.append(line).append(NL); } inb.close(); result
 	 * = sb.toString(); BufferedReader reader = new BufferedReader( new
 	 * InputStreamReader(is)); // do something useful with the response
-	 * System.out.println(reader.readLine());
+	 * log.info(reader.readLine());
 	 * 
 	 * } catch (IOException ex) {
 	 * 
@@ -132,7 +134,7 @@ public class NetworkUtils {
 	}
 
 	public static String spec(String host, String botid, String custid, String input) {
-		// System.out.println("--> custid = "+custid);
+		// log.info("--> custid = "+custid);
 		String spec = "";
 		try {
 			if (custid.equals("0")) // get custid on first transaction with Pandorabots
@@ -143,7 +145,7 @@ public class NetworkUtils {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println(spec);
+		log.info(spec);
 		return spec;
 	}
 

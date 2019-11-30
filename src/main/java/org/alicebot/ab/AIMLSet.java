@@ -30,9 +30,12 @@ import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * implements AIML Sets
  */
+@Slf4j
 public class AIMLSet extends HashSet<String> {
 	private static final long serialVersionUID = 1L;
 	public String setName;
@@ -58,8 +61,8 @@ public class AIMLSet extends HashSet<String> {
 	}
 
 	public boolean contains(String s) {
-		// if (isExternal) System.out.println("External "+setName+" contains "+s+"?");
-		// else System.out.println("Internal "+setName+" contains "+s+"?");
+		// if (isExternal) log.info("External "+setName+" contains "+s+"?");
+		// else log.info("Internal "+setName+" contains "+s+"?");
 		if (isExternal && MagicBooleans.enable_external_sets) {
 			if (inCache.contains(s))
 				return true;
@@ -70,7 +73,7 @@ public class AIMLSet extends HashSet<String> {
 				return false;
 			String query = MagicStrings.set_member_string + setName.toUpperCase() + " " + s;
 			String response = Sraix.sraix(null, query, "false", null, host, botid, null, "0");
-			// System.out.println("External "+setName+" contains "+s+"? "+response);
+			// log.info("External "+setName+" contains "+s+"? "+response);
 			if (response.equals("true")) {
 				inCache.add(s);
 				return true;
@@ -82,14 +85,14 @@ public class AIMLSet extends HashSet<String> {
 			Pattern numberPattern = Pattern.compile("[0-9]+");
 			Matcher numberMatcher = numberPattern.matcher(s);
 			Boolean isanumber = numberMatcher.matches();
-			// System.out.println("AIMLSet isanumber '"+s+"' "+isanumber);
+			// log.info("AIMLSet isanumber '"+s+"' "+isanumber);
 			return isanumber;
 		} else
 			return super.contains(s);
 	}
 
 	public void writeAIMLSet() {
-		System.out.println("Writing AIML Set " + setName);
+		log.info("Writing AIML Set " + setName);
 		try {
 			// Create file
 			FileWriter fstream = new FileWriter(bot.sets_path + "/" + setName + ".txt");
@@ -102,7 +105,7 @@ public class AIMLSet extends HashSet<String> {
 			// Close the output stream
 			out.close();
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 	}
 
@@ -123,7 +126,7 @@ public class AIMLSet extends HashSet<String> {
 						botid = splitLine[2];
 						maxLength = Integer.parseInt(splitLine[3]);
 						isExternal = true;
-						System.out.println("Created external set at " + host + " " + botid);
+						log.info("Created external set at " + host + " " + botid);
 					}
 				} else {
 					strLine = strLine.toUpperCase().trim();
@@ -131,7 +134,7 @@ public class AIMLSet extends HashSet<String> {
 					int length = splitLine.length;
 					if (length > maxLength)
 						maxLength = length;
-					// System.out.println("readAIMLSetFromInputStream "+strLine);
+					// log.info("readAIMLSetFromInputStream "+strLine);
 					add(strLine.trim());
 				}
 				/*
@@ -149,7 +152,7 @@ public class AIMLSet extends HashSet<String> {
 	public int readAIMLSet(Bot bot) {
 		int cnt = 0;
 		if (MagicBooleans.trace_mode)
-			System.out.println("Reading AIML Set " + bot.sets_path + "/" + setName + ".txt");
+			log.info("Reading AIML Set " + bot.sets_path + "/" + setName + ".txt");
 		try {
 			// Open the file that is the first
 			// command line parameter
@@ -160,9 +163,9 @@ public class AIMLSet extends HashSet<String> {
 				cnt = readAIMLSetFromInputStream(fstream, bot);
 				fstream.close();
 			} else
-				System.out.println(bot.sets_path + "/" + setName + ".txt not found");
+				log.info(bot.sets_path + "/" + setName + ".txt not found");
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 		return cnt;
 

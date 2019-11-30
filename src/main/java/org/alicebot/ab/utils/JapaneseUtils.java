@@ -11,10 +11,11 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import lombok.extern.slf4j.Slf4j;
 import net.java.sen.SenFactory;
 import net.java.sen.StringTagger;
 import net.java.sen.dictionary.Token;
-
+@Slf4j
 public class JapaneseUtils {
 
 	/**
@@ -26,13 +27,13 @@ public class JapaneseUtils {
 	public static String tokenizeFragment(String fragment) {
 		StringTagger tagger = SenFactory.getStringTagger(null, false);
 		List<Token> tokens = new ArrayList<Token>();
-		// System.out.println("buildFragment "+fragment);
+		// log.info("buildFragment "+fragment);
 		String result = "";
 		try {
 			for (Token e : tagger.analyze(fragment, tokens)) {
 				result += e.getSurface() + " ";
 				//
-				// System.out.println("Feature "+e.feature+" Surface="+e.surface);
+				// log.info("Feature "+e.feature+" Surface="+e.surface);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,7 +49,7 @@ public class JapaneseUtils {
 	 *         and AIML $ operation
 	 */
 	public static String tokenizeSentence(String sentence) {
-		// System.out.println("tokenizeSentence "+sentence);
+		// log.info("tokenizeSentence "+sentence);
 		if (!MagicBooleans.jp_tokenize)
 			return sentence;
 		String result = "";
@@ -60,13 +61,13 @@ public class JapaneseUtils {
 		while (result.contains("anon "))
 			result = result.replace("anon ", "anon"); // for Triple Store
 		result = result.trim();
-		// if (MagicBooleans.trace_mode) System.out.println("tokenizeSentence
+		// if (MagicBooleans.trace_mode) log.info("tokenizeSentence
 		// '"+sentence+"'-->'"+result+"'");
 		return result;
 	}
 
 	public static String tokenizeXML(String xmlExpression) {
-		// System.out.println("tokenizeXML "+xmlExpression);
+		// log.info("tokenizeXML "+xmlExpression);
 		String response = MagicStrings.template_failed;
 		try {
 			xmlExpression = "<sentence>" + xmlExpression + "</sentence>";
@@ -82,7 +83,7 @@ public class JapaneseUtils {
 		try {
 
 			String nodeName = node.getNodeName();
-			// System.out.println("recursEval "+nodeName);
+			// log.info("recursEval "+nodeName);
 			if (nodeName.equals("#text"))
 				return tokenizeFragment(node.getNodeValue());
 			else if (nodeName.equals("sentence"))
@@ -96,14 +97,14 @@ public class JapaneseUtils {
 	}
 
 	public static String genericXML(Node node) {
-		// System.out.println("genericXML "+node.getNodeName());
+		// log.info("genericXML "+node.getNodeName());
 		String result = evalTagContent(node);
 		return unevaluatedXML(result, node);
 	}
 
 	public static String evalTagContent(Node node) {
 		String result = "";
-		// System.out.println("evalTagContent "+node.getNodeName());
+		// log.info("evalTagContent "+node.getNodeName());
 		try {
 			NodeList childList = node.getChildNodes();
 			for (int i = 0; i < childList.getLength(); i++) {
@@ -111,7 +112,7 @@ public class JapaneseUtils {
 				result += recursEval(child);
 			}
 		} catch (Exception ex) {
-			System.out.println("Something went wrong with evalTagContent");
+			log.info("Something went wrong with evalTagContent");
 			ex.printStackTrace();
 		}
 		return result;

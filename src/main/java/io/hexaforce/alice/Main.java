@@ -41,6 +41,9 @@ import org.alicebot.ab.PCAIMLProcessorExtension;
 import org.alicebot.ab.TestAB;
 import org.alicebot.ab.Verbs;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
 
 	public static void main(String[] args) {
@@ -54,14 +57,14 @@ public class Main {
 		MagicBooleans.jp_tokenize = false;
 		MagicBooleans.trace_mode = true;
 		String action = "chat";
-		System.out.println(MagicStrings.program_name_version);
+		log.info(MagicStrings.program_name_version);
 		for (String s : args) {
-			// System.out.println(s);
+			// log.info(s);
 			String[] splitArg = s.split("=");
 			if (splitArg.length >= 2) {
 				String option = splitArg[0];
 				String value = splitArg[1];
-				// if (MagicBooleans.trace_mode) System.out.println(option+"='"+value+"'");
+				// if (MagicBooleans.trace_mode) log.info(option+"='"+value+"'");
 				if (option.equals("bot"))
 					botName = value;
 				if (option.equals("action"))
@@ -82,7 +85,7 @@ public class Main {
 			}
 		}
 		if (MagicBooleans.trace_mode)
-			System.out.println("Working Directory = " + MagicStrings.root_path);
+			log.info("Working Directory = " + MagicStrings.root_path);
 		Graphmaster.enableShortCuts = true;
 		// Timer timer = new Timer();
 		Bot bot = new Bot(botName, MagicStrings.root_path, action); //
@@ -96,7 +99,7 @@ public class Main {
 		if (bot.brain.getCategories().size() < MagicNumbers.brain_print_size)
 			bot.brain.printgraph();
 		if (MagicBooleans.trace_mode)
-			System.out.println("Action = '" + action + "'");
+			log.info("Action = '" + action + "'");
 		if (action.equals("chat") || action.equals("chat-app")) {
 			boolean doWrites = !action.equals("chat-app");
 			TestAB.testChat(bot, doWrites, MagicBooleans.trace_mode);
@@ -123,7 +126,7 @@ public class Main {
 				ex.printStackTrace();
 			}
 		} else
-			System.out.println("Unrecognized action " + action);
+			log.info("Unrecognized action " + action);
 	}
 
 	public static void convert(Bot bot, String action) {
@@ -134,7 +137,7 @@ public class Main {
 	}
 
 	public static void getGloss(Bot bot, String filename) {
-		System.out.println("getGloss");
+		log.info("getGloss");
 		try {
 			// Open the file that is the first
 			// command line parameter
@@ -146,12 +149,12 @@ public class Main {
 				fstream.close();
 			}
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 	}
 
 	public static void getGlossFromInputStream(Bot bot, InputStream in) {
-		System.out.println("getGlossFromInputStream");
+		log.info("getGlossFromInputStream");
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String strLine;
 		int cnt = 0;
@@ -170,12 +173,12 @@ public class Main {
 					int end = strLine.indexOf("#");
 					word = strLine.substring(start, end);
 					word = word.replaceAll("_", " ");
-					System.out.println(word);
+					log.info(word);
 				} else if (strLine.contains("<gloss>")) {
 					gloss = strLine.replaceAll("<gloss>", "");
 					gloss = gloss.replaceAll("</gloss>", "");
 					gloss = gloss.trim();
-					System.out.println(gloss);
+					log.info(gloss);
 				}
 				if (word != null && gloss != null) {
 					word = word.toLowerCase().trim();
@@ -201,7 +204,7 @@ public class Main {
 				if (cnt % 5000 == 0)
 					filecnt++;
 				Category c = new Category(0, "WNDEF " + word, "*", "*", gloss, "wndefs" + filecnt + ".aiml");
-				System.out.println(cnt + " " + filecnt + " " + c.inputThatTopic() + ":" + c.getTemplate() + ":" + c.getFilename());
+				log.info(cnt + " " + filecnt + " " + c.inputThatTopic() + ":" + c.getTemplate() + ":" + c.getFilename());
 				Nodemapper node;
 				if ((node = bot.brain.findNode(c)) != null)
 					node.category.setTemplate(node.category.getTemplate() + "," + gloss);
@@ -222,9 +225,9 @@ public class Main {
 			// Read File Line By Line
 			int count = 0;
 			while ((strLine = br.readLine()) != null && count++ < limit) {
-				System.out.println("Human: " + strLine);
+				log.info("Human: " + strLine);
 				String response = chatSession.multisentenceRespond(strLine);
-				System.out.println("Robot: " + response);
+				log.info("Robot: " + response);
 			}
 			br.close();
 		} catch (Exception ex) {

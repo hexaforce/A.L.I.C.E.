@@ -27,6 +27,8 @@ import java.util.Collections;
 
 import org.alicebot.ab.utils.IOUtils;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class AB {
 	/**
 	 * Experimental class that analyzes log data and suggests new AIML patterns.
@@ -55,7 +57,7 @@ public class AB {
 	public AB(Bot bot, String sampleFile) {
 		MagicStrings.ab_sample_file = sampleFile;
 		logfile = MagicStrings.root_path + "/data/" + MagicStrings.ab_sample_file;
-		System.out.println("AB with sample file " + logfile);
+		log.info("AB with sample file " + logfile);
 		this.bot = bot;
 		this.inputGraph = new Graphmaster(bot, "input");
 		this.deletedGraph = new Graphmaster(bot, "deleted");
@@ -79,19 +81,19 @@ public class AB {
 
 	public void productivity(int runCompletedCnt, Timer timer) {
 		float time = timer.elapsedTimeMins();
-		System.out.println("Completed " + runCompletedCnt + " in " + time + " min. Productivity " + (float) runCompletedCnt / time + " cat/min");
+		log.info("Completed " + runCompletedCnt + " in " + time + " min. Productivity " + (float) runCompletedCnt / time + " cat/min");
 	}
 
 	public void readDeletedIFCategories() {
 		bot.readCertainIFCategories(deletedGraph, MagicStrings.deleted_aiml_file);
 		if (MagicBooleans.trace_mode)
-			System.out.println("--- DELETED CATEGORIES -- read " + deletedGraph.getCategories().size() + " deleted categories");
+			log.info("--- DELETED CATEGORIES -- read " + deletedGraph.getCategories().size() + " deleted categories");
 	}
 
 	public void writeDeletedIFCategories() {
-		System.out.println("--- DELETED CATEGORIES -- write");
+		log.info("--- DELETED CATEGORIES -- write");
 		bot.writeCertainIFCategories(deletedGraph, MagicStrings.deleted_aiml_file);
-		System.out.println("--- DELETED CATEGORIES -- write " + deletedGraph.getCategories().size() + " deleted categories");
+		log.info("--- DELETED CATEGORIES -- write " + deletedGraph.getCategories().size() + " deleted categories");
 
 	}
 
@@ -114,7 +116,7 @@ public class AB {
 			bot.writeAIMLIFFiles();
 			runCompletedCnt++;
 		} else
-			System.out.println("Invalid Category " + c.validationMessage);
+			log.info("Invalid Category " + c.validationMessage);
 	}
 
 	/**
@@ -126,7 +128,7 @@ public class AB {
 		c.setFilename(MagicStrings.deleted_aiml_file);
 		c.setTemplate(MagicStrings.deleted_template);
 		deletedGraph.addCategory(c);
-		System.out.println("--- bot.writeDeletedIFCategories()");
+		log.info("--- bot.writeDeletedIFCategories()");
 		writeDeletedIFCategories();
 	}
 
@@ -141,7 +143,7 @@ public class AB {
 		 * c.setFilename(MagicStrings.unfinished_aiml_file);
 		 * c.setTemplate(MagicStrings.unfinished_template);
 		 * bot.unfinishedGraph.addCategory(c);
-		 * System.out.println(bot.unfinishedGraph.getCategories().size() +
+		 * log.info(bot.unfinishedGraph.getCategories().size() +
 		 * " unfinished categories"); bot.writeUnfinishedIFCategories();
 		 */
 	}
@@ -150,7 +152,7 @@ public class AB {
 		Timer timer = new Timer();
 		timer.start();
 		classifyInputs(logfile);
-		System.out.println(timer.elapsedTimeSecs() + " classifying inputs");
+		log.info(timer.elapsedTimeSecs() + " classifying inputs");
 		bot.writeQuit();
 	}
 
@@ -180,12 +182,12 @@ public class AB {
 				} else
 					node.category.incrementActivationCnt();
 				count++;
-				// System.out.println("Root branches="+g.root.size());
+				// log.info("Root branches="+g.root.size());
 			}
 			// Close the input stream
 			br.close();
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 	}
 
@@ -198,7 +200,7 @@ public class AB {
 	 */
 	public void findPatterns() {
 		findPatterns(inputGraph.root, "");
-		System.out.println(leafPatternCnt + " Leaf Patterns " + starPatternCnt + " Star Patterns");
+		log.info(leafPatternCnt + " Leaf Patterns " + starPatternCnt + " Star Patterns");
 	}
 
 	/**
@@ -209,24 +211,24 @@ public class AB {
 	 */
 	void findPatterns(Nodemapper node, String partialPatternThatTopic) {
 		if (NodemapperOperator.isLeaf(node)) {
-			// System.out.println("LEAF: "+node.category.getActivationCnt()+".
+			// log.info("LEAF: "+node.category.getActivationCnt()+".
 			// "+partialPatternThatTopic);
 			if (node.category.getActivationCnt() > MagicNumbers.node_activation_cnt) {
-				// System.out.println("LEAF: "+node.category.getActivationCnt()+".
+				// log.info("LEAF: "+node.category.getActivationCnt()+".
 				// "+partialPatternThatTopic+" "+node.shortCut); //Start writing to the output
 				// stream
 				leafPatternCnt++;
 				try {
 					String categoryPatternThatTopic = "";
 					if (node.shortCut) {
-						// System.out.println("Partial patternThatTopic = "+partialPatternThatTopic);
+						// log.info("Partial patternThatTopic = "+partialPatternThatTopic);
 						categoryPatternThatTopic = partialPatternThatTopic + " <THAT> * <TOPIC> *";
 					} else
 						categoryPatternThatTopic = partialPatternThatTopic;
 					Category c = new Category(0, categoryPatternThatTopic, MagicStrings.blank_template, MagicStrings.unknown_aiml_file);
-					// if (brain.existsCategory(c)) System.out.println(c.inputThatTopic()+"
+					// if (brain.existsCategory(c)) log.info(c.inputThatTopic()+"
 					// Exists");
-					// if (deleted.existsCategory(c)) System.out.println(c.inputThatTopic()+ "
+					// if (deleted.existsCategory(c)) log.info(c.inputThatTopic()+ "
 					// Deleted");
 					if (!bot.brain.existsCategory(c) && !deletedGraph.existsCategory(c)/* && !unfinishedGraph.existsCategory(c) */) {
 						patternGraph.addCategory(c);
@@ -238,14 +240,14 @@ public class AB {
 			}
 		}
 		if (NodemapperOperator.size(node) > MagicNumbers.node_size) {
-			// System.out.println("STAR: "+NodemapperOperator.size(node)+".
+			// log.info("STAR: "+NodemapperOperator.size(node)+".
 			// "+partialPatternThatTopic+" * <that> * <topic> *");
 			starPatternCnt++;
 			try {
 				Category c = new Category(0, partialPatternThatTopic + " * <THAT> * <TOPIC> *", MagicStrings.blank_template, MagicStrings.unknown_aiml_file);
-				// if (brain.existsCategory(c)) System.out.println(c.inputThatTopic()+"
+				// if (brain.existsCategory(c)) log.info(c.inputThatTopic()+"
 				// Exists");
-				// if (deleted.existsCategory(c)) System.out.println(c.inputThatTopic()+ "
+				// if (deleted.existsCategory(c)) log.info(c.inputThatTopic()+ "
 				// Deleted");
 				if (!bot.brain.existsCategory(c) && !deletedGraph.existsCategory(c)/* && !unfinishedGraph.existsCategory(c) */) {
 					patternGraph.addCategory(c);
@@ -278,7 +280,7 @@ public class AB {
 			int count = 0;
 			while ((strLine = br.readLine()) != null && count < limit) {
 				// Print the content on the console
-				// System.out.println("Classifying "+strLine);
+				// log.info("Classifying "+strLine);
 
 				if (strLine != null) {
 					if (strLine.startsWith("Human: "))
@@ -290,24 +292,24 @@ public class AB {
 							Nodemapper match = patternGraph.match(sentence, "unknown", "unknown");
 
 							if (match == null) {
-								System.out.println(sentence + " null match");
+								log.info(sentence + " null match");
 							} else {
 								match.category.incrementActivationCnt();
-								// System.out.println(count+". "+sentence+" matched
+								// log.info(count+". "+sentence+" matched
 								// "+match.category.inputThatTopic());
 							}
 							count += 1;
 							if (count % 10000 == 0)
-								System.out.println(count);
+								log.info("count {}", count);
 						}
 					}
 				}
 			}
-			System.out.println("Finished classifying " + count + " inputs");
+			log.info("Finished classifying " + count + " inputs");
 			// Close the input stream
 			br.close();
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -332,25 +334,25 @@ public class AB {
 		if (bot.brain.getCategories().size() < MagicNumbers.brain_print_size)
 			bot.brain.printgraph();
 		timer.start();
-		System.out.println("Graphing inputs");
+		log.info("Graphing inputs");
 		graphInputs(logFile);
-		System.out.println(timer.elapsedTimeSecs() + " seconds Graphing inputs");
+		log.info(timer.elapsedTimeSecs() + " seconds Graphing inputs");
 		inputGraph.nodeStats();
 		if (inputGraph.getCategories().size() < MagicNumbers.brain_print_size)
 			inputGraph.printgraph();
 		// bot.inputGraph.printgraph();
 		timer.start();
-		System.out.println("Finding Patterns");
+		log.info("Finding Patterns");
 		findPatterns();
-		System.out.println(suggestedCategories.size() + " suggested categories");
-		System.out.println(timer.elapsedTimeSecs() + " seconds finding patterns");
+		log.info(suggestedCategories.size() + " suggested categories");
+		log.info(timer.elapsedTimeSecs() + " seconds finding patterns");
 		timer.start();
 		patternGraph.nodeStats();
 		if (patternGraph.getCategories().size() < MagicNumbers.brain_print_size)
 			patternGraph.printgraph();
-		System.out.println("Classifying Inputs from " + logFile);
+		log.info("Classifying Inputs from " + logFile);
 		classifyInputs(logFile);
-		System.out.println(timer.elapsedTimeSecs() + " classifying inputs");
+		log.info(timer.elapsedTimeSecs() + " classifying inputs");
 	}
 
 	public ArrayList<Category> nonZeroActivationCount(ArrayList<Category> suggestedCategories) {
@@ -358,7 +360,7 @@ public class AB {
 		for (Category c : suggestedCategories) {
 			if (c.getActivationCnt() > 0)
 				result.add(c);
-			// else System.out.println("["+c.getActivationCnt()+"] "+c.inputThatTopic());
+			// else log.info("["+c.getActivationCnt()+"] "+c.inputThatTopic());
 		}
 
 		return result;
@@ -399,7 +401,7 @@ public class AB {
 			browserCategories = filteredWildCategories;
 		else
 			browserCategories = suggestedCategories;
-		// System.out.println(filteredAtomicCategories.size()+" filtered suggested
+		// log.info(filteredAtomicCategories.size()+" filtered suggested
 		// categories");
 		browserCategories = nonZeroActivationCount(browserCategories);
 		for (Category c : browserCategories) {
@@ -408,9 +410,9 @@ public class AB {
 				Collections.shuffle(samples);
 				int sampleSize = Math.min(MagicNumbers.displayed_input_sample_size, c.getMatches(bot).size());
 				for (int i = 0; i < sampleSize; i++) {
-					System.out.println("" + samples.get(i));
+					log.info("" + samples.get(i));
 				}
-				System.out.println("[" + c.getActivationCnt() + "] " + c.inputThatTopic());
+				log.info("[" + c.getActivationCnt() + "] " + c.inputThatTopic());
 				Nodemapper node;
 				if (offer_alice_responses) {
 					node = alice.brain.findNode(c);
@@ -420,7 +422,7 @@ public class AB {
 						displayAliceTemplate = displayAliceTemplate.replace("\n", " ");
 						if (displayAliceTemplate.length() > 200)
 							displayAliceTemplate = displayAliceTemplate.substring(0, 200);
-						System.out.println("ALICE: " + displayAliceTemplate);
+						log.info("ALICE: " + displayAliceTemplate);
 					} else
 						alicetemplate = null;
 				}
@@ -434,10 +436,10 @@ public class AB {
 				terminalInteractionStep(bot, "", textLine, c, alicetemplate);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				System.out.println("Returning to Category Browser");
+				log.info("Returning to Category Browser");
 			}
 		}
-		System.out.println("No more samples");
+		log.info("No more samples");
 		bot.writeAIMLFiles();
 		bot.writeAIMLIFFiles();
 	}
@@ -460,7 +462,7 @@ public class AB {
 				String pattern = textLine.substring(index, jndex);
 				c.setPattern(pattern);
 				textLine = textLine.substring(kndex, textLine.length());
-				System.out.println("Got pattern = " + pattern + " template = " + textLine);
+				log.info("Got pattern = " + pattern + " template = " + textLine);
 			}
 		}
 		String botThinks = "";
@@ -492,7 +494,7 @@ public class AB {
 			 * difference.removeAll(passed); difference.writeAIMLSet();
 			 * 
 			 * passed.writeAIMLSet(); testSet.writeAIMLSet();
-			 * System.out.println("Wrote passed test cases"); }
+			 * log.info("Wrote passed test cases"); }
 			 */
 			System.exit(0);
 		} else if (textLine.equals("skip") || textLine.equals("")) { // skip this one for now

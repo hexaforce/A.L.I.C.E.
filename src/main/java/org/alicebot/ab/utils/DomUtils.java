@@ -17,6 +17,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DomUtils {
 
 	public static Node parseFile(String fileName) throws Exception {
@@ -60,7 +63,7 @@ public class DomUtils {
 			t.setOutputProperty(OutputKeys.INDENT, "no");
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
-			System.out.println("nodeToString Transformer Exception");
+			log.info("nodeToString Transformer Exception");
 		}
 		String result = sw.toString();
 		// MagicBooleans.trace("nodeToString() returning: " + result);

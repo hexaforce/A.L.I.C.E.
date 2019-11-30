@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CalendarUtils {
 
 	public static String formatTime(String formatString, long msSinceEpoch) {
@@ -44,14 +47,14 @@ public class CalendarUtils {
 			locale = Locale.US.getISO3Country();
 		if (timezone == null)
 			timezone = TimeZone.getDefault().getDisplayName();
-		// System.out.println("Format = "+format+" Locale = "+locale+" Timezone =
+		// log.info("Format = "+format+" Locale = "+locale+" Timezone =
 		// "+timezone);
 		String dateAsString = new Date().toString();
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(jformat);
 			dateAsString = simpleDateFormat.format(new Date());
 		} catch (Exception ex) {
-			System.out.println("CalendarUtils.date Bad date: Format = " + jformat + " Locale = " + locale + " Timezone = " + timezone);
+			log.info("CalendarUtils.date Bad date: Format = " + jformat + " Locale = " + locale + " Timezone = " + timezone);
 			ex.printStackTrace();
 		}
 		// MagicBooleans.trace("CalendarUtils.date: "+dateAsString);

@@ -19,9 +19,12 @@ package org.alicebot.ab;
         Boston, MA  02110-1301, USA.
 */
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Global boolean values that control various actions in Program AB
  */
+@Slf4j
 public class MagicBooleans {
 	public static boolean trace_mode = true;
 	public static boolean enable_external_sets = true;
@@ -35,7 +38,7 @@ public class MagicBooleans {
 
 	public static void trace(String traceString) {
 		if (trace_mode) {
-			System.out.println(traceString);
+			log.info(traceString);
 		}
 	}
 }

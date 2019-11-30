@@ -28,6 +28,8 @@ import java.util.HashSet;
 */
 import org.alicebot.ab.utils.CalendarUtils;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class Utilities {
 
 	/**
@@ -90,16 +92,16 @@ public class Utilities {
 		try {
 			File file = new File(filename);
 			if (file.exists()) {
-				// System.out.println("Found file "+filename);
+				// log.info("Found file "+filename);
 				FileInputStream fstream = new FileInputStream(filename);
 				// Get the object
 				contents = getFileFromInputStream(fstream);
 				fstream.close();
 			}
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
-		// System.out.println("getFile: "+contents);
+		// log.info("getFile: "+contents);
 		return contents;
 	}
 
@@ -141,10 +143,10 @@ public class Utilities {
 			copyright = copyright.replace("[botmaster]", bot.properties.get("botmaster"));
 			copyright = copyright.replace("[organization]", bot.properties.get("organization"));
 		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
 		copyright += "<!--  -->\n";
-		// System.out.println("Copyright: "+copyright);
+		// log.info("Copyright: "+copyright);
 		return copyright;
 	}
 

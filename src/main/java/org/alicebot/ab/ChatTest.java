@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.containsString;
 
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class ChatTest {
 	Bot bot;
 	Chat chatSession;
@@ -110,6 +112,6 @@ public class ChatTest {
 			String actual = chatSession.multisentenceRespond(request);
 			assertThat(actual, containsString(expected));
 		}
-		System.out.println("Passed " + pairs.length + " test cases.");
+		log.info("Passed " + pairs.length + " test cases.");
 	}
 }
