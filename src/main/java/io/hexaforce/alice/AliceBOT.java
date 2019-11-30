@@ -38,31 +38,7 @@ public class AliceBOT {
 		String action = "chat";
 		log.info(MagicStrings.program_name_version);
 		
-//		for (String s : args) {
-//			String[] splitArg = s.split("=");
-//			if (splitArg.length >= 2) {
-//				String option = splitArg[0];
-//				String value = splitArg[1];
-//				if (option.equals("bot"))
-//					botName = value;
-//				if (option.equals("action"))
-//					action = value;
-//				if (option.equals("trace")) {
-//					if (value.equals("true"))
-//						MagicBooleans.trace_mode = true;
-//					else
-//						MagicBooleans.trace_mode = false;
-//				}
-//				if (option.equals("morph")) {
-//					if (value.equals("true"))
-//						MagicBooleans.jp_tokenize = true;
-//					else {
-//						MagicBooleans.jp_tokenize = false;
-//					}
-//				}
-//			}
-//		}
-		
+
 		if (MagicBooleans.trace_mode)
 			log.info("Working Directory = " + MagicStrings.root_path);
 		
@@ -78,10 +54,7 @@ public class AliceBOT {
 		if (MagicBooleans.trace_mode)
 			log.info("Action = '" + action + "'");
 
-//		if (action.equals("chat") || action.equals("chat-app")) {
-//			boolean doWrites = !action.equals("chat-app");
-//			TestAB.testChat(bot, doWrites, MagicBooleans.trace_mode);
-//		}
+
 		boolean doWrites = !action.equals("chat-app");
 		Chat chatSession = new Chat(bot, doWrites);
 		bot.brain.nodeStats();
@@ -97,28 +70,6 @@ public class AliceBOT {
 			
 			IOUtils.writeOutputTextLine("Robot", response);
 		}
-
-//		else if (action.equals("ab"))
-//			TestAB.testAB(bot, TestAB.sample_file);
-//		else if (action.equals("aiml2csv") || action.equals("csv2aiml"))
-//			convert(bot, action);
-//		else if (action.equals("abwq")) {
-//			AB ab = new AB(bot, TestAB.sample_file);
-//			ab.abwq();
-//		} else if (action.equals("test")) {
-//			TestAB.runTests(bot, MagicBooleans.trace_mode);
-//		} else if (action.equals("shadow")) {
-//			MagicBooleans.trace_mode = false;
-//			bot.shadowChecker();
-//		} else if (action.equals("iqtest")) {
-//			ChatTest ct = new ChatTest(bot);
-//			try {
-//				ct.testMultisentenceRespond();
-//			} catch (Exception ex) {
-//				log.error(ex.getMessage(), ex);
-//			}
-//		} else
-//			log.info("Unrecognized action " + action);
 
 	}
 
