@@ -21,9 +21,12 @@ public class TestAB {
 		MagicBooleans.trace_mode = traceMode;
 		String textLine = "";
 		while (true) {
+			
 			textLine = IOUtils.readInputTextLine("Human");
+			
 			if (textLine == null || textLine.length() < 1)
 				textLine = MagicStrings.null_input;
+			
 			if (textLine.equals("q"))
 				System.exit(0);
 			else if (textLine.equals("wq")) {
@@ -42,8 +45,10 @@ public class TestAB {
 				testAB(bot, sample_file);
 			else {
 				String request = textLine;
+				
 				if (MagicBooleans.trace_mode)
 					log.info("STATE=" + request + ":THAT=" + chatSession.thatHistory.get(0).get(0) + ":TOPIC=" + chatSession.predicates.get("topic"));
+				
 				String response = chatSession.multisentenceRespond(request);
 				while (response.contains("&lt;"))
 					response = response.replace("&lt;", "<");

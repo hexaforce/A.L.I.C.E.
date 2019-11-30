@@ -7,39 +7,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-/* Program AB Reference AIML 2.1 implementation
-        Copyright (C) 2013 ALICE A.I. Foundation
-        Contact: info@alicebot.org
-
-        This library is free software; you can redistribute it and/or
-        modify it under the terms of the GNU Library General Public
-        License as published by the Free Software Foundation; either
-        version 2 of the License, or (at your option) any later version.
-
-        This library is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-        Library General Public License for more details.
-
-        You should have received a copy of the GNU Library General Public
-        License along with this library; if not, write to the
-        Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
-        Boston, MA  02110-1301, USA.
-*/
-import org.alicebot.ab.AB;
 import org.alicebot.ab.AIMLProcessor;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Category;
 import org.alicebot.ab.Chat;
-import org.alicebot.ab.ChatTest;
 import org.alicebot.ab.Graphmaster;
 import org.alicebot.ab.MagicBooleans;
 import org.alicebot.ab.MagicNumbers;
 import org.alicebot.ab.MagicStrings;
 import org.alicebot.ab.Nodemapper;
 import org.alicebot.ab.PCAIMLProcessorExtension;
-import org.alicebot.ab.TestAB;
 import org.alicebot.ab.Verbs;
+import org.alicebot.ab.utils.IOUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,70 +31,95 @@ public class AliceBOT {
 	}
 
 	public static void mainFunction(String[] args) {
+		
 		String botName = "alice2";
 		MagicBooleans.jp_tokenize = false;
 		MagicBooleans.trace_mode = true;
 		String action = "chat";
 		log.info(MagicStrings.program_name_version);
-		for (String s : args) {
-			String[] splitArg = s.split("=");
-			if (splitArg.length >= 2) {
-				String option = splitArg[0];
-				String value = splitArg[1];
-				if (option.equals("bot"))
-					botName = value;
-				if (option.equals("action"))
-					action = value;
-				if (option.equals("trace")) {
-					if (value.equals("true"))
-						MagicBooleans.trace_mode = true;
-					else
-						MagicBooleans.trace_mode = false;
-				}
-				if (option.equals("morph")) {
-					if (value.equals("true"))
-						MagicBooleans.jp_tokenize = true;
-					else {
-						MagicBooleans.jp_tokenize = false;
-					}
-				}
-			}
-		}
+		
+//		for (String s : args) {
+//			String[] splitArg = s.split("=");
+//			if (splitArg.length >= 2) {
+//				String option = splitArg[0];
+//				String value = splitArg[1];
+//				if (option.equals("bot"))
+//					botName = value;
+//				if (option.equals("action"))
+//					action = value;
+//				if (option.equals("trace")) {
+//					if (value.equals("true"))
+//						MagicBooleans.trace_mode = true;
+//					else
+//						MagicBooleans.trace_mode = false;
+//				}
+//				if (option.equals("morph")) {
+//					if (value.equals("true"))
+//						MagicBooleans.jp_tokenize = true;
+//					else {
+//						MagicBooleans.jp_tokenize = false;
+//					}
+//				}
+//			}
+//		}
+		
 		if (MagicBooleans.trace_mode)
 			log.info("Working Directory = " + MagicStrings.root_path);
+		
 		Graphmaster.enableShortCuts = true;
 		Bot bot = new Bot(botName, MagicStrings.root_path, action);
+		
 		if (MagicBooleans.make_verbs_sets_maps)
 			Verbs.makeVerbSetsMaps(bot);
+		
 		if (bot.brain.getCategories().size() < MagicNumbers.brain_print_size)
 			bot.brain.printgraph();
+		
 		if (MagicBooleans.trace_mode)
 			log.info("Action = '" + action + "'");
-		if (action.equals("chat") || action.equals("chat-app")) {
-			boolean doWrites = !action.equals("chat-app");
-			TestAB.testChat(bot, doWrites, MagicBooleans.trace_mode);
+
+//		if (action.equals("chat") || action.equals("chat-app")) {
+//			boolean doWrites = !action.equals("chat-app");
+//			TestAB.testChat(bot, doWrites, MagicBooleans.trace_mode);
+//		}
+		boolean doWrites = !action.equals("chat-app");
+		Chat chatSession = new Chat(bot, doWrites);
+		bot.brain.nodeStats();
+		while (true) {
+
+			String textLine = IOUtils.readInputTextLine("Human");
+			
+			String response = chatSession.multisentenceRespond(textLine);
+			while (response.contains("&lt;"))
+				response = response.replace("&lt;", "<");
+			while (response.contains("&gt;"))
+				response = response.replace("&gt;", ">");
+			
+			IOUtils.writeOutputTextLine("Robot", response);
 		}
-		else if (action.equals("ab"))
-			TestAB.testAB(bot, TestAB.sample_file);
-		else if (action.equals("aiml2csv") || action.equals("csv2aiml"))
-			convert(bot, action);
-		else if (action.equals("abwq")) {
-			AB ab = new AB(bot, TestAB.sample_file);
-			ab.abwq();
-		} else if (action.equals("test")) {
-			TestAB.runTests(bot, MagicBooleans.trace_mode);
-		} else if (action.equals("shadow")) {
-			MagicBooleans.trace_mode = false;
-			bot.shadowChecker();
-		} else if (action.equals("iqtest")) {
-			ChatTest ct = new ChatTest(bot);
-			try {
-				ct.testMultisentenceRespond();
-			} catch (Exception ex) {
-				log.error(ex.getMessage(), ex);
-			}
-		} else
-			log.info("Unrecognized action " + action);
+
+//		else if (action.equals("ab"))
+//			TestAB.testAB(bot, TestAB.sample_file);
+//		else if (action.equals("aiml2csv") || action.equals("csv2aiml"))
+//			convert(bot, action);
+//		else if (action.equals("abwq")) {
+//			AB ab = new AB(bot, TestAB.sample_file);
+//			ab.abwq();
+//		} else if (action.equals("test")) {
+//			TestAB.runTests(bot, MagicBooleans.trace_mode);
+//		} else if (action.equals("shadow")) {
+//			MagicBooleans.trace_mode = false;
+//			bot.shadowChecker();
+//		} else if (action.equals("iqtest")) {
+//			ChatTest ct = new ChatTest(bot);
+//			try {
+//				ct.testMultisentenceRespond();
+//			} catch (Exception ex) {
+//				log.error(ex.getMessage(), ex);
+//			}
+//		} else
+//			log.info("Unrecognized action " + action);
+
 	}
 
 	public static void convert(Bot bot, String action) {

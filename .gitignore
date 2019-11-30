@@ -30,3 +30,4 @@ target/
 .project
 .settings/
 bots/alice2/aimlif/*
+bots/alice2/aiml/animal.aiml
