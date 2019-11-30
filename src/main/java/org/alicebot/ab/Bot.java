@@ -44,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Bot {
+	
 	public final Properties properties = new Properties();
 	public final PreProcessor preProcessor;
 	public final Graphmaster brain;
@@ -131,17 +132,16 @@ public class Bot {
 	 * @param action Program AB action
 	 */
 	public Bot(String name, String path, String action) {
+		
 		int cnt = 0;
-		// int elementCnt = 0;
+		
 		this.name = name;
 		setAllPaths(path, name);
 		this.brain = new Graphmaster(this);
 
 		this.learnfGraph = new Graphmaster(this, "learnf");
 		this.learnGraph = new Graphmaster(this, "learn");
-		// this.unfinishedGraph = new Graphmaster(this);
-		// this.categories = new ArrayList<Category>();
-
+		
 		preProcessor = new PreProcessor(this);
 		addProperties();
 		cnt = addAIMLSets();
@@ -161,12 +161,12 @@ public class Bot {
 		mapMap.put(MagicStrings.map_singular, singular);
 		AIMLMap plural = new AIMLMap(MagicStrings.map_plural, this);
 		mapMap.put(MagicStrings.map_plural, plural);
-		// log.info("setMap = "+setMap);
+
 		Date aimlDate = new Date(new File(aiml_path).lastModified());
 		Date aimlIFDate = new Date(new File(aimlif_path).lastModified());
 		if (MagicBooleans.trace_mode)
 			log.info("AIML modified " + aimlDate + " AIMLIF modified " + aimlIFDate);
-		// readUnfinishedIFCategories();
+
 		MagicStrings.pannous_api_key = Utilities.getPannousAPIKey(this);
 		MagicStrings.pannous_login = Utilities.getPannousLogin(this);
 		if (action.equals("aiml2csv"))
@@ -189,6 +189,7 @@ public class Bot {
 				cnt = addCategoriesFromAIML();
 			}
 		}
+		
 		Category b = new Category(0, "PROGRAM VERSION", "*", "*", MagicStrings.program_name_version, "update.aiml");
 		brain.addCategory(b);
 		brain.nodeStats();
@@ -229,18 +230,11 @@ public class Bot {
 			for (Category c : moreCategories) {
 				brain.addCategory(c);
 				learnfGraph.addCategory(c);
-				// patternGraph.addCategory(c);
 			}
-			// this.categories.addAll(moreCategories);
 		} else {
 			for (Category c : moreCategories) {
-				// log.info("Brain size="+brain.root.size());
-				// brain.printgraph();
 				brain.addCategory(c);
-				// patternGraph.addCategory(c);
-				// brain.printgraph();
 			}
-			// this.categories.addAll(moreCategories);
 		}
 	}
 
@@ -271,7 +265,7 @@ public class Bot {
 								cnt += moreCategories.size();
 							} catch (Exception iex) {
 								log.info("Problem loading " + file);
-								iex.printStackTrace();
+								log.error(iex.getMessage(), iex);
 							}
 						}
 					}
@@ -279,7 +273,7 @@ public class Bot {
 			} else
 				log.info("addCategoriesFromAIML: " + aiml_path + " does not exist.");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		if (MagicBooleans.trace_mode)
 			log.info("Loaded " + cnt + " categories in " + timer.elapsedTimeSecs() + " sec");
@@ -311,10 +305,9 @@ public class Bot {
 								ArrayList<Category> moreCategories = readIFCategories(aimlif_path + "/" + file);
 								cnt += moreCategories.size();
 								addMoreCategories(file, moreCategories);
-								// MemStats.memStats();
 							} catch (Exception iex) {
 								log.info("Problem loading " + file);
-								iex.printStackTrace();
+								log.error(iex.getMessage(), iex);
 							}
 						}
 					}
@@ -322,7 +315,7 @@ public class Bot {
 			} else
 				log.info("addCategoriesFromAIMLIF: " + aimlif_path + " does not exist.");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		if (MagicBooleans.trace_mode)
 			log.info("Loaded " + cnt + " categories in " + timer.elapsedTimeSecs() + " sec");
@@ -334,12 +327,7 @@ public class Bot {
 	 */
 	public void writeQuit() {
 		writeAIMLIFFiles();
-		// log.info("Wrote AIMLIF Files");
 		writeAIMLFiles();
-		// log.info("Wrote AIML Files");
-		/*
-		 * updateUnfinishedCategories(); writeUnfinishedIFCategories();
-		 */
 	}
 
 	/**
@@ -360,7 +348,7 @@ public class Bot {
 				log.info("readCertainIFCategories " + cnt + " categories from " + fileName + MagicStrings.aimlif_file_suffix);
 			} catch (Exception iex) {
 				log.info("Problem loading " + fileName);
-				iex.printStackTrace();
+				log.error(iex.getMessage(), iex);
 			}
 		} else
 			log.info("No " + aimlif_path + "/" + fileName + MagicStrings.aimlif_file_suffix + " file found");
@@ -408,7 +396,6 @@ public class Bot {
 	 * @param filename AIMLIF filename
 	 */
 	public void writeIFCategories(ArrayList<Category> cats, String filename) {
-		// log.info("writeIFCategories "+filename);
 		BufferedWriter bw = null;
 		File existsPath = new File(aimlif_path);
 		if (existsPath.exists())
@@ -420,9 +407,9 @@ public class Bot {
 					bw.newLine();
 				}
 			} catch (FileNotFoundException ex) {
-				ex.printStackTrace();
+				log.error(ex.getMessage(), ex);
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				log.error(ex.getMessage(), ex);
 			} finally {
 				// Close the bw
 				try {
@@ -431,7 +418,7 @@ public class Bot {
 						bw.close();
 					}
 				} catch (IOException ex) {
-					ex.printStackTrace();
+					log.error(ex.getMessage(), ex);
 				}
 			}
 	}
@@ -459,12 +446,11 @@ public class Bot {
 				else {
 					bw = new BufferedWriter(new FileWriter(aimlif_path + "/" + fileName + MagicStrings.aimlif_file_suffix));
 					fileMap.put(fileName, bw);
-
 				}
 				bw.write(Category.categoryToIF(c));
 				bw.newLine();
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				log.error(ex.getMessage(), ex);
 			}
 		}
 		Set<String> set = fileMap.keySet();
@@ -477,10 +463,8 @@ public class Bot {
 					bw.close();
 				}
 			} catch (IOException ex) {
-				ex.printStackTrace();
-
+				log.error(ex.getMessage(), ex);
 			}
-
 		}
 		File dir = new File(aimlif_path);
 		dir.setLastModified(new Date().getTime());
@@ -495,16 +479,12 @@ public class Bot {
 		HashMap<String, BufferedWriter> fileMap = new HashMap<String, BufferedWriter>();
 		Category b = new Category(0, "BRAIN BUILD", "*", "*", new Date().toString(), "update.aiml");
 		brain.addCategory(b);
-		// b = new Category(0, "PROGRAM VERSION", "*", "*",
-		// MagicStrings.program_name_version, "update.aiml");
-		// brain.addCategory(b);
 		ArrayList<Category> brainCategories = brain.getCategories();
 		Collections.sort(brainCategories, Category.CATEGORY_NUMBER_COMPARATOR);
 		for (Category c : brainCategories) {
 
 			if (!c.getFilename().equals(MagicStrings.null_aiml_file))
 				try {
-					// log.info("Writing "+c.getCategoryNumber()+" "+c.inputThatTopic());
 					BufferedWriter bw;
 					String fileName = c.getFilename();
 					if (fileMap.containsKey(fileName))
@@ -515,12 +495,10 @@ public class Bot {
 						fileMap.put(fileName, bw);
 						bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n" + "<aiml>\n");
 						bw.write(copyright);
-						// bw.newLine();
 					}
 					bw.write(Category.categoryToAIML(c) + "\n");
-					// bw.newLine();
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					log.error(ex.getMessage(), ex);
 				}
 		}
 		Set<String> set = fileMap.keySet();
@@ -534,7 +512,7 @@ public class Bot {
 					bw.close();
 				}
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				log.error(ex.getMessage(), ex);
 
 			}
 
@@ -550,7 +528,7 @@ public class Bot {
 		try {
 			properties.getProperties(config_path + "/properties.txt");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 	}
 
@@ -563,8 +541,7 @@ public class Bot {
 	public ArrayList<Category> readIFCategories(String filename) {
 		ArrayList<Category> categories = new ArrayList<Category>();
 		try {
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			FileInputStream fstream = new FileInputStream(filename);
 			// Get the object
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -580,7 +557,8 @@ public class Bot {
 			}
 			// Close the input stream
 			br.close();
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 		return categories;
@@ -619,7 +597,7 @@ public class Bot {
 			} else
 				log.info("addAIMLSets: " + sets_path + " does not exist.");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return cnt;
 	}
@@ -657,7 +635,7 @@ public class Bot {
 			} else
 				log.info("addAIMLMaps: " + maps_path + " does not exist.");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return cnt;
 	}
@@ -734,4 +712,5 @@ public class Bot {
 		}
 		return pattern.trim();
 	}
+	
 }

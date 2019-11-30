@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
  * contactaction.aiml
  */
 public class Contact {
+	
 	public static int contactCount = 0;
 	public static HashMap<String, Contact> idContactMap = new HashMap<String, Contact>();
 	public static HashMap<String, String> nameIdMap = new HashMap<String, String>();
@@ -23,7 +24,6 @@ public class Contact {
 		String patternString = " (" + contactName.toUpperCase() + ") ";
 		while (patternString.contains(" "))
 			patternString = patternString.replace(" ", "(.*)");
-		// log.info("Pattern='"+patternString+"'");
 		Pattern pattern = Pattern.compile(patternString);
 		Set<String> keys = nameIdMap.keySet();
 		String result = "";
@@ -44,7 +44,6 @@ public class Contact {
 		String patternString = " " + contactName.toUpperCase() + " ";
 		while (patternString.contains(" "))
 			patternString = patternString.replace(" ", ".*");
-		// log.info("Pattern='"+patternString+"'");
 		Pattern pattern = Pattern.compile(patternString);
 		Set<String> keys = nameIdMap.keySet();
 		String result = "unknown";
@@ -118,7 +117,6 @@ public class Contact {
 	public void addName(String name) {
 		displayName = name;
 		nameIdMap.put(displayName.toUpperCase(), contactId);
-		// log.info(nameIdMap.toString());
 	}
 
 	public void addBirthday(String birthday) {

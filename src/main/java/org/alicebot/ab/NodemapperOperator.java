@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class NodemapperOperator {
+
 	/**
 	 * number of branches from node
 	 *
@@ -72,7 +73,7 @@ public class NodemapperOperator {
 	public static Nodemapper get(Nodemapper node, String key) {
 		if (node.map != null) {
 			return node.map.get(key);
-		} else {// node.type == unary_node_mapper
+		} else {
 			if (key.equals(node.key))
 				return node.value;
 			else
@@ -89,10 +90,9 @@ public class NodemapperOperator {
 	 * @return true or false
 	 */
 	public static boolean containsKey(Nodemapper node, String key) {
-		// log.info("containsKey: Node="+node+" Map="+node.map);
 		if (node.map != null) {
 			return node.map.containsKey(key);
-		} else {// node.type == unary_node_mapper
+		} else {
 			if (key.equals(node.key))
 				return true;
 			else
@@ -122,7 +122,7 @@ public class NodemapperOperator {
 	public static Set<String> keySet(Nodemapper node) {
 		if (node.map != null) {
 			return node.map.keySet();
-		} else {// node.type == unary_node_mapper
+		} else {
 			Set<String> set = new HashSet<String>();
 			if (node.key != null)
 				set.add(node.key);
@@ -147,11 +147,10 @@ public class NodemapperOperator {
 	 * @param node Nodemapper object
 	 */
 	public static void upgrade(Nodemapper node) {
-		// log.info("Upgrading "+node.id);
-		// node.type = MagicNumbers.hash_node_mapper;
 		node.map = new HashMap<String, Nodemapper>();
 		node.map.put(node.key, node.value);
 		node.key = null;
 		node.value = null;
 	}
+
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ChatTest {
+	
 	Bot bot;
 	Chat chatSession;
 	String pairs[][] = {
@@ -115,4 +116,5 @@ public class ChatTest {
 		}
 		log.info("Passed " + pairs.length + " test cases.");
 	}
+	
 }

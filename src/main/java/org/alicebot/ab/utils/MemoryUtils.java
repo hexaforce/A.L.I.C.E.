@@ -13,4 +13,5 @@ public class MemoryUtils {
 	public static long freeMemory() {
 		return Runtime.getRuntime().freeMemory();
 	}
+	
 }

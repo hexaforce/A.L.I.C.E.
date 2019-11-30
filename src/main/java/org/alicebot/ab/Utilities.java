@@ -83,7 +83,7 @@ public class Utilities {
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return contents.trim();
 	}
@@ -119,7 +119,7 @@ public class Utilities {
 					copyright += "<!-- " + strLine + " -->\n";
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return copyright;
 	}

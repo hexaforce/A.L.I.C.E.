@@ -38,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AIMLSet extends HashSet<String> {
 	private static final long serialVersionUID = 1L;
+	
 	public String setName;
 	int maxLength = 1; // there are no empty sets
 	String host; // for external sets
@@ -61,8 +62,6 @@ public class AIMLSet extends HashSet<String> {
 	}
 
 	public boolean contains(String s) {
-		// if (isExternal) log.info("External "+setName+" contains "+s+"?");
-		// else log.info("Internal "+setName+" contains "+s+"?");
 		if (isExternal && MagicBooleans.enable_external_sets) {
 			if (inCache.contains(s))
 				return true;
@@ -73,7 +72,6 @@ public class AIMLSet extends HashSet<String> {
 				return false;
 			String query = MagicStrings.set_member_string + setName.toUpperCase() + " " + s;
 			String response = Sraix.sraix(null, query, "false", null, host, botid, null, "0");
-			// log.info("External "+setName+" contains "+s+"? "+response);
 			if (response.equals("true")) {
 				inCache.add(s);
 				return true;
@@ -85,7 +83,6 @@ public class AIMLSet extends HashSet<String> {
 			Pattern numberPattern = Pattern.compile("[0-9]+");
 			Matcher numberMatcher = numberPattern.matcher(s);
 			Boolean isanumber = numberMatcher.matches();
-			// log.info("AIMLSet isanumber '"+s+"' "+isanumber);
 			return isanumber;
 		} else
 			return super.contains(s);
@@ -98,13 +95,13 @@ public class AIMLSet extends HashSet<String> {
 			FileWriter fstream = new FileWriter(bot.sets_path + "/" + setName + ".txt");
 			BufferedWriter out = new BufferedWriter(fstream);
 			for (String p : this) {
-
 				out.write(p.trim());
 				out.newLine();
 			}
 			// Close the output stream
 			out.close();
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 	}
@@ -113,12 +110,9 @@ public class AIMLSet extends HashSet<String> {
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String strLine;
 		int cnt = 0;
-		// Read File Line By Line
 		try {
 			while ((strLine = br.readLine()) != null && strLine.length() > 0) {
 				cnt++;
-				// strLine = bot.preProcessor.normalize(strLine).toUpperCase();
-				// assume the set is pre-normalized for faster loading
 				if (strLine.startsWith("external")) {
 					String[] splitLine = strLine.split(":");
 					if (splitLine.length >= 4) {
@@ -134,17 +128,11 @@ public class AIMLSet extends HashSet<String> {
 					int length = splitLine.length;
 					if (length > maxLength)
 						maxLength = length;
-					// log.info("readAIMLSetFromInputStream "+strLine);
 					add(strLine.trim());
 				}
-				/*
-				 * Category c = new Category(0,
-				 * "ISA"+setName.toUpperCase()+" "+strLine.toUpperCase(), "*", "*", "true",
-				 * MagicStrings.null_aiml_file); bot.brain.addCategory(c);
-				 */
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return cnt;
 	}
@@ -154,8 +142,7 @@ public class AIMLSet extends HashSet<String> {
 		if (MagicBooleans.trace_mode)
 			log.info("Reading AIML Set " + bot.sets_path + "/" + setName + ".txt");
 		try {
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			File file = new File(bot.sets_path + "/" + setName + ".txt");
 			if (file.exists()) {
 				FileInputStream fstream = new FileInputStream(bot.sets_path + "/" + setName + ".txt");
@@ -164,11 +151,11 @@ public class AIMLSet extends HashSet<String> {
 				fstream.close();
 			} else
 				log.info(bot.sets_path + "/" + setName + ".txt not found");
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 		return cnt;
-
 	}
 
 }

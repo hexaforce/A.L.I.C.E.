@@ -36,7 +36,7 @@ public class TestAB {
 				try {
 					ct.testMultisentenceRespond();
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					log.error(ex.getMessage(), ex);
 				}
 			} else if (textLine.equals("ab"))
 				testAB(bot, sample_file);
@@ -164,7 +164,7 @@ public class TestAB {
 			}
 			br.close();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 	}
 

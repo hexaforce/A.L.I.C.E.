@@ -95,7 +95,7 @@ public class Predicates extends HashMap<String, String> {
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 	}
 

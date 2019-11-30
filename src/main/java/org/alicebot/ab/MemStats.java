@@ -40,11 +40,11 @@ public class MemStats {
 		long heapSize = MemoryUtils.totalMemory();
 
 		// Get maximum size of heap in bytes. The heap cannot grow beyond this size.
-// Any attempt will result in an OutOfMemoryException.
+		// Any attempt will result in an OutOfMemoryException.
 		long heapMaxSize = MemoryUtils.maxMemory();
 
 		// Get amount of free memory within the heap in bytes. This size will increase
-// after garbage collection and decrease as new objects are created.
+		// after garbage collection and decrease as new objects are created.
 		long heapFreeSize = MemoryUtils.freeMemory();
 		long diff = heapSize - prevHeapSize;
 		prevHeapSize = heapSize;

@@ -147,21 +147,15 @@ public class PreProcessor {
 				String replacement = subs[i];
 				Pattern p = patterns[i];
 				Matcher m = p.matcher(result);
-				// log.info(i+" "+patterns[i].pattern()+"-->"+subs[i]);
 				if (m.find()) {
-					// log.info(i+" "+patterns[i].pattern()+"-->"+subs[i]);
-					// log.info(m.group());
 					result = m.replaceAll(replacement);
 				}
-
-				// log.info(result);
 			}
 			while (result.contains("  "))
 				result = result.replace("  ", " ");
 			result = result.trim();
-			// log.info("Normalized: "+result);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 			log.info("Request " + request + " Result " + result + " at " + index + " " + patterns[index] + " " + subs[index]);
 		}
 		return result.trim();
@@ -182,7 +176,6 @@ public class PreProcessor {
 		int subCount = 0;
 		try {
 			while ((strLine = br.readLine()) != null) {
-				// log.info(strLine);
 				strLine = strLine.trim();
 				if (!strLine.startsWith(MagicStrings.text_comment_mark)) {
 					Pattern pattern = Pattern.compile("\"(.*?)\",\"(.*?)\"", Pattern.DOTALL);
@@ -190,7 +183,6 @@ public class PreProcessor {
 					if (matcher.find() && subCount < MagicNumbers.max_substitutions) {
 						subs[subCount] = matcher.group(2);
 						String quotedPattern = Pattern.quote(matcher.group(1));
-						// log.info("quoted pattern="+quotedPattern);
 						patterns[subCount] = Pattern.compile(quotedPattern, Pattern.CASE_INSENSITIVE);
 						subCount++;
 					}
@@ -198,7 +190,7 @@ public class PreProcessor {
 
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return subCount;
 	}
@@ -215,8 +207,7 @@ public class PreProcessor {
 		int subCount = 0;
 		try {
 
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			File file = new File(filename);
 			if (file.exists()) {
 				FileInputStream fstream = new FileInputStream(filename);
@@ -225,7 +216,8 @@ public class PreProcessor {
 				// Close the input stream
 				fstream.close();
 			}
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 		return (subCount);
@@ -242,7 +234,6 @@ public class PreProcessor {
 		line = line.replace("。", ".");
 		line = line.replace("？", "?");
 		line = line.replace("！", "!");
-		// log.info("Sentence split "+line);
 		String result[] = line.split("[\\.!\\?]");
 		for (int i = 0; i < result.length; i++)
 			result[i] = result[i].trim();
@@ -276,7 +267,6 @@ public class PreProcessor {
 						for (String sentence : sentences) {
 							sentence = sentence.trim();
 							if (sentence.length() > 0) {
-								// log.info("'"+strLine+"'-->'"+norm+"'");
 								bw.write(sentence);
 								bw.newLine();
 							}
@@ -287,7 +277,7 @@ public class PreProcessor {
 			bw.close();
 			br.close();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 	}
 }

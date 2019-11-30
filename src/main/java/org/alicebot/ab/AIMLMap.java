@@ -86,7 +86,6 @@ public class AIMLMap extends HashMap<String, String> {
 		} else if (mapName.equals("plural")) {
 			return inflector.pluralize(key).toLowerCase();
 		} else if (isExternal && MagicBooleans.enable_external_sets) {
-			// String[] split = key.split(" ");
 			String query = mapName.toUpperCase() + " " + key;
 			String response = Sraix.sraix(null, query, MagicStrings.default_map, null, host, botid, null, "0");
 			log.info("External " + mapName + "(" + key + ")=" + response);
@@ -95,7 +94,6 @@ public class AIMLMap extends HashMap<String, String> {
 			value = super.get(key);
 		if (value == null)
 			value = MagicStrings.default_map;
-		// log.info("AIMLMap get "+key+"="+value);
 		return value;
 	}
 
@@ -107,7 +105,6 @@ public class AIMLMap extends HashMap<String, String> {
 	 * @return the value
 	 */
 	public String put(String key, String value) {
-		// log.info("AIMLMap put "+key+"="+value);
 		return super.put(key, value);
 	}
 
@@ -119,13 +116,13 @@ public class AIMLMap extends HashMap<String, String> {
 			BufferedWriter out = new BufferedWriter(fstream);
 			for (String p : this.keySet()) {
 				p = p.trim();
-				// log.info(p+"-->"+this.get(p));
 				out.write(p + ":" + this.get(p).trim());
 				out.newLine();
 			}
 			// Close the output stream
 			out.close();
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 	}
@@ -138,7 +135,6 @@ public class AIMLMap extends HashMap<String, String> {
 		try {
 			while ((strLine = br.readLine()) != null && strLine.length() > 0) {
 				String[] splitLine = strLine.split(":");
-				// log.info("AIMLMap line="+strLine);
 				if (splitLine.length >= 2) {
 					cnt++;
 					if (strLine.startsWith(MagicStrings.remote_map_key)) {
@@ -151,14 +147,12 @@ public class AIMLMap extends HashMap<String, String> {
 					} else {
 						String key = splitLine[0].toUpperCase();
 						String value = splitLine[1];
-						// assume domain element is already normalized for speedier load
-						// key = bot.preProcessor.normalize(key).trim();
 						put(key, value);
 					}
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return cnt;
 	}
@@ -173,8 +167,7 @@ public class AIMLMap extends HashMap<String, String> {
 		if (MagicBooleans.trace_mode)
 			log.info("Reading AIML Map " + bot.maps_path + "/" + mapName + ".txt");
 		try {
-			// Open the file that is the first
-			// command line parameter
+			// Open the file that is the first command line parameter
 			File file = new File(bot.maps_path + "/" + mapName + ".txt");
 			if (file.exists()) {
 				FileInputStream fstream = new FileInputStream(bot.maps_path + "/" + mapName + ".txt");
@@ -183,7 +176,8 @@ public class AIMLMap extends HashMap<String, String> {
 				fstream.close();
 			} else
 				log.info(bot.maps_path + "/" + mapName + ".txt not found");
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
+			// Catch exception if any
 			log.error("Error: " + e.getMessage());
 		}
 		return cnt;

@@ -9,6 +9,7 @@ import junit.framework.TestCase;
  * Created by User on 3/31/14.
  */
 public class InflectorTest extends TestCase {
+	
 	@Test
 	public void testPluralize() throws Exception {
 		Inflector inflector = new Inflector();
@@ -19,11 +20,11 @@ public class InflectorTest extends TestCase {
 			String actual = inflector.pluralize(singular);
 			assertEquals("Pluralize " + pairs[0][0], expected, actual);
 		}
-
 	}
 
 	@Test
 	public void testSingularize() throws Exception {
 
 	}
+	
 }

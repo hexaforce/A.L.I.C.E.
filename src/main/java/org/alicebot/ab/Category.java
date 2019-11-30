@@ -21,10 +21,14 @@ package org.alicebot.ab;
 */
 import java.util.Comparator;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * structure representing an AIML category and operations on Category
  */
+@Slf4j
 public class Category {
+	
 	private String pattern;
 	private String that;
 	private String topic;
@@ -204,7 +208,6 @@ public class Category {
 	public void addMatch(String input, Bot bot) {
 		if (matches == null) {
 			String setName = this.inputThatTopic().replace("*", "STAR").replace("_", "UNDERSCORE").replace(" ", "-").replace("<THAT>", "THAT").replace("<TOPIC>", "TOPIC");
-			// log.info("Created match set "+setName);
 			matches = new AIMLSet(setName, bot);
 		}
 		matches.add(input);
@@ -245,7 +248,6 @@ public class Category {
 	 */
 	public static Category IFToCategory(String IF) {
 		String[] split = IF.split(MagicStrings.aimlif_split_char);
-		// log.info("Read: "+split);
 		return new Category(Integer.parseInt(split[0]), split[1], split[2], split[3], lineToTemplate(split[4]), split[5]);
 	}
 
@@ -256,8 +258,6 @@ public class Category {
 	 * @return category in AIML format
 	 */
 	public static String categoryToIF(Category category) {
-		// log.info("categoryToIF:
-		// template="+templateToLine(category.getTemplate()));
 		String c = MagicStrings.aimlif_split_char;
 		return category.getActivationCnt() + c + category.getPattern() + c + category.getThat() + c + category.getTopic() + c + templateToLine(category.getTemplate()) + c + category.getFilename();
 	}
@@ -285,8 +285,6 @@ public class Category {
 			}
 			pattern = rpattern.trim();
 		}
-		// if (pattern.contains("set")) log.info("Rebuilt pattern "+pattern);
-
 		String NL = System.getProperty("line.separator");
 		NL = "\n";
 		try {
@@ -299,7 +297,7 @@ public class Category {
 			}
 			result = topicStart + "<category><pattern>" + pattern + "</pattern>" + thatStatement + NL + "<template>" + category.getTemplate() + "</template>" + NL + "</category>" + topicEnd;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 		}
 		return result;
 	}

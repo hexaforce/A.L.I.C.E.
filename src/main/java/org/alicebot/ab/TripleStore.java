@@ -325,7 +325,7 @@ public class TripleStore {
 
 		} catch (Exception ex) {
 			log.info("Something went wrong with select " + visibleVars);
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 
 		}
 		return result;

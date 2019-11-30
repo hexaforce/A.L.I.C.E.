@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Path extends ArrayList<String> {
 	private static final long serialVersionUID = 1L;
+	
 	public String word;
 	public Path next;
 	public int length;
@@ -66,10 +67,6 @@ public class Path extends ArrayList<String> {
 			result = result + " " + p.word;
 		}
 		return result.trim();
-		/*
-		 * if (path == null) return ""; else return
-		 * path.word+" "+pathToSentence(path.next);
-		 */
 	}
 
 	/**
@@ -92,7 +89,6 @@ public class Path extends ArrayList<String> {
 			tail = head;
 		}
 		return head;
-		// return arrayToPath(array, 0);
 	}
 
 	/**
