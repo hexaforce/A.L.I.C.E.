@@ -1,4 +1,4 @@
-package io.hexaforce.A.L.I.C.E;
+package io.hexaforce.alice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
