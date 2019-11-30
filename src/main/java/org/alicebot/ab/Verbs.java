@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Verbs {
+
 	static Set<String> es = Utilities.stringSet("sh", "ch", "th", "ss", "x");
 	static Set<String> ies = Utilities.stringSet("ly", "ry", "ny", "fy", "dy", "py");
 	static Set<String> ring = Utilities.stringSet("be", "me", "re", "se", "ve", "de", "le", "ce", "ze", "ke", "te", "ge", "ne", "pe", "ue");
@@ -182,4 +183,5 @@ public class Verbs {
 		be2being.writeAIMLMap();
 		being2be.writeAIMLMap();
 	}
+
 }

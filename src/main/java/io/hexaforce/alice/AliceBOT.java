@@ -44,7 +44,7 @@ import org.alicebot.ab.Verbs;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Main {
+public class AliceBOT {
 
 	public static void main(String[] args) {
 		AIMLProcessor.extension = new PCAIMLProcessorExtension();
@@ -213,9 +213,9 @@ public class Main {
 			// Read File Line By Line
 			int count = 0;
 			while ((strLine = br.readLine()) != null && count++ < limit) {
-				log.info("Human: " + strLine);
+				System.out.print("Human: " + strLine);
 				String response = chatSession.multisentenceRespond(strLine);
-				log.info("Robot: " + response);
+				System.out.print("Robot: " + response);
 			}
 			br.close();
 		} catch (Exception ex) {

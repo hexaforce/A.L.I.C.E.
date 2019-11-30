@@ -34,8 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 public class Utilities {
 
 	/**
-	 * Excel sometimes adds mysterious formatting to CSV files. This function tries
-	 * to clean it up.
+	 * Excel sometimes adds mysterious formatting to CSV files. 
+	 * This function tries to clean it up.
 	 *
 	 * @param line line from AIMLIF file
 	 * @return reformatted line

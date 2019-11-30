@@ -1,1 +1,21 @@
+logging:
+  config: classpath:logback.xml
+  pattern:
+    level: User:%X{user} %5p
+  level:
+    io:
+      hexaforce:
+        alice: INFO
+    org:
+      springframework:
+        web: INFO
+      eclipse:
+        jetty: INFO
+      alicebot:
+        ab: INFO
 
+org:
+  alicebot:
+    ab:
+      sunabaUtterance: https://nlu.ai-phone.me.uk/SpontaneousDialogueServer/dialogue
+      sunabaApplicationid: https://nlu.ai-phone.me.uk/UserRegistrationServer/users/applications

@@ -50,8 +50,6 @@ public class TestAB {
 				while (response.contains("&gt;"))
 					response = response.replace("&gt;", ">");
 				IOUtils.writeOutputTextLine("Robot", response);
-				// log.info("Learn graph:");
-				// bot.learnGraph.printgraph();
 			}
 		}
 	}
@@ -59,8 +57,6 @@ public class TestAB {
 	public static void testBotChat() {
 		Bot bot = new Bot("alice");
 		log.info(bot.brain.upgradeCnt + " brain upgrades");
-
-		// bot.brain.printgraph();
 		Chat chatSession = new Chat(bot);
 		String request = "Hello.  How are you?  What is your name?  Tell me about yourself.";
 		String response = chatSession.multisentenceRespond(request);
@@ -71,16 +67,10 @@ public class TestAB {
 	public static void runTests(Bot bot, boolean traceMode) {
 		MagicBooleans.qa_test_mode = true;
 		Chat chatSession = new Chat(bot, false);
-		// bot.preProcessor.normalizeFile("c:/ab/bots/super/aiml/thats.txt",
-		// "c:/ab/bots/super/aiml/normalthats.txt");
 		bot.brain.nodeStats();
 		MagicBooleans.trace_mode = traceMode;
 		IOUtils testInput = new IOUtils(MagicStrings.root_path + "/data/lognormal-500.txt", "read");
-		// IOUtils testInput = new IOUtils(MagicStrings.root_path +
-		// "/data/callmom-inputs.txt", "read");
 		IOUtils testOutput = new IOUtils(MagicStrings.root_path + "/data/lognormal-500-out.txt", "write");
-		// IOUtils testOutput = new IOUtils(MagicStrings.root_path +
-		// "/data/callmom-outputs.txt", "write");
 		String textLine = testInput.readLine();
 		int i = 1;
 		System.out.print(0);
@@ -89,7 +79,6 @@ public class TestAB {
 				textLine = MagicStrings.null_input;
 			if (textLine.equals("q"))
 				System.exit(0);
-
 			else if (textLine.equals("wq")) {
 				bot.writeQuit();
 				System.exit(0);
@@ -111,7 +100,6 @@ public class TestAB {
 				testOutput.writeLine("Robot: " + response);
 			}
 			textLine = testInput.readLine();
-
 			System.out.print(".");
 			if (i % 10 == 0)
 				System.out.print(" ");
@@ -158,7 +146,6 @@ public class TestAB {
 			int count = 0;
 			while ((strLine = br.readLine()) != null && count++ < limit) {
 				log.info("Human: " + strLine);
-
 				String response = chatSession.multisentenceRespond(strLine);
 				log.info("Robot: " + response);
 			}

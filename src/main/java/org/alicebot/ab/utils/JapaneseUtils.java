@@ -1,9 +1,5 @@
 package org.alicebot.ab.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alicebot.ab.AIMLProcessor;
 import org.alicebot.ab.MagicBooleans;
 import org.alicebot.ab.MagicStrings;
@@ -11,10 +7,11 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.atilika.kuromoji.ipadic.Token;
+import com.atilika.kuromoji.ipadic.Tokenizer;
+
 import lombok.extern.slf4j.Slf4j;
-import net.java.sen.SenFactory;
-import net.java.sen.StringTagger;
-import net.java.sen.dictionary.Token;
+
 
 @Slf4j
 public class JapaneseUtils {
@@ -26,15 +23,9 @@ public class JapaneseUtils {
 	 * @return tokenized fragment
 	 */
 	public static String tokenizeFragment(String fragment) {
-		StringTagger tagger = SenFactory.getStringTagger(null, false);
-		List<Token> tokens = new ArrayList<Token>();
 		String result = "";
-		try {
-			for (Token e : tagger.analyze(fragment, tokens)) {
-				result += e.getSurface() + " ";
-			}
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
+		for (Token e : new Tokenizer().tokenize(fragment)) {
+			result += e.getSurface() + " ";
 		}
 		return result.trim();
 	}
