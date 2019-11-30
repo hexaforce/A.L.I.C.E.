@@ -96,8 +96,8 @@ public class AIMLProcessor {
 		}
 		Category c = new Category(0, pattern, that, topic, template, aimlFile);
 		/*
-		 * if (template == null) log.info("Template is null"); if
-		 * (template.length()==0) log.info("Template is zero length");
+		 * if (template == null) log.info("Template is null"); if (template.length()==0)
+		 * log.info("Template is zero length");
 		 */
 		if (template == null || template.length() == 0) {
 			log.info("Category " + c.inputThatTopic() + " discarded due to blank or missing <template>.");
@@ -1006,8 +1006,8 @@ public class AIMLProcessor {
 	private static String random(Node node, ParseState ps) {
 		NodeList childList = node.getChildNodes();
 		ArrayList<Node> liList = new ArrayList<Node>();
-		// String setName = 
-				//getAttributeOrTagValue(node, ps, "set");
+		// String setName =
+		// getAttributeOrTagValue(node, ps, "set");
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("li"))
 				liList.add(childList.item(i));

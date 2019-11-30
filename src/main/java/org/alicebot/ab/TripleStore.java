@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class TripleStore {
 	public int idCnt = 0;

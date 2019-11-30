@@ -219,9 +219,8 @@ public class Bot {
 	void addMoreCategories(String file, ArrayList<Category> moreCategories) {
 		if (file.contains(MagicStrings.deleted_aiml_file)) {
 			/*
-			 * for (Category c : moreCategories) {
-			 * //log.info("Delete "+c.getPattern()); deletedGraph.addCategory(c);
-			 * }
+			 * for (Category c : moreCategories) { //log.info("Delete "+c.getPattern());
+			 * deletedGraph.addCategory(c); }
 			 */
 
 		} else if (file.contains(MagicStrings.learnf_aiml_file)) {

@@ -28,6 +28,7 @@ import java.util.Collections;
 import org.alicebot.ab.utils.IOUtils;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class AB {
 	/**

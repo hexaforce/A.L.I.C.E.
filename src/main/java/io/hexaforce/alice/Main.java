@@ -47,7 +47,6 @@ import lombok.extern.slf4j.Slf4j;
 public class Main {
 
 	public static void main(String[] args) {
-		MagicStrings.setRootPath();
 		AIMLProcessor.extension = new PCAIMLProcessorExtension();
 		mainFunction(args);
 	}

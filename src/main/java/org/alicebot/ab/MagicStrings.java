@@ -98,14 +98,6 @@ public class MagicStrings {
 	public static String map_singular = "singular";
 	public static String map_plural = "plural";
 	// paths
-	public static String root_path = "c:/ab";
-
-	public static void setRootPath(String newRootPath) {
-		root_path = newRootPath;
-	}
-
-	public static void setRootPath() {
-		setRootPath(System.getProperty("user.dir"));
-	}
+	public static String root_path = System.getProperty("user.dir");
 
 }

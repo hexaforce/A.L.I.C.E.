@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.java.sen.SenFactory;
 import net.java.sen.StringTagger;
 import net.java.sen.dictionary.Token;
+
 @Slf4j
 public class JapaneseUtils {
 

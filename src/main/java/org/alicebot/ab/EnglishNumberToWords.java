@@ -13,6 +13,7 @@ package org.alicebot.ab;
 import java.text.DecimalFormat;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class EnglishNumberToWords {
 	private static final String[] tensNames = { "", " ten", " twenty", " thirty", " forty", " fifty", " sixty", " seventy", " eighty", " ninety" };

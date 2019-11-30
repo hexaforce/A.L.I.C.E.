@@ -39,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AIMLMap extends HashMap<String, String> {
+
 	private static final long serialVersionUID = 1L;
 	public String mapName;
 	String host; // for external maps

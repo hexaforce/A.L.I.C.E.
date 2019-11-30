@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class Tuple extends HashMap<String, String> {
 	private static final long serialVersionUID = 1L;
@@ -18,9 +19,8 @@ public class Tuple extends HashMap<String, String> {
 		// log.info("Calling equals");
 		// if (this == o) return true;
 		/*
-		 * if (o == null || getClass() != o.getClass()) {
-		 * log.info("unequal 1"); return false; } if (!super.equals(o)) {
-		 * log.info("unequal 2"); return false; }
+		 * if (o == null || getClass() != o.getClass()) { log.info("unequal 1"); return
+		 * false; } if (!super.equals(o)) { log.info("unequal 2"); return false; }
 		 */
 		Tuple tuple = (Tuple) o;
 
