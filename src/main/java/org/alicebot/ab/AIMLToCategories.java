@@ -43,8 +43,11 @@ public class AIMLToCategories {
 			} else if ("topic".equals(child.getNodeName())) {
 				final String topic = child.getAttributes().getNamedItem("name").getTextContent();
 				for (Node grandchild : new IterableNodeList(child.getChildNodes())) {
-					categories.add(categoryProcessor(aimlFileName, grandchild, topic));
+					if ("category".equals(grandchild.getNodeName())) {
+						categories.add(categoryProcessor(aimlFileName, grandchild, topic));
+					}
 				}
+				
 			}
 		}
 		return categories;
@@ -71,9 +74,11 @@ public class AIMLToCategories {
 		template = "";
 
 		for (Node child : new IterableNodeList(node.getChildNodes())) {
+			
 			if ("#text".equals(child.getNodeName())) {
 				continue;
 			}
+			
 			String nodeToString = DomUtils.nodeToString(child);
 			if ("pattern".equals(child.getNodeName())) {
 				nodeToString = trimTag(nodeToString, "pattern");

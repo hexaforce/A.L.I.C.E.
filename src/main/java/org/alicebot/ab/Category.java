@@ -24,12 +24,9 @@ package org.alicebot.ab;
 
 import java.util.Comparator;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * structure representing an AIML category and operations on Category
  */
-@Slf4j
 class Category {
 
 	private String pattern;
@@ -149,6 +146,9 @@ class Category {
 		matches.add(input);
 	}
 
+	public final static String Newline = "\\#Newline";
+	public final static String Comma = "\\#Comma";
+	
 	/**
 	 * convert a template to a single-line representation by replacing "," with
 	 * #Comma and newline with #Newline
@@ -158,8 +158,8 @@ class Category {
 	 */
 	static String templateToLine(String template) {
 		String result = template;
-		result = result.replaceAll("(\r\n|\n\r|\r|\n)", "\\#Newline");
-		result = result.replaceAll(",", Properties.aimlif_split_char_name);
+		result = result.replaceAll("(\r\n|\n\r|\r|\n)", Newline);
+		result = result.replaceAll(",", Comma);
 		return result;
 	}
 
@@ -171,8 +171,8 @@ class Category {
 	 * @return original multi-line template
 	 */
 	private static String lineToTemplate(String line) {
-		String result = line.replaceAll("\\#Newline", NL);
-		result = result.replaceAll(Properties.aimlif_split_char_name, ",");
+		String result = line.replaceAll(Newline, System.getProperty("line.separator"));
+		result = result.replaceAll(Comma, ",");
 		return result;
 	}
 
@@ -195,96 +195,7 @@ class Category {
 	 */
 	static String categoryToIF(Category category) {
 		final String c = ",";
-		String result = category.getActivationCnt() + c + category.getPattern() + c + category.getThat() + c + category.getTopic() + c + templateToLine(category.getTemplate()) + c + category.getFilename();
-		log.debug(result);
-		return result;
-	}
-
-	final static String NL = System.getProperty("line.separator");
-
-	/**
-	 * convert a Category object to AIML syntax
-	 *
-	 * @param category Category object
-	 * @return AIML Category
-	 */
-	static String categoryToAIML(Category category) {
-
-		String result = "";
-
-		String pattern = category.getPattern();
-		if (pattern.contains("<SET>") || pattern.contains("<BOT")) {
-			final String[] splitPattern = pattern.split(" ");
-			String rpattern = "";
-			for (String w : splitPattern) {
-				if (w.startsWith("<SET>") || w.startsWith("<BOT") || w.startsWith("NAME=")) {
-					w = w.toLowerCase();
-				}
-				rpattern = rpattern + " " + w;
-			}
-			pattern = rpattern.trim();
-		}
-
-		try {
-
-			if (category.getTopic().equals("*")) {
-
-				String thatStatement = "";
-				if (!category.getThat().equals("*")) {
-					thatStatement = "    <that>" + category.getThat() + "</that>" + NL;
-				}
-				String[] templates = category.getTemplate().split(NL);
-				String template = "";
-				for (String t : templates) {
-					String tt = t.trim();
-
-					if ("<template>".equals(tt) || "</template>".equals(tt)) {
-						template += "    " + tt + NL;
-					} else if (tt.startsWith("<template>") || tt.endsWith("</template>")) {
-						template += tt.replace("<template>", "<template>" + NL).replace("</template>", NL + "</template>");
-					} else {
-						template += "      " + tt + NL;
-					}
-				}
-				result = "  <category>" + NL + //
-						"    <pattern>" + pattern + "</pattern>" + NL + //
-						thatStatement + //
-						template + //
-						"  </category>" + NL;
-
-			} else {
-
-				String thatStatement = "";
-				if (!category.getThat().equals("*")) {
-					thatStatement = "      <that>" + category.getThat() + "</that>" + NL;
-				}
-				String[] templates = category.getTemplate().split(NL);
-				String template = "";
-				for (String t : templates) {
-					String tt = t.trim();
-					if ("<template>".equals(tt) || "</template>".equals(tt)) {
-						template += "      " + tt + NL;
-					} else if (tt.startsWith("<template>") || tt.endsWith("</template>")) {
-						template += tt.replace("<template>", "<template>" + NL).replace("</template>", NL + "</template>");
-					} else {
-						template += "        " + tt + NL;
-					}
-				}
-				result = "  <topic name=\"" + category.getTopic() + "\">" + NL + //
-						"    <category>" + NL + //
-						"      <pattern>" + pattern + "</pattern>" + NL + //
-						thatStatement + //
-						template + //
-						"    </category>" + NL + //
-						"  </topic>" + NL;
-			}
-
-		} catch (final Exception ex) {
-			log.error(ex.getMessage(), ex);
-		}
-
-		return result;
-
+		return category.getActivationCnt() + c + category.getPattern() + c + category.getThat() + c + category.getTopic() + c + templateToLine(category.getTemplate()) + c + category.getFilename();
 	}
 
 	/**

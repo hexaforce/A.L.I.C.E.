@@ -468,7 +468,7 @@ class Graphmaster {
 	}
 
 	private void setStars(String starWords, int starIndex, String starState, String[] inputStars, String[] thatStars, String[] topicStars) {
-		if (starIndex < Properties.max_stars) {
+		if (starIndex < MAX_STARS) {
 			starWords = starWords.trim();
 			if (starState.equals("inputStar")) {
 				inputStars[starIndex] = starWords;

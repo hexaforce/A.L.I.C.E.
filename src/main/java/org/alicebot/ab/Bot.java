@@ -349,7 +349,7 @@ public class Bot {
 						bw.write("-->" + NL);
 						bw.newLine();
 					}
-					bw.write(Category.categoryToAIML(c));
+					bw.write(CategoryToAIML.toAIML(c));
 					bw.newLine();
 				}
 			}

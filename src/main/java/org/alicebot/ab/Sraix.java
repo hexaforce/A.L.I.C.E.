@@ -266,8 +266,8 @@ public class Sraix {
 		if (Properties.cache_sraix) {
 			try {
 				if (!template.contains("<year>") && !template.contains("No facilities")) {
-					template = template.replace(NL, "\\#Newline");
-					template = template.replace(",", Properties.aimlif_split_char_name);
+					template = template.replace(NL, Category.Newline);
+					template = template.replace(",", Category.Comma);
 					template = template.replaceAll("<a(.*)</a>", "");
 					template = template.trim();
 					if (template.length() > 0) {
