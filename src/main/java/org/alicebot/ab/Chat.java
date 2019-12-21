@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * Class encapsulating a chat session between a bot and a client
  */
 @Slf4j
-class Chat {
+public class Chat {
 
 	Bot bot;
 	String customerId = Properties.default_Customer_id;
@@ -55,7 +55,7 @@ class Chat {
 	 * @param doWrites   doWrites
 	 * @param customerId unique customer identifier
 	 */
-	// Chat(Bot bot, boolean doWrites, String customerId) {
+	public // Chat(Bot bot, boolean doWrites, String customerId) {
 	Chat(Bot bot, String customerId) {
 		this.customerId = customerId;
 		this.bot = bot;
@@ -160,7 +160,7 @@ class Chat {
 	 * @param request client's multiple-sentence input
 	 * @return string
 	 */
-	String multisentenceRespond(String request) {
+	public String multisentenceRespond(String request) {
 		
 		String response = "";
 		matchTrace = "";

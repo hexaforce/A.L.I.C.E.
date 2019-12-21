@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AIMLMain {
 
 	public static void main(String[] args) throws IOException {
+
 		AIMLProcessor.extension = new AIMLProcessorExtensionPC();
 
 //		String botName = "alice1.5";
@@ -41,16 +42,10 @@ public class AIMLMain {
 
 		log.info(Properties.program_name_version);
 		log.debug("Working Directory = " + workingDirectory);
-
-		final Bot bot = new Bot(workingDirectory, botName); //
-
-//		if (bot.brain.getCategoriesSize() < Properties.brain_print_size) {
-//			bot.brain.printgraph();
-//		}
-
+		final Bot bot = new Bot(workingDirectory, botName);
 		final Chat chatSession = new Chat(bot, "0");
-
 		bot.brain.nodeStats();
+
 		String textLine = "";
 		while (true) {
 			textLine = IOUtils.readInputTextLine("Yuor");

@@ -1,5 +1,7 @@
 package io.hexaforce.alice;
 
+import org.alicebot.ab.AIMLProcessor;
+import org.alicebot.ab.AIMLProcessorExtensionPC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +22,7 @@ public class Application {
 	private WebSocketServerHandler webSocketServerHandler;
 
 	public static void main(String[] args) {
+		AIMLProcessor.extension = new AIMLProcessorExtensionPC();
 		SpringApplication.run(Application.class, args);
 	}
 

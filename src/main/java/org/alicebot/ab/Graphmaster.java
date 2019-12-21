@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * The AIML Pattern matching algorithm and data structure.
  */
 @Slf4j
+public
 class Graphmaster {
 
 	private final String botPropRegex = "<bot name=\"(.*?)\"/>";
@@ -177,7 +178,7 @@ class Graphmaster {
 		}
 	}
 
-	void nodeStats() {
+	public void nodeStats() {
 		nodeStatsGraph(root);
 	}
 

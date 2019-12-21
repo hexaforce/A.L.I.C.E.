@@ -56,14 +56,15 @@ public class Bot {
 
 	final Properties properties = new Properties();
 	final PreProcessor preProcessor;
-	final Graphmaster brain;
+	
+	public final Graphmaster brain;
 	Graphmaster learnfGraph;
 	Graphmaster learnGraph;
 
 	final String botName;
 
-	HashMap<String, AIMLSet> setMap = new HashMap<String, AIMLSet>();
-	HashMap<String, AIMLMap> mapMap = new HashMap<String, AIMLMap>();
+	final HashMap<String, AIMLSet> setMap = new HashMap<String, AIMLSet>();
+	final HashMap<String, AIMLMap> mapMap = new HashMap<String, AIMLMap>();
 	HashSet<String> pronounSet = new HashSet<String>();
 
 	final String aimlif_path;
@@ -81,7 +82,7 @@ public class Bot {
 	 * @param action Program AB action
 	 * @throws IOException
 	 */
-	// Bot(String name, String path, String action) {
+	public // Bot(String name, String path, String action) {
 	Bot(String workingDirectory, String botName) throws IOException {
 		int cnt = 0;
 		this.botName = botName;
