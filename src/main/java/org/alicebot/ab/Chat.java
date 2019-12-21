@@ -55,8 +55,7 @@ public class Chat {
 	 * @param doWrites   doWrites
 	 * @param customerId unique customer identifier
 	 */
-	public // Chat(Bot bot, boolean doWrites, String customerId) {
-	Chat(Bot bot, String customerId) {
+	public Chat(Bot bot, String customerId) {
 		this.customerId = customerId;
 		this.bot = bot;
 		final History<String> contextThatHistory = new History<String>();

@@ -1,9 +1,8 @@
 package io.hexaforce.alice.websocket;
 
-import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.alicebot.ab.AIMLProcessor;
-import org.alicebot.ab.AIMLProcessorExtensionPC;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 import org.alicebot.ab.Properties;
@@ -18,36 +17,30 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class WebSocketServerHandler extends AbstractWebSocketHandler {
 
-	Chat chatSession;
+	final Map<String, Chat> chatSessions = new ConcurrentHashMap<String, Chat>();
+	Bot bot = null;
 
 	@Override
 	protected void openSession(WebSocketSession session) {
 		log.info(session.getId());
 
-		AIMLProcessor.extension = new AIMLProcessorExtensionPC();
-
-//		String botName = "alice1.5";
-		String botName = "alice2";
-//		String botName = "アリス";
-		String workingDirectory = System.getProperty("user.dir");
-
-		log.info(Properties.program_name_version);
-		log.debug("Working Directory = " + workingDirectory);
-		Bot bot;
-		try {
+		if (bot == null) {
+//			String botName = "alice1.5";
+			String botName = "alice2";
+//			String botName = "アリス";
+			String workingDirectory = System.getProperty("user.dir");
 			bot = new Bot(workingDirectory, botName);
-			this.chatSession = new Chat(bot, "0");
-			bot.brain.nodeStats();
-		} catch (IOException e) {
-			e.printStackTrace();
+			log.info(Properties.program_name_version);
+			log.debug("Working Directory = " + workingDirectory);
 		}
+		chatSessions.put(session.getId(), new Chat(bot, "0"));
+		bot.brain.nodeStats();
 
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message, String request) throws Exception {
-
-		String response = chatSession.multisentenceRespond(request);
+		String response = chatSessions.get(session.getId()).multisentenceRespond(request);
 		while (response.contains("&lt;")) {
 			response = response.replace("&lt;", "<");
 		}
@@ -55,7 +48,6 @@ public class WebSocketServerHandler extends AbstractWebSocketHandler {
 			response = response.replace("&gt;", ">");
 		}
 		session.sendMessage(new TextMessage(response, true));
-
 	}
 
 	@Override

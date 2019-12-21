@@ -82,8 +82,7 @@ public class Bot {
 	 * @param action Program AB action
 	 * @throws IOException
 	 */
-	public // Bot(String name, String path, String action) {
-	Bot(String workingDirectory, String botName) throws IOException {
+	public Bot(String workingDirectory, String botName){
 		int cnt = 0;
 		this.botName = botName;
 		String currentDirectory = workingDirectory + "/bots/" + botName;
@@ -108,7 +107,11 @@ public class Bot {
 		log.debug("Loaded " + cnt + " set elements.");
 		cnt = addAIMLMaps();
 		log.debug("Loaded " + cnt + " map elements");
-		this.pronounSet = getPronouns();
+		try {
+			this.pronounSet = getPronouns();
+		} catch (IOException ex) {
+			log.error(ex.getMessage(), ex);
+		}
 		final AIMLSet number = new AIMLSet(Properties.natural_number_set_name, this);
 		setMap.put(Properties.natural_number_set_name, number);
 
