@@ -1,0 +1,2 @@
+0,TEST FIRST,*,*,<template>#Newline      <first>THIS IS A TEST</first>#Newline    </template>,firstrest.aiml
+0,TEST REST,*,*,<template>#Newline      <rest>THIS IS A TEST</rest>#Newline    </template>,firstrest.aiml

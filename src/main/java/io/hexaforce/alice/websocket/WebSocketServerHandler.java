@@ -26,8 +26,8 @@ public class WebSocketServerHandler extends AbstractWebSocketHandler {
 
 		if (bot == null) {
 //			String botName = "alice1.5";
-			String botName = "alice2";
-//			String botName = "アリス";
+//			String botName = "alice2";
+			String botName = "アリス";
 			String workingDirectory = System.getProperty("user.dir");
 			bot = new Bot(workingDirectory, botName);
 			log.info(Properties.program_name_version);
@@ -40,6 +40,13 @@ public class WebSocketServerHandler extends AbstractWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message, String request) throws Exception {
+
+		if ("wq".equals(request)) {
+			bot.writeAIMLIFFiles();
+			bot.writeAIMLFiles();
+			System.exit(0);
+		}
+
 		String response = chatSessions.get(session.getId()).multisentenceRespond(request);
 		while (response.contains("&lt;")) {
 			response = response.replace("&lt;", "<");

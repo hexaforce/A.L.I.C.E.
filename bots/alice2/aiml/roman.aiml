@@ -4,7 +4,7 @@
 
 File: roman.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,22 +17,17 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      ROMAN <set>numbername</set>
-    </pattern>
+    <pattern>ROMAN <set>numbername</set></pattern>
     <template>
       <srai>ROMAN <map><name>name2number</name><star/></map></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ROMAN *
-    </pattern>
+    <pattern>ROMAN *</pattern>
     <template>
       <think><set var="ex"><explode><star/></explode></set></think>
       <condition var="ex">
@@ -43,9 +38,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ROMAN <set>digit</set>
-    </pattern>
+    <pattern>ROMAN <set>digit</set></pattern>
     <template>
       <think><set var="d"><star/></set></think>
       <condition var="d">
@@ -64,9 +57,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ROMAN <set>digit</set> <set>digit</set>
-    </pattern>
+    <pattern>ROMAN <set>digit</set> <set>digit</set></pattern>
     <template>
       <think><set var="d"><star/></set></think>
       <condition var="d">
@@ -85,9 +76,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ROMAN <set>digit</set> <set>digit</set> <set>digit</set>
-    </pattern>
+    <pattern>ROMAN <set>digit</set> <set>digit</set> <set>digit</set></pattern>
     <template>
       <think><set var="d"><star/></set></think>
       <condition var="d">
@@ -106,9 +95,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ROMAN <set>digit</set> <set>digit</set> <set>digit</set> <set>digit</set>
-    </pattern>
+    <pattern>ROMAN <set>digit</set> <set>digit</set> <set>digit</set> <set>digit</set></pattern>
     <template>
       <think><set var="d"><star/></set></think>
       <condition var="d">

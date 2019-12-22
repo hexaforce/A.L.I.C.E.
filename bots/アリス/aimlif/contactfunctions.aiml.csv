@@ -1,0 +1,9 @@
+0,CONTACTID *,*,*,<template>#Newline      <contactid><star/></contactid>#Newline    </template>,contactfunctions.aiml
+0,MULTIPLEIDS *,*,*,<template>#Newline      <multipleids><star/></multipleids>#Newline    </template>,contactfunctions.aiml
+0,ADDINFO DISPLAYNAME * DIALNUMBER * PHONETYPE * EMAILADDRESS * EMAILTYPE * BIRTHDAY *,*,*,<template>#Newline      <addinfo>#Newline      <displayname><star/></displayname>#Newline      <dialnumber><srai>DENORMALIZE <star index="2"/></srai></dialnumber>#Newline      <phonetype><star index="3"/></phonetype>#Newline      <emailaddress><srai>DENORMALIZE <star index="4"/></srai></emailaddress>#Newline      <emailtype><star index="5"/></emailtype>#Newline      <birthday><star index="6"/></birthday>#Newline      </addinfo>#Newline    </template>,contactfunctions.aiml
+0,DISPLAYNAME *,*,*,<template>#Newline      <displayname><star/></displayname>#Newline    </template>,contactfunctions.aiml
+0,DIALNUMBER * *,*,*,<template>#Newline      <dialnumber><type><star/></type><id><star index="2"/></id></dialnumber>#Newline    </template>,contactfunctions.aiml
+0,DIALNUMBER *,*,*,<template>#Newline      unknown#Newline    </template>,contactfunctions.aiml
+0,CONTACTBIRTHDAY *,*,*,<template>#Newline      <contactbirthday><star/></contactbirthday>#Newline    </template>,contactfunctions.aiml
+0,EMAILADDRESS * *,*,*,<template>#Newline      <emailaddress><type><star/></type><id><star index="2"/></id></emailaddress>#Newline    </template>,contactfunctions.aiml
+0,EMAILADDRESS *,*,*,<template>#Newline      unknown#Newline    </template>,contactfunctions.aiml

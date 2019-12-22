@@ -4,7 +4,7 @@
 
 File: dialog.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      CLEAR DIALOG HISTORY
-    </pattern>
+    <pattern>CLEAR DIALOG HISTORY</pattern>
     <template>
       Cleared.
       <think>
@@ -94,27 +91,21 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      XEXCHANGE *
-    </pattern>
+    <pattern>XEXCHANGE *</pattern>
     <template>
       <think>Badly formatted dialog exchage: <star/></think>
     </template>
   </category>
 
   <category>
-    <pattern>
-      XEXCHANGE * XHUMAN * XBOT SENDING TRANSCRIPT *
-    </pattern>
+    <pattern>XEXCHANGE * XHUMAN * XBOT SENDING TRANSCRIPT *</pattern>
     <template>
       <think>Badly formatted dialog exchage: <star/></think>
     </template>
   </category>
 
   <category>
-    <pattern>
-      XEXCHANGE * XHUMAN * XBOT *
-    </pattern>
+    <pattern>XEXCHANGE * XHUMAN * XBOT *</pattern>
     <template>
       <think>
       <set name="request"><star index="2"/></set>
@@ -128,9 +119,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      DIALOG HISTORY
-    </pattern>
+    <pattern>DIALOG HISTORY</pattern>
     <template>
       <srai>XEXCHANGE request31 XHUMAN  <request index="31"/> XBOT <response index="31"/></srai>
       <srai>XEXCHANGE request30 XHUMAN  <request index="30"/> XBOT <response index="30"/></srai>
@@ -167,9 +156,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      TEST REQUEST *
-    </pattern>
+    <pattern>TEST REQUEST *</pattern>
     <template>
       request 1 = <request/>.
       request 2 = <request index="2"/>.

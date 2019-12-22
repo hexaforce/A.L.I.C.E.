@@ -268,7 +268,7 @@ public class Bot {
 	/**
 	 * Write all AIMLIF files from bot brain
 	 */
-	void writeAIMLIFFiles() {
+	public void writeAIMLIFFiles() {
 
 		final File existsPath = new File(aimlif_path);
 		if (!existsPath.exists()) {
@@ -325,7 +325,7 @@ public class Bot {
 	/**
 	 * Write all AIML files. Adds categories for BUILD and DEVELOPMENT ENVIRONMENT
 	 */
-	void writeAIMLFiles() {
+	public void writeAIMLFiles() {
 
 		final File existsPath = new File(aimlif_path);
 		if (!existsPath.exists()) {

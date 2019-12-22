@@ -1,0 +1,7 @@
+0,TEST DENORMALIZE,*,*,<template>#Newline      <think>#Newline      <set var="x1">555 dash 1212</set>#Newline      <set var="x2">drwallace at gmail dot com</set>#Newline      <set var="x3">Lparen 3 star 7 point 3 rparen slash 4</set>#Newline      </think>#Newline      Denormalize <get var="x1"/> = <denormalize><get var="x1"/></denormalize><br/>#Newline      Denormalize <get var="x2"/> = <denormalize><get var="x2"/></denormalize><br/>#Newline      Denormalize <get var="x3"/> = <denormalize><get var="x3"/></denormalize><br/>#Newline    </template>,update.aiml
+0,TEST HTML,*,*,<template>#Newline      <h1>A.L.I.C.E. 2.1</h1> <h2><em>Release</em> 0.9.1</h2>#Newline    </template>,update.aiml
+0,TEST HTML 2,*,*,<template>#Newline      <h2><b>SPACE</b> <em>between</em> <b>Words</b></h2>#Newline      <b>SPACE</b> <em>between</em> <b>Words</b><br/>#Newline      <p>This is a paragraph.  Second sentence.  Third sentence.</p>#Newline      <p>New paragraph. <em>Another sentence.</em>  And another</p>#Newline    </template>,update.aiml
+0,BRAIN VERSION,*,*,<template>#Newline      A.L.I.C.E. 2.1 Release 0.9.2#Newline    </template>,update.aiml
+0,TEST CRASH,*,*,<template>#Newline      <srai>TEST CRASH</srai>#Newline    </template>,update.aiml
+0,PROGRAM VERSION,*,*,Program AB 0.0.6.26 beta -- AI Foundation Reference AIML 2.1 implementation,update.aiml
+0,BRAIN BUILD,*,*,Sun Dec 22 17:16:33 JST 2019,update.aiml

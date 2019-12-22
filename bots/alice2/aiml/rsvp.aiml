@@ -4,7 +4,7 @@
 
 File: rsvp.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      SEND RSVP TO *
-    </pattern>
+    <pattern>SEND RSVP TO *</pattern>
     <template>
       I'm sending an RSVP to <star/>.
       <think>
@@ -34,9 +31,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHO HAS AN RSVP
-    </pattern>
+    <pattern>WHO HAS AN RSVP</pattern>
     <template>
       <think>
       <set var="tuples">
@@ -54,9 +49,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RSVP STATUS
-    </pattern>
+    <pattern>RSVP STATUS</pattern>
     <template>
       <think>
       <set var="tuples">
@@ -74,9 +67,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      <set>name</set> IS ATTENDING
-    </pattern>
+    <pattern><set>name</set> IS ATTENDING</pattern>
     <template>
       Setting <star/>'s RSVP status to "attending".
       <think>
@@ -87,9 +78,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      <set>name</set> IS NOT ATTENDING
-    </pattern>
+    <pattern><set>name</set> IS NOT ATTENDING</pattern>
     <template>
       Setting <star/>'s RSVP status to "not attending".
       <think>

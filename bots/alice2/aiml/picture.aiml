@@ -4,7 +4,7 @@
 
 File: picture.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      SHOW ME *
-    </pattern>
+    <pattern>SHOW ME *</pattern>
     <template>
       <srai>PICTUREBLAB <star/></srai>
       <sraix default="PICFAILED" hint="pic" service="pannous">SHOW ME <star/></sraix>
@@ -31,9 +28,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      PICTUREBLAB *
-    </pattern>
+    <pattern>PICTUREBLAB *</pattern>
     <template>
       <random>
       <li>Here you are.</li>

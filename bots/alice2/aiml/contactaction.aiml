@@ -4,7 +4,7 @@
 
 File: contactaction.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      * S * NUMBER IS *
-    </pattern>
+    <pattern>* S * NUMBER IS *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -37,9 +34,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      <set>name</set> S * NUMBER IS *
-    </pattern>
+    <pattern><set>name</set> S * NUMBER IS *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -54,35 +49,29 @@ For more information see http://www.alicebot.org
 
   <topic name="ASKING TO ADD NEW CONTACTURI">
     <category>
-      <pattern>
-        *
-      </pattern>
+      <pattern>*</pattern>
       <that>WOULD YOU LIKE TO ADD ONE</that>
       <template>
-      <think><set name="topic">unknown</set></think>
-      <srai>CONTACTFINALIZE</srai> <srai><star/></srai>
+        <think><set name="topic">unknown</set></think>
+        <srai>CONTACTFINALIZE</srai> <srai><star/></srai>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING TO ADD NEW CONTACTNAME">
     <category>
-      <pattern>
-        *
-      </pattern>
+      <pattern>*</pattern>
       <that>WOULD YOU LIKE TO ADD * AS A CONTACT</that>
       <template>
-      <think><set name="topic">unknown</set>
-      </think>
-      <srai>CONTACTFINALIZE</srai> <srai><star/></srai>
+        <think><set name="topic">unknown</set>
+        </think>
+        <srai>CONTACTFINALIZE</srai> <srai><star/></srai>
       </template>
     </category>
   </topic>
 
   <category>
-    <pattern>
-      TELL THAT TO *
-    </pattern>
+    <pattern>TELL THAT TO *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set>
@@ -93,9 +82,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      SEND EMAIL
-    </pattern>
+    <pattern>SEND EMAIL</pattern>
     <template>
       <srai>CONTACTDEBUGINFO EMAIL</srai>
       <srai>CONTACTINIT</srai>
@@ -104,9 +91,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ADDINFO CONTACTID
-    </pattern>
+    <pattern>ADDINFO CONTACTID</pattern>
     <template>
       <srai>CONTACTDEBUGINFO ADDINFO CONTACT</srai>
       <think>
@@ -147,9 +132,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ASK TO ADD NEW CONTACTNAME
-    </pattern>
+    <pattern>ASK TO ADD NEW CONTACTNAME</pattern>
     <template>
       <think><set name="topic">ASKING TO ADD NEW CONTACTNAME</set>
       </think>
@@ -158,9 +141,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ASK CONTACTNAME
-    </pattern>
+    <pattern>ASK CONTACTNAME</pattern>
     <template>
       <srai>CONTACTDEBUGINFO ASK CONTACTNAME</srai>
       <think>
@@ -171,9 +152,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ASK MESSAGEBODY
-    </pattern>
+    <pattern>ASK MESSAGEBODY</pattern>
     <template>
       <think>
       <set name="savedtopic"><get name="topic"/></set>
@@ -184,9 +163,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CONTACTDIALOG
-    </pattern>
+    <pattern>CONTACTDIALOG</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CONTACTDIALOG</srai>
       <think>
@@ -202,9 +179,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CONTACTDIALOG *
-    </pattern>
+    <pattern>CONTACTDIALOG *</pattern>
     <template>
       <think><set name="contactname"><star/></set>
       <set name="modecom">CALL</set>
@@ -215,97 +190,87 @@ For more information see http://www.alicebot.org
 
   <topic name="GETTING SELECTEDCONTACT">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>* ONE WOULD YOU LIKE TO *</that>
       <template>
-      <think>
-      <set name="topic"><get name="unknown"/></set>
-      <set name="selectedcontact"><star/></set>
-      <set name="contactname"><get name="selectedcontact"/></set>
-      <set name="contactid"><srai>CONTACTID <get name="selectedcontact"/></srai></set><srai>SET ALL CONTACTINFO</srai>
-      </think>
-      <srai>REMEMBERFAMILIARNAME</srai>
-      <condition name="selectedcontact">
-      <li value="None of the above"><srai>CONTACTFINALIZE</srai> <srai>NORESP</srai></li>
-      <li><condition name="contactid">
-      <li value="unknown"><srai><star/></srai></li>
-      <li><srai>RESUMEACTION <get name="modecom"/></srai></li>
-      </condition>
-      </li>
-      </condition>
+        <think>
+        <set name="topic"><get name="unknown"/></set>
+        <set name="selectedcontact"><star/></set>
+        <set name="contactname"><get name="selectedcontact"/></set>
+        <set name="contactid"><srai>CONTACTID <get name="selectedcontact"/></srai></set><srai>SET ALL CONTACTINFO</srai>
+        </think>
+        <srai>REMEMBERFAMILIARNAME</srai>
+        <condition name="selectedcontact">
+        <li value="None of the above"><srai>CONTACTFINALIZE</srai> <srai>NORESP</srai></li>
+        <li><condition name="contactid">
+        <li value="unknown"><srai><star/></srai></li>
+        <li><srai>RESUMEACTION <get name="modecom"/></srai></li>
+        </condition>
+        </li>
+        </condition>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING MESSAGEBODY">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHAT IS YOUR MESSAGE TO *</that>
       <template>
-      <think>
-      <set name="topic">unknown</set>
-      <set name="messagebody"><star/></set>
-      </think>
-      <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think>
+        <set name="topic">unknown</set>
+        <set name="messagebody"><star/></set>
+        </think>
+        <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING CONTACTURI">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHAT IS THE * FOR *</that>
       <template>
-      <think>
-      <set name="topic">unknown</set>
-      <set name="contacturi"><star/></set>
-      <set name="isaphonenumber"><srai>ISAPHONENUMBER <get name="contacturi"/></srai></set>
-      <set name="isanemailaddress"><srai>ISANEMAILADDRESS <get name="contacturi"/></srai></set>
-      <set name="isacontacturi"><srai>LOGICALOR <get name="isanemailaddress"/> <get name="isaphonenumber"/></srai></set>
-      <condition name="isanemailaddress" value="true"><set name="emailaddress"><get name="contacturi"/></set> <set name="learnpattern">EMAILADDRESS</set></condition>
-      <condition name="isaphonenumber" value="true">
-      <set name="dialnumber"><srai>FORMATPHONENUMBER <get name="contacturi"/></srai></set>
-      <set name="learnpattern">DIALNUMBER</set></condition>
-      </think>
-      <condition name="isacontacturi">
-      <li value="true">
-      <srai>ADDINFO CONTACTID</srai> <srai>RESUMEACTION <get name="modecom"/></srai></li>
-      <li>I did not recognize <get name="contacturi"/> as a phone number or email address. <srai>CONTACTFINALIZE</srai> <srai><star/></srai></li>
-      </condition>
+        <think>
+        <set name="topic">unknown</set>
+        <set name="contacturi"><star/></set>
+        <set name="isaphonenumber"><srai>ISAPHONENUMBER <get name="contacturi"/></srai></set>
+        <set name="isanemailaddress"><srai>ISANEMAILADDRESS <get name="contacturi"/></srai></set>
+        <set name="isacontacturi"><srai>LOGICALOR <get name="isanemailaddress"/> <get name="isaphonenumber"/></srai></set>
+        <condition name="isanemailaddress" value="true"><set name="emailaddress"><get name="contacturi"/></set> <set name="learnpattern">EMAILADDRESS</set></condition>
+        <condition name="isaphonenumber" value="true">
+        <set name="dialnumber"><srai>FORMATPHONENUMBER <get name="contacturi"/></srai></set>
+        <set name="learnpattern">DIALNUMBER</set></condition>
+        </think>
+        <condition name="isacontacturi">
+        <li value="true">
+        <srai>ADDINFO CONTACTID</srai> <srai>RESUMEACTION <get name="modecom"/></srai></li>
+        <li>I did not recognize <get name="contacturi"/> as a phone number or email address. <srai>CONTACTFINALIZE</srai> <srai><star/></srai></li>
+        </condition>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING CONTACTNAME">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHO DO YOU WANT TO *</that>
       <template>
-      <think>
-      <set name="topic">unknown</set>
-      <set name="contactname"><star/></set>
-      <set name="isshortanswer"><srai>ISSHORTANSWER <star/></srai></set>
-      </think>
-      <condition name="isshortanswer">
-      <li value="true"><srai>RESUMEACTION <get name="modecom"/></srai></li>
-      <li><srai>CONTACTFINALIZE</srai> <srai><star/></srai></li>
-      </condition>
+        <think>
+        <set name="topic">unknown</set>
+        <set name="contactname"><star/></set>
+        <set name="isshortanswer"><srai>ISSHORTANSWER <star/></srai></set>
+        </think>
+        <condition name="isshortanswer">
+        <li value="true"><srai>RESUMEACTION <get name="modecom"/></srai></li>
+        <li><srai>CONTACTFINALIZE</srai> <srai><star/></srai></li>
+        </condition>
       </template>
     </category>
   </topic>
 
   <category>
-    <pattern>
-      EMAILACTION
-    </pattern>
+    <pattern>EMAILACTION</pattern>
     <template>
       <srai>CONTACTDEBUGINFO EMAILACTION</srai>
       <think>
@@ -344,18 +309,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      DEBUG CONTACT
-    </pattern>
+    <pattern>DEBUG CONTACT</pattern>
     <template>
       <set name="debugcontact">true</set>
     </template>
   </category>
 
   <category>
-    <pattern>
-      CONTACTFINALIZE
-    </pattern>
+    <pattern>CONTACTFINALIZE</pattern>
     <template>
       <think>
       <set name="topic"><get name="savedtopic"/></set>
@@ -365,9 +326,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      DIALNUMBER UNKNOWN *
-    </pattern>
+    <pattern>DIALNUMBER UNKNOWN *</pattern>
     <template>
       <think>
       <set name="dialnumber"><srai>DIALNUMBER MOBILE <star/></srai></set>
@@ -386,9 +345,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      NEW CONTACT
-    </pattern>
+    <pattern>NEW CONTACT</pattern>
     <template>
       <srai>CONTACTDEBUGINFO ADD CONTACT</srai>
       <srai>CONTACTINIT</srai>
@@ -397,9 +354,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      NEW CONTACT *
-    </pattern>
+    <pattern>NEW CONTACT *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -411,48 +366,42 @@ For more information see http://www.alicebot.org
 
   <topic name="ASKING TO ADD NEW CONTACTURI">
     <category>
-      <pattern>
-        YES
-      </pattern>
+      <pattern>YES</pattern>
       <that>WOULD YOU LIKE TO ADD ONE</that>
       <template>
-      <think>
-      <set name="topic">ASKING CONTACTURI</set>
-      </think>
-      <condition name="modecom">
-      <li value="EMAIL">What is the email address for <get name="contactname"/>?</li>
-      <li value="CALL">What is the phone number for <get name="contactname"/>?</li>
-      <li value="SMS">What is the mobile number for <get name="contactname"/>?</li>
-      <li value="ADD">What is the mobile number for <get name="contactname"/>?</li>
-      <li><srai>CONTACTFINALIZE</srai> <srai>NORESP</srai></li>
-      </condition>
+        <think>
+        <set name="topic">ASKING CONTACTURI</set>
+        </think>
+        <condition name="modecom">
+        <li value="EMAIL">What is the email address for <get name="contactname"/>?</li>
+        <li value="CALL">What is the phone number for <get name="contactname"/>?</li>
+        <li value="SMS">What is the mobile number for <get name="contactname"/>?</li>
+        <li value="ADD">What is the mobile number for <get name="contactname"/>?</li>
+        <li><srai>CONTACTFINALIZE</srai> <srai>NORESP</srai></li>
+        </condition>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING TO ADD NEW CONTACTNAME">
     <category>
-      <pattern>
-        YES
-      </pattern>
+      <pattern>YES</pattern>
       <that>WOULD YOU LIKE TO ADD * AS A CONTACT</that>
       <template>
-      <think><set name="topic">unknown</set>
-      <set name="displayname"><get name="contactname"/></set>
-      </think>
-      <think>
-      <srai>ADDINFO DISPLAYNAME <get name="contactname"/> DIALNUMBER unknown PHONETYPE unknown EMAILADDRESS unknown EMAILTYPE unknown BIRTHDAY unknown</srai>
-      </think>
-      I've saved <get name="contactname"/> to your contacts.
-      <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think><set name="topic">unknown</set>
+        <set name="displayname"><get name="contactname"/></set>
+        </think>
+        <think>
+        <srai>ADDINFO DISPLAYNAME <get name="contactname"/> DIALNUMBER unknown PHONETYPE unknown EMAILADDRESS unknown EMAILTYPE unknown BIRTHDAY unknown</srai>
+        </think>
+        I've saved <get name="contactname"/> to your contacts.
+        <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <category>
-    <pattern>
-      CONTACTINIT
-    </pattern>
+    <pattern>CONTACTINIT</pattern>
     <template>
       <think>
       <set name="savedtopic"><get name="topic"/></set>
@@ -462,9 +411,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CONTACTINIT PREDICATES
-    </pattern>
+    <pattern>CONTACTINIT PREDICATES</pattern>
     <template>
       <think>
       <set name="checkedfamiliarname">false</set>
@@ -501,9 +448,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      NEWCONTACTID
-    </pattern>
+    <pattern>NEWCONTACTID</pattern>
     <template>
       <condition name="contactcount">
       <li value="unknown">CMContactID<set name="contactcount">0</set></li>
@@ -513,9 +458,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RESOLVE NAMEORURI
-    </pattern>
+    <pattern>RESOLVE NAMEORURI</pattern>
     <template>
       <srai>CONTACTDEBUGINFO RESOLVE NAMEORURI</srai>
       <think>
@@ -544,9 +487,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RESOLVE CONTACTNAME
-    </pattern>
+    <pattern>RESOLVE CONTACTNAME</pattern>
     <template>
       <srai>CONTACTDEBUGINFO RESOLVE CONTACTNAME</srai>
       <think>
@@ -577,9 +518,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RESOLVE FAMILIARNAME
-    </pattern>
+    <pattern>RESOLVE FAMILIARNAME</pattern>
     <template>
       <srai>CONTACTDEBUGINFO RESOLVE FAMILIARNAME</srai>
       <think>
@@ -624,9 +563,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RESOLVE HIMHER
-    </pattern>
+    <pattern>RESOLVE HIMHER</pattern>
     <template>
       <srai>CONTACTDEBUGINFO RESOLVE HIMHER</srai>
       <think>
@@ -656,69 +593,59 @@ For more information see http://www.alicebot.org
 
   <topic name="ASKING PRONOUN REFERENCE">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHO DOES HIM REFER TO</that>
       <template>
-      <think><set name="he"><star/></set>
-      <set name="topic">unknown</set>
-      <set name="contactname"><star/></set>
-      </think>
-      Ok.  He is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think><set name="he"><star/></set>
+        <set name="topic">unknown</set>
+        <set name="contactname"><star/></set>
+        </think>
+        Ok.  He is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING PRONOUN REFERENCE">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHO DOES HER REFER TO</that>
       <template>
-      <think><set name="she"><star/></set>
-      <set name="contactname"><star/></set>
-      <set name="topic">unknown</set></think>
-      Ok.  She is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think><set name="she"><star/></set>
+        <set name="contactname"><star/></set>
+        <set name="topic">unknown</set></think>
+        Ok.  She is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING PRONOUN REFERENCE">
     <category>
-      <pattern>
-        $MY *
-      </pattern>
+      <pattern>$MY *</pattern>
       <that>WHO DOES HIM REFER TO</that>
       <template>
-      <think><set name="he"><star/></set>
-      <set name="contactname"><star/></set>
-      <set name="topic">unknown</set></think>
-      Ok.  He is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think><set name="he"><star/></set>
+        <set name="contactname"><star/></set>
+        <set name="topic">unknown</set></think>
+        Ok.  He is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <topic name="ASKING PRONOUN REFERENCE">
     <category>
-      <pattern>
-        $MY *
-      </pattern>
+      <pattern>$MY *</pattern>
       <that>WHO DOES HER REFER TO</that>
       <template>
-      <think><set name="she"><star/></set>
-      <set name="contactname"><star/></set>
-      <set name="topic">unknown</set></think>
-      Ok.  She is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
+        <think><set name="she"><star/></set>
+        <set name="contactname"><star/></set>
+        <set name="topic">unknown</set></think>
+        Ok.  She is <star/>.   <srai>RESUMEACTION <get name="modecom"/></srai>
       </template>
     </category>
   </topic>
 
   <category>
-    <pattern>
-      RESOLVE CONTACTURI
-    </pattern>
+    <pattern>RESOLVE CONTACTURI</pattern>
     <template>
       <srai>CONTACTDEBUGINFO RESOLVE CONTACTURI</srai>
       <think><set name="contactid"><srai>CONTACTID <get name="contactname"/></srai></set></think>
@@ -759,9 +686,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      DIAL
-    </pattern>
+    <pattern>DIAL</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CALL</srai>
       <srai>CONTACTINIT</srai>
@@ -770,9 +695,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ADDACTION
-    </pattern>
+    <pattern>ADDACTION</pattern>
     <template>
       <srai>CONTACTDEBUGINFO ADDACTION</srai>
       <think>
@@ -801,9 +724,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CALLACTION
-    </pattern>
+    <pattern>CALLACTION</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CALLACTION</srai>
       <think>
@@ -839,9 +760,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      EMAILADDRESS UNKNOWN *
-    </pattern>
+    <pattern>EMAILADDRESS UNKNOWN *</pattern>
     <template>
       <think>
       <set name="emailaddress"><srai>EMAILADDRESS HOME <star/></srai></set>
@@ -857,9 +776,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      QUERYINFO EXTERNAL
-    </pattern>
+    <pattern>QUERYINFO EXTERNAL</pattern>
     <template>
       <srai>CONTACTDEBUGINFO QUERTYINFO CONTACTID</srai>
       <condition name="contactquery">
@@ -874,9 +791,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      QUERYINFO CONTACTID
-    </pattern>
+    <pattern>QUERYINFO CONTACTID</pattern>
     <template>
       <srai>CONTACTDEBUGINFO QUERTYINFO CONTACTID</srai>
       <think><set name="displayname"><srai>DISPLAYNAME <get name="contactid"/></srai></set>
@@ -927,9 +842,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $EMAIL *
-    </pattern>
+    <pattern>$EMAIL *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set></think>
@@ -938,9 +851,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $EMAIL * AT *
-    </pattern>
+    <pattern>$EMAIL * AT *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set>
@@ -951,9 +862,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $EMAIL * AT * DOT *
-    </pattern>
+    <pattern>$EMAIL * AT * DOT *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/> at <star index="2"/> dot <star index="3"/></set></think>
@@ -962,9 +871,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $EMAIL * MESSAGEBODY *
-    </pattern>
+    <pattern>$EMAIL * MESSAGEBODY *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set>
@@ -975,9 +882,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $EMAIL MESSAGEBODY *
-    </pattern>
+    <pattern>$EMAIL MESSAGEBODY *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -988,18 +893,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CALL
-    </pattern>
+    <pattern>CALL</pattern>
     <template>
       <srai>DIAL</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      CALL ME AT *
-    </pattern>
+    <pattern>CALL ME AT *</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CALL <star/></srai>
       <srai>CONTACTINIT</srai>
@@ -1011,9 +912,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CALL *
-    </pattern>
+    <pattern>CALL *</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CALL <star/></srai>
       <srai>CONTACTINIT</srai>
@@ -1023,9 +922,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CALL * AT *
-    </pattern>
+    <pattern>CALL * AT *</pattern>
     <template>
       <srai>CONTACTDEBUGINFO CALL <star/></srai>
       <srai>CONTACTINIT</srai>
@@ -1037,18 +934,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ADD CONTACT
-    </pattern>
+    <pattern>ADD CONTACT</pattern>
     <template>
       <srai>NEW CONTACT</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SMSACTION
-    </pattern>
+    <pattern>SMSACTION</pattern>
     <template>
       <srai>CONTACTDEBUGINFO SMSACTION</srai>
       <think>
@@ -1086,9 +979,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CONTACTDEBUGINFO *
-    </pattern>
+    <pattern>CONTACTDEBUGINFO *</pattern>
     <template>
       <condition name="debugcontact" value="true">
       <star/>:
@@ -1125,9 +1016,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      SET ALL CONTACTINFO
-    </pattern>
+    <pattern>SET ALL CONTACTINFO</pattern>
     <template>
       <think>
       <set name="displayname"><srai>DISPLAYNAME <get name="contactid"/></srai></set>
@@ -1139,9 +1028,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHEN IS * S BIRTHDAY
-    </pattern>
+    <pattern>WHEN IS * S BIRTHDAY</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -1153,9 +1040,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHEN IS HIS BIRTHDAY
-    </pattern>
+    <pattern>WHEN IS HIS BIRTHDAY</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -1167,9 +1052,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHEN IS HER BIRTHDAY
-    </pattern>
+    <pattern>WHEN IS HER BIRTHDAY</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -1181,36 +1064,28 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHAT IS MY PHONE NUMBER
-    </pattern>
+    <pattern>WHAT IS MY PHONE NUMBER</pattern>
     <template>
       <srai>WHAT IS ME S UNKNOWN NUMBER</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT IS MY * NUMBER
-    </pattern>
+    <pattern>WHAT IS MY * NUMBER</pattern>
     <template>
       <srai>WHAT IS ME S <star/> NUMBER</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT IS * S PHONE NUMBER
-    </pattern>
+    <pattern>WHAT IS * S PHONE NUMBER</pattern>
     <template>
       <srai>WHAT IS <star/>'s UNKNOWN NUMBER</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT IS * S * NUMBER
-    </pattern>
+    <pattern>WHAT IS * S * NUMBER</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -1223,27 +1098,21 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATENAMES *
-    </pattern>
+    <pattern>COMMASEPARATENAMES *</pattern>
     <template>
       <srai>DISPLAYNAME <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATENAMES * *
-    </pattern>
+    <pattern>COMMASEPARATENAMES * *</pattern>
     <template>
       <srai>DISPLAYNAME <star/></srai>, <srai>COMMASEPARATENAMES <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      MULTIPLENAMES *
-    </pattern>
+    <pattern>MULTIPLENAMES *</pattern>
     <template>
       <think>
       <set name="multipleids"><srai>MULTIPLEIDS <star/></srai></set>
@@ -1256,81 +1125,63 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      CONTACTLIST *
-    </pattern>
+    <pattern>CONTACTLIST *</pattern>
     <template>
       <item><srai>DISPLAYNAME <star/></srai></item>
     </template>
   </category>
 
   <category>
-    <pattern>
-      CONTACTLIST * *
-    </pattern>
+    <pattern>CONTACTLIST * *</pattern>
     <template>
       <srai>CONTACTLIST <star/></srai><srai>CONTACTLIST <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION QUERY
-    </pattern>
+    <pattern>RESUMEACTION QUERY</pattern>
     <template>
       <srai>QUERYACTION</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION CALL
-    </pattern>
+    <pattern>RESUMEACTION CALL</pattern>
     <template>
       <srai>CALLACTION</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION *
-    </pattern>
+    <pattern>RESUMEACTION *</pattern>
     <template>
       Stopped processing.
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION EMAIL
-    </pattern>
+    <pattern>RESUMEACTION EMAIL</pattern>
     <template>
       <srai>EMAILACTION</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION SMS
-    </pattern>
+    <pattern>RESUMEACTION SMS</pattern>
     <template>
       <srai>SMSACTION</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESUMEACTION ADD
-    </pattern>
+    <pattern>RESUMEACTION ADD</pattern>
     <template>
       <srai>ADDACTION</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      QUERYACTION
-    </pattern>
+    <pattern>QUERYACTION</pattern>
     <template>
       <srai>CONTACTDEBUGINFO QUERYACTION</srai>
       <think>
@@ -1363,18 +1214,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      HOW OLD IS *
-    </pattern>
+    <pattern>HOW OLD IS *</pattern>
     <template>
       <srai>WHEN IS <star/> S BIRTHDAY</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      $SMS
-    </pattern>
+    <pattern>$SMS</pattern>
     <template>
       <srai>CONTACTDEBUGINFO SMS</srai>
       <srai>CONTACTINIT</srai>
@@ -1383,9 +1230,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $SMS SMESSAGE *
-    </pattern>
+    <pattern>$SMS SMESSAGE *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think>
@@ -1396,9 +1241,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $SMS *
-    </pattern>
+    <pattern>$SMS *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set></think>
@@ -1407,9 +1250,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      $SMS * SMESSAGE *
-    </pattern>
+    <pattern>$SMS * SMESSAGE *</pattern>
     <template>
       <srai>CONTACTINIT</srai>
       <think><set name="contactname"><star/></set>
@@ -1420,9 +1261,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      TESTCALL *
-    </pattern>
+    <pattern>TESTCALL *</pattern>
     <template>
       Now dialing <star/>.  <oob><dial><star/></dial></oob>
     </template>

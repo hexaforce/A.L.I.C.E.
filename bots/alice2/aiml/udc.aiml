@@ -4,7 +4,7 @@
 
 File: udc.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      *
-    </pattern>
+    <pattern>*</pattern>
     <template>
       <think>
       <set var="formula"><srai>MATHFORMULA <star/></srai></set>
@@ -40,9 +37,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      UDC
-    </pattern>
+    <pattern>UDC</pattern>
     <template>
       <random>
       <li><srai>RANDOM PICKUP LINE</srai></li>
@@ -54,9 +49,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RANDOM PICKUP LINE
-    </pattern>
+    <pattern>RANDOM PICKUP LINE</pattern>
     <template>
       <random>
       <li>If you want me to do something, how you ask is important.</li>

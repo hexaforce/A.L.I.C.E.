@@ -4,7 +4,7 @@
 
 File: lists.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      SIMPLEMEMBER * *
-    </pattern>
+    <pattern>SIMPLEMEMBER * *</pattern>
     <template>
       <think>
       <set var="element"><star/></set>
@@ -43,200 +40,160 @@ For more information see http://www.alicebot.org
 
   <topic name="REMOVE LIST ITEM">
     <category>
-      <pattern>
-        _
-      </pattern>
+      <pattern>_</pattern>
       <that>WHICH ITEM WOULD YOU LIKE TO REMOVE</that>
       <template>
-      <think><set name="selecteditem"><star/></set>
-      <set name="topic">unknown</set>
-      </think>
-      <condition name="selecteditem">
-      <li value="None of the above"><srai><star/></srai></li>
-      <li><srai>REMOVE <star/> FROM LIST <get name="listname"/></srai></li>
-      </condition>
+        <think><set name="selecteditem"><star/></set>
+        <set name="topic">unknown</set>
+        </think>
+        <condition name="selecteditem">
+        <li value="None of the above"><srai><star/></srai></li>
+        <li><srai>REMOVE <star/> FROM LIST <get name="listname"/></srai></li>
+        </condition>
       </template>
     </category>
   </topic>
 
   <category>
-    <pattern>
-      ADD _ TO LIST
-    </pattern>
+    <pattern>ADD _ TO LIST</pattern>
     <template>
       <srai>ADD <star/> TO MY LIST</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ADD _ TO MY LIST
-    </pattern>
+    <pattern>ADD _ TO MY LIST</pattern>
     <template>
       I've added <star/> to your list.
       <learn>
       <category><pattern>MYLIST</pattern>
-      <template><eval><srai>CONS <star/> <srai>MYLIST</srai></srai></eval>
-      </template>
+<template>
+<eval><srai>CONS <star/> <srai>MYLIST</srai></srai></eval>    </template>
       </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ADD _ TO MY * LIST
-    </pattern>
+    <pattern>ADD _ TO MY * LIST</pattern>
     <template>
       I've added <star/> to your <star index="2"/> list.
       <learn>
       <category><pattern>MY <eval><star index="2"/></eval> LIST</pattern>
-      <template><eval><srai>CONS <star/> <srai>MY <star index="2"/> LIST</srai></srai></eval>
-      </template>
+<template>
+<eval><srai>CONS <star/> <srai>MY <star index="2"/> LIST</srai></srai></eval>    </template>
       </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCAR *
-    </pattern>
+    <pattern>LISTCAR *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCAR CONS * CONS *
-    </pattern>
+    <pattern>LISTCAR CONS * CONS *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCAR CONS * NIL
-    </pattern>
+    <pattern>LISTCAR CONS * NIL</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCAR NIL
-    </pattern>
+    <pattern>LISTCAR NIL</pattern>
     <template>
       NIL
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCDR *
-    </pattern>
+    <pattern>LISTCDR *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCDR CONS * CONS *
-    </pattern>
+    <pattern>LISTCDR CONS * CONS *</pattern>
     <template>
       CONS <star index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCDR CONS * NIL
-    </pattern>
+    <pattern>LISTCDR CONS * NIL</pattern>
     <template>
       NIL
     </template>
   </category>
 
   <category>
-    <pattern>
-      LISTCDR NIL
-    </pattern>
+    <pattern>LISTCDR NIL</pattern>
     <template>
       NIL
     </template>
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATE *
-    </pattern>
+    <pattern>COMMASEPARATE *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATE CONS * CONS *
-    </pattern>
+    <pattern>COMMASEPARATE CONS * CONS *</pattern>
     <template>
       <star/>, <srai>COMMASEPARATE CONS <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATE CONS * NIL
-    </pattern>
+    <pattern>COMMASEPARATE CONS * NIL</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      COMMASEPARATE NIL
-    </pattern>
+    <pattern>COMMASEPARATE NIL</pattern>
     <template>
       Your list is empty.
     </template>
   </category>
 
   <category>
-    <pattern>
-      CONS *
-    </pattern>
+    <pattern>CONS *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      CONS * CONS *
-    </pattern>
+    <pattern>CONS * CONS *</pattern>
     <template>
       CONS <star/> CONS <star index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      CONS * NIL
-    </pattern>
+    <pattern>CONS * NIL</pattern>
     <template>
       CONS <star/> NIL
     </template>
   </category>
 
   <category>
-    <pattern>
-      IS _ EQUALTO *
-    </pattern>
+    <pattern>IS _ EQUALTO *</pattern>
     <template>
       <think><set var="star"><star/></set>
       </think>
@@ -248,9 +205,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      LISTMEMBER * OF LIST CONS * CONS *
-    </pattern>
+    <pattern>LISTMEMBER * OF LIST CONS * CONS *</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set></think>
       <condition name="isequalto">
@@ -261,9 +216,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      LISTMEMBER * OF LIST CONS * NIL
-    </pattern>
+    <pattern>LISTMEMBER * OF LIST CONS * NIL</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set></think>
       <condition name="isequalto">
@@ -274,64 +227,54 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      LISTMEMBER * OF LIST NIL
-    </pattern>
+    <pattern>LISTMEMBER * OF LIST NIL</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      MAKE A * LIST
-    </pattern>
+    <pattern>MAKE A * LIST</pattern>
     <template>
       Initializing your <star/> list.
       <learn>
       <category><pattern>MY <eval><star/></eval> LIST</pattern>
-      <template>NIL</template>
-      </category>
+<template>
+NIL
+</template>      </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      MAKE A LIST
-    </pattern>
+    <pattern>MAKE A LIST</pattern>
     <template>
       Initializing your list.
       <learn>
       <category><pattern>MYLIST</pattern>
-      <template>NIL</template>
-      </category>
+<template>
+NIL
+</template>      </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      READ MY * LIST
-    </pattern>
+    <pattern>READ MY * LIST</pattern>
     <template>
       Here is your <star/> list: <srai>COMMASEPARATE <srai>MY <star/> LIST</srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      READ MY LIST
-    </pattern>
+    <pattern>READ MY LIST</pattern>
     <template>
       Here is your list: <srai>COMMASEPARATE <srai>MYLIST</srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVE * FROM LIST *
-    </pattern>
+    <pattern>REMOVE * FROM LIST *</pattern>
     <template>
       <think>
       <set name="listname"><star index="2"/></set>
@@ -345,8 +288,9 @@ For more information see http://www.alicebot.org
       <li value="true">Taking <star/> off your list.
       <learn>
       <category><pattern><eval><get name="listname"/></eval></pattern>
-      <template><eval><srai>REMOVEITEM <star/> FROM LIST <srai><get name="listname"/></srai></srai></eval></template>
-      </category>
+<template>
+<eval><srai>REMOVEITEM <star/> FROM LIST <srai><get name="listname"/></srai></srai></eval>
+</template>      </category>
       </learn>
       </li>
       <li>
@@ -364,27 +308,21 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      REMOVE * FROM MY * LIST
-    </pattern>
+    <pattern>REMOVE * FROM MY * LIST</pattern>
     <template>
       <srai>REMOVE <star/> FROM LIST MY <star index="2"/> LIST</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVE * FROM MY LIST
-    </pattern>
+    <pattern>REMOVE * FROM MY LIST</pattern>
     <template>
       <srai>REMOVE <star/> FROM LIST MYLIST</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVEITEM * FROM LIST CONS * CONS *
-    </pattern>
+    <pattern>REMOVEITEM * FROM LIST CONS * CONS *</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set></think>
       <condition name="isequalto">
@@ -395,9 +333,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      REMOVEITEM * FROM LIST CONS * NIL
-    </pattern>
+    <pattern>REMOVEITEM * FROM LIST CONS * NIL</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set></think>
       <condition name="isequalto">
@@ -408,28 +344,22 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      REMOVEITEM * FROM LIST NIL
-    </pattern>
+    <pattern>REMOVEITEM * FROM LIST NIL</pattern>
     <template>
       NIL
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT IS MY LIST CALLED
-    </pattern>
+    <pattern>WHAT IS MY LIST CALLED</pattern>
     <template>
       Your list is called MYLIST.
     </template>
   </category>
 
   <category>
-    <pattern>
-      YES
-    </pattern>
-      <that>WOULD YOU LIKE TO MAKE A * LIST</that>
+    <pattern>YES</pattern>
+    <that>WOULD YOU LIKE TO MAKE A * LIST</that>
     <template>
       <srai>MAKE A <thatstar/> LIST</srai>
     </template>

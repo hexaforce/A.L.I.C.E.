@@ -4,7 +4,7 @@
 
 File: animal.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,130 +17,101 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      SINGULAR <set>animals</set>
-    </pattern>
+    <pattern>SINGULAR <set>animals</set></pattern>
     <template>
       <uniq><subj>?singular</subj><pred>hasPlural</pred><obj><star/></obj></uniq>
     </template>
   </category>
 
   <category>
-    <pattern>
-      PLURAL <set>animal</set>
-    </pattern>
+    <pattern>PLURAL <set>animal</set></pattern>
     <template>
       <uniq><subj><star/></subj><pred>hasPlural</pred><obj>?plural</obj></uniq>
     </template>
   </category>
 
   <category>
-    <pattern>
-      <set>animals</set>
-    </pattern>
+    <pattern><set>animals</set></pattern>
     <template>
       <star/> is the plural of <uniq><subj>?subj</subj><pred>hasPlural</pred><obj><star/></obj></uniq>.
     </template>
   </category>
 
   <category>
-    <pattern>
-      SOUND <set>animal</set>
-    </pattern>
+    <pattern>SOUND <set>animal</set></pattern>
     <template>
       <star/> says <uniq><subj><star/></subj><pred>sound</pred><obj>?sound</obj></uniq>.
     </template>
   </category>
 
   <category>
-    <pattern>
-      COLLECTIVE <set>animal</set>
-    </pattern>
+    <pattern>COLLECTIVE <set>animal</set></pattern>
     <template>
       A group of <star/> is called <uniq><subj><star/></subj><pred>collective</pred><obj>?collective</obj></uniq>.
     </template>
   </category>
 
   <category>
-    <pattern>
-      LEGS <set>animal</set>
-    </pattern>
+    <pattern>LEGS <set>animal</set></pattern>
     <template>
       A <star/> has <uniq><subj><star/></subj><pred>legs</pred><obj>?sound</obj></uniq> legs.
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT DOES A <set>animal</set> SAY ^
-    </pattern>
+    <pattern>WHAT DOES A <set>animal</set> SAY ^</pattern>
     <template>
       <srai>SOUND <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT DO <set>animals</set> SAY ^
-    </pattern>
+    <pattern>WHAT DO <set>animals</set> SAY ^</pattern>
     <template>
       <srai>SOUND <srai>SINGULAR <star/></srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT SOUND DOES # <set>animal</set> ^
-    </pattern>
+    <pattern>WHAT SOUND DOES # <set>animal</set> ^</pattern>
     <template>
       <srai>SOUND <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT SOUND DO # <set>animal</set> ^
-    </pattern>
+    <pattern>WHAT SOUND DO # <set>animal</set> ^</pattern>
     <template>
       <srai>SOUND <srai>SINGULAR <star index="2"/></srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      HOW DOES # <set>animal</set> ^
-    </pattern>
+    <pattern>HOW DOES # <set>animal</set> ^</pattern>
     <template>
       <srai>SOUND <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      HOW MANY LEGS ^ <set>animal</set> #
-    </pattern>
+    <pattern>HOW MANY LEGS ^ <set>animal</set> #</pattern>
     <template>
       <srai>LEGS <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      HOW MANY LEGS ^ <set>animals</set> #
-    </pattern>
+    <pattern>HOW MANY LEGS ^ <set>animals</set> #</pattern>
     <template>
       <srai>LEGS <srai>SINGULAR <star index="2"/></srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      HOW MANY LEGS # <set>number</set> <set>animals</set> # <set>number</set> <set>animals</set> ^
-    </pattern>
+    <pattern>HOW MANY LEGS # <set>number</set> <set>animals</set> # <set>number</set> <set>animals</set> ^</pattern>
     <template>
       <think>
       <set var="number1"><star index="2"/></set>
@@ -156,9 +127,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      HOW MANY LEGS # <set>number</set> <set>animals</set> ^
-    </pattern>
+    <pattern>HOW MANY LEGS # <set>number</set> <set>animals</set> ^</pattern>
     <template>
       <think>
       <set var="number1"><star index="2"/></set>
@@ -171,18 +140,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      _ 1 <set>animal</set> *
-    </pattern>
+    <pattern>_ 1 <set>animal</set> *</pattern>
     <template>
       <srai><star/> 1 <srai>PLURAL <star index="2"/></srai> <star index="3"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      _ 1 <set>animal</set>
-    </pattern>
+    <pattern>_ 1 <set>animal</set></pattern>
     <template>
       <srai><star/> 1 <srai>PLURAL <star index="2"/></srai></srai>
     </template>

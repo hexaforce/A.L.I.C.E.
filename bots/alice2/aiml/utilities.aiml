@@ -4,7 +4,7 @@
 
 File: utilities.aiml
 Author: Dr. Richard S. Wallace
-Last modified: 12月 07, 2019
+Last modified: 12月 22, 2019
 
 This AIML file is part of the ALICE2 0.0.5 chat bot knowledge base.
 
@@ -17,13 +17,10 @@ This file is distributed WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 For more information see http://www.alicebot.org
-
 -->
 
   <category>
-    <pattern>
-      ACRONYM *
-    </pattern>
+    <pattern>ACRONYM *</pattern>
     <template>
       <think><set var="list"><star/></set>
       <set var="acronym"/>
@@ -41,9 +38,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ANAGRAMWORDS *
-    </pattern>
+    <pattern>ANAGRAMWORDS *</pattern>
     <template>
       <think><set var="list"><srai>ANAGRAM <star/></srai></set></think>
       <condition var="list">
@@ -61,9 +56,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      JSTEST *
-    </pattern>
+    <pattern>JSTEST *</pattern>
     <template>
       <javascript>
       function foo() {
@@ -75,9 +68,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ANAGRAM *
-    </pattern>
+    <pattern>ANAGRAM *</pattern>
     <template>
       <javascript>
       function permutator (input) {
@@ -112,27 +103,21 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      SUBSTRING * * *
-    </pattern>
+    <pattern>SUBSTRING * * *</pattern>
     <template>
       SUBSTRING <star/> <star index="2"/> <star index="3"/>?
     </template>
   </category>
 
   <category>
-    <pattern>
-      SUBSTRING <set>number</set> <set>number</set> *
-    </pattern>
+    <pattern>SUBSTRING <set>number</set> <set>number</set> *</pattern>
     <template>
       <srai>IMPLODE <srai>SUBSTRINGEXPLODE <star/> <star index="2"/> <explode><star index="3"/></explode></srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SUBSTRINGEXPLODE <set>number</set> <set>number</set> *
-    </pattern>
+    <pattern>SUBSTRINGEXPLODE <set>number</set> <set>number</set> *</pattern>
     <template>
       <think>
       <set var="count">0</set>
@@ -151,144 +136,112 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      REVERSE *
-    </pattern>
+    <pattern>REVERSE *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REVERSE * *
-    </pattern>
+    <pattern>REVERSE * *</pattern>
     <template>
       <srai>REVERSE <star index="2"/></srai> <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVENILS * *
-    </pattern>
+    <pattern>REMOVENILS * *</pattern>
     <template>
       <star/> <srai>REMOVENILS <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVENILS *
-    </pattern>
+    <pattern>REMOVENILS *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVENILS NIL *
-    </pattern>
+    <pattern>REMOVENILS NIL *</pattern>
     <template>
       <srai>REMOVENILS <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMOVENILS NIL
-    </pattern>
+    <pattern>REMOVENILS NIL</pattern>
     <template>
       <template/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LASTLETTER *
-    </pattern>
+    <pattern>LASTLETTER *</pattern>
     <template>
       The last letter of <star/> is: <srai>LASTITEM <explode><star/></explode></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LASTITEM * *
-    </pattern>
+    <pattern>LASTITEM * *</pattern>
     <template>
       <srai>LASTITEM <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LASTITEM *
-    </pattern>
+    <pattern>LASTITEM *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      COUNTWORDS *
-    </pattern>
+    <pattern>COUNTWORDS *</pattern>
     <template>
       1
     </template>
   </category>
 
   <category>
-    <pattern>
-      COUNTWORDS * *
-    </pattern>
+    <pattern>COUNTWORDS * *</pattern>
     <template>
       <map name="successor"><srai>COUNTWORDS <star index="2"/></srai></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      NORMALIZE *
-    </pattern>
+    <pattern>NORMALIZE *</pattern>
     <template>
       <normalize><star/></normalize>
     </template>
   </category>
 
   <category>
-    <pattern>
-      PLUSIFY *
-    </pattern>
+    <pattern>PLUSIFY *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      PLUSIFY * *
-    </pattern>
+    <pattern>PLUSIFY * *</pattern>
     <template>
       <star/>+<srai>PLUSIFY <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      GOOGLEURL *
-    </pattern>
+    <pattern>GOOGLEURL *</pattern>
     <template>
       <![CDATA[<a href="https://www.google.com/search?q=]]><srai>PLUSIFY <star/></srai><![CDATA[">]]><star/>?<![CDATA[</a>]]>
     </template>
   </category>
 
   <category>
-    <pattern>
-      JSTEST
-    </pattern>
+    <pattern>JSTEST</pattern>
     <template>
       <script type="text/javascript">
       
@@ -304,36 +257,28 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      FIRSTTWOWORDS * * *
-    </pattern>
+    <pattern>FIRSTTWOWORDS * * *</pattern>
     <template>
       <star/> <star index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTTWOWORDS * *
-    </pattern>
+    <pattern>FIRSTTWOWORDS * *</pattern>
     <template>
       <star/> <star index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTTWOWORDS *
-    </pattern>
+    <pattern>FIRSTTWOWORDS *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ODDEVEN <set>number</set>
-    </pattern>
+    <pattern>ODDEVEN <set>number</set></pattern>
     <template>
       <think><set var="number"><star/></set></think>
       <condition var="number">
@@ -345,9 +290,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      PICK A NUMBER # <set>number</set> # <set>number</set>
-    </pattern>
+    <pattern>PICK A NUMBER # <set>number</set> # <set>number</set></pattern>
     <template>
       <think>
       lower = <set var="lower"><srai>SMALLEROF <star index="2"/> <star index="4"/></srai></set>
@@ -363,8 +306,8 @@ For more information see http://www.alicebot.org
       <learn>
       <category>
       <pattern>PICKNUMBER</pattern>
-      <template><random><eval><get var="lilist"/></eval></random>
-      </template>
+<template>
+<random><eval><get var="lilist"/></eval></random>    </template>
       </category>
       </learn>
       
@@ -373,9 +316,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      WHAT NUMBER DID YOU *
-    </pattern>
+    <pattern>WHAT NUMBER DID YOU *</pattern>
     <template>
       <condition name="pick">
       <li value="unknown">I haven't picked on yet.</li>
@@ -385,9 +326,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      SETHESHE *
-    </pattern>
+    <pattern>SETHESHE *</pattern>
     <template>
       <think>
       <set var="gender"><srai>GENDERNAME <star/></srai></set>
@@ -402,9 +341,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      AGE FROM <set>month</set> <set>number</set> <set>number</set>
-    </pattern>
+    <pattern>AGE FROM <set>month</set> <set>number</set> <set>number</set></pattern>
     <template>
       <think>
       <set var="from"><set var="m"><star/></set> <set var="d"><star index="2"/></set>, <set var="y"><star index="3"/></set></set>
@@ -431,81 +368,63 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      LARGEROF 0 <set>number</set>
-    </pattern>
+    <pattern>LARGEROF 0 <set>number</set></pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LARGEROF <set>number</set> 0
-    </pattern>
+    <pattern>LARGEROF <set>number</set> 0</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SMALLEROF 0 <set>number</set>
-    </pattern>
+    <pattern>SMALLEROF 0 <set>number</set></pattern>
     <template>
       0
     </template>
   </category>
 
   <category>
-    <pattern>
-      SMALLEROF <set>number</set> 0
-    </pattern>
+    <pattern>SMALLEROF <set>number</set> 0</pattern>
     <template>
       0
     </template>
   </category>
 
   <category>
-    <pattern>
-      LARGEROF <set>number</set> <set>number</set>
-    </pattern>
+    <pattern>LARGEROF <set>number</set> <set>number</set></pattern>
     <template>
       <map><name>successor</name><srai>LARGEROF <map><name>predecessor</name><star/></map> <map><name>predecessor</name><star index="2"/></map></srai></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SMALLEROF <set>number</set> <set>number</set>
-    </pattern>
+    <pattern>SMALLEROF <set>number</set> <set>number</set></pattern>
     <template>
       <map><name>successor</name><srai>SMALLEROF <map><name>predecessor</name><star/></map> <map><name>predecessor</name><star index="2"/></map></srai></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ADD * PLUS *
-    </pattern>
+    <pattern>ADD * PLUS *</pattern>
     <template>
       <srai>WHAT IS <star/> PLUS <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ATOMICLISTMEMBER *
-    </pattern>
+    <pattern>ATOMICLISTMEMBER *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ATOMICLISTMEMBER * *
-    </pattern>
+    <pattern>ATOMICLISTMEMBER * *</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set>
       </think>
@@ -517,9 +436,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ATOMICLISTMEMBER * * *
-    </pattern>
+    <pattern>ATOMICLISTMEMBER * * *</pattern>
     <template>
       <think><set name="isequalto"><srai>IS <star/> EQUALTO <star index="2"/></srai></set>
       </think>
@@ -531,9 +448,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      COUNT TO <set>number</set>
-    </pattern>
+    <pattern>COUNT TO <set>number</set></pattern>
     <template>
       <think><set name="count">0</set>
       </think>
@@ -545,18 +460,14 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      COUNTLETTERS
-    </pattern>
+    <pattern>COUNTLETTERS</pattern>
     <template>
       0
     </template>
   </category>
 
   <category>
-    <pattern>
-      COUNTLETTERS *
-    </pattern>
+    <pattern>COUNTLETTERS *</pattern>
     <template>
       <think>
       <set var="letters"><explode><star/></explode> end</set>
@@ -572,64 +483,54 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      DELETE MY * LIST
-    </pattern>
+    <pattern>DELETE MY * LIST</pattern>
     <template>
       Deleting your list.
       <learn>
       <category><pattern>MY <eval><star/></eval> LIST</pattern>
-      <template>NIL</template>
-      </category>
+<template>
+NIL
+</template>      </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      DELETE MY LIST
-    </pattern>
+    <pattern>DELETE MY LIST</pattern>
     <template>
       Deleting your list.
       <learn>
       <category><pattern>MYLIST</pattern>
-      <template>NIL</template>
-      </category>
+<template>
+NIL
+</template>      </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTLETTER *
-    </pattern>
+    <pattern>FIRSTLETTER *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTLETTER * *
-    </pattern>
+    <pattern>FIRSTLETTER * *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FORMATPHONENUMBER *
-    </pattern>
+    <pattern>FORMATPHONENUMBER *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FORMATPHONENUMBER * *
-    </pattern>
+    <pattern>FORMATPHONENUMBER * *</pattern>
     <template>
       <think>
       <set name="firstword"><lowercase><star/></lowercase></set>
@@ -645,436 +546,345 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      GENERATE PASSWORD
-    </pattern>
+    <pattern>GENERATE PASSWORD</pattern>
     <template>
       <srai>IMPLODE <srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai><srai>RANDOMCHAR</srai></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      IMPLODE
-    </pattern>
+    <pattern>IMPLODE</pattern>
     <template>
       <template/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      IMPLODE *
-    </pattern>
+    <pattern>IMPLODE *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      IMPLODE * *
-    </pattern>
+    <pattern>IMPLODE * *</pattern>
     <template>
       <srai> IMPLODE <star/></srai><srai>IMPLODE <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      INPUT
-    </pattern>
+    <pattern>INPUT</pattern>
     <template>
       <input index="1"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      INPUT 2
-    </pattern>
+    <pattern>INPUT 2</pattern>
     <template>
       <input index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      INPUT 3
-    </pattern>
+    <pattern>INPUT 3</pattern>
     <template>
       <input index="3"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      INPUT 4
-    </pattern>
+    <pattern>INPUT 4</pattern>
     <template>
       <input index="4"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT *
-    </pattern>
+    <pattern>ISADIGIT *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 0
-    </pattern>
+    <pattern>ISADIGIT 0</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 1
-    </pattern>
+    <pattern>ISADIGIT 1</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 2
-    </pattern>
+    <pattern>ISADIGIT 2</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 3
-    </pattern>
+    <pattern>ISADIGIT 3</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 4
-    </pattern>
+    <pattern>ISADIGIT 4</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 5
-    </pattern>
+    <pattern>ISADIGIT 5</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 6
-    </pattern>
+    <pattern>ISADIGIT 6</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 7
-    </pattern>
+    <pattern>ISADIGIT 7</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 8
-    </pattern>
+    <pattern>ISADIGIT 8</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISADIGIT 9
-    </pattern>
+    <pattern>ISADIGIT 9</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANAME * *
-    </pattern>
+    <pattern>ISANAME * *</pattern>
     <template>
       <srai>ISANAME <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANEMAILADDRESS *
-    </pattern>
+    <pattern>ISANEMAILADDRESS *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANEMAILADDRESS * AT * DOT *
-    </pattern>
+    <pattern>ISANEMAILADDRESS * AT * DOT *</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANEMAILADDRESS UNKNOWN
-    </pattern>
+    <pattern>ISANEMAILADDRESS UNKNOWN</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANUMBER *
-    </pattern>
+    <pattern>ISANUMBER *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISANUMBER <set>number</set>
-    </pattern>
+    <pattern>ISANUMBER <set>number</set></pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER *
-    </pattern>
+    <pattern>ISAPHONENUMBER *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER <set>number</set>
-    </pattern>
+    <pattern>ISAPHONENUMBER <set>number</set></pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER <set>number</set> *
-    </pattern>
+    <pattern>ISAPHONENUMBER <set>number</set> *</pattern>
     <template>
       <srai>ISAPHONENUMBER <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER DASH *
-    </pattern>
+    <pattern>ISAPHONENUMBER DASH *</pattern>
     <template>
       <srai>ISAPHONENUMBER <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER LPAREN *
-    </pattern>
+    <pattern>ISAPHONENUMBER LPAREN *</pattern>
     <template>
       <srai>ISAPHONENUMBER <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER PLUS *
-    </pattern>
+    <pattern>ISAPHONENUMBER PLUS *</pattern>
     <template>
       <srai>ISAPHONENUMBER <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISAPHONENUMBER RPAREN *
-    </pattern>
+    <pattern>ISAPHONENUMBER RPAREN *</pattern>
     <template>
       <srai>ISAPHONENUMBER <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISSHORTANSWER *
-    </pattern>
+    <pattern>ISSHORTANSWER *</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISSHORTANSWER * *
-    </pattern>
+    <pattern>ISSHORTANSWER * *</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISSHORTANSWER * * *
-    </pattern>
+    <pattern>ISSHORTANSWER * * *</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      ISSHORTANSWER * * * *
-    </pattern>
+    <pattern>ISSHORTANSWER * * * *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LEARNEQUAL * EQUALTO *
-    </pattern>
+    <pattern>LEARNEQUAL * EQUALTO *</pattern>
     <template>
       <learn>
       <category>
       <pattern>TESTEQUAL <eval><star/></eval> EQUALTO <eval><star/></eval></pattern>
-      <template>true</template>
-      </category>
+<template>
+true
+</template>      </category>
       <category>
       <pattern>TESTEQUAL <eval><star/></eval> EQUALTO *</pattern>
-      <template>false</template>
-      </category>
+<template>
+false
+</template>      </category>
       <category>
       <pattern>TESTEQUAL * EQUALTO <eval><star/></eval></pattern>
-      <template>false</template>
-      </category>
+<template>
+false
+</template>      </category>
       </learn>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALAND FALSE
-    </pattern>
+    <pattern>LOGICALAND FALSE</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALAND FALSE *
-    </pattern>
+    <pattern>LOGICALAND FALSE *</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALAND TRUE
-    </pattern>
+    <pattern>LOGICALAND TRUE</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALAND TRUE *
-    </pattern>
+    <pattern>LOGICALAND TRUE *</pattern>
     <template>
       <srai>LOGICALAND <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALOR FALSE
-    </pattern>
+    <pattern>LOGICALOR FALSE</pattern>
     <template>
       FALSE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALOR FALSE *
-    </pattern>
+    <pattern>LOGICALOR FALSE *</pattern>
     <template>
       <srai>LOGICALOR <star/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALOR TRUE
-    </pattern>
+    <pattern>LOGICALOR TRUE</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      LOGICALOR TRUE *
-    </pattern>
+    <pattern>LOGICALOR TRUE *</pattern>
     <template>
       TRUE
     </template>
   </category>
 
   <category>
-    <pattern>
-      MY * LIST
-    </pattern>
+    <pattern>MY * LIST</pattern>
     <template>
       Would you like to make a <star/> list?
     </template>
   </category>
 
   <category>
-    <pattern>
-      NTH <set>number</set> *
-    </pattern>
+    <pattern>NTH <set>number</set> *</pattern>
     <template>
       <think>
       <set var="nth"><star/></set>
@@ -1094,36 +904,28 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      NTH 0 *
-    </pattern>
+    <pattern>NTH 0 *</pattern>
     <template>
       <star/> has no zeroth letter.
     </template>
   </category>
 
   <category>
-    <pattern>
-      PERSON *
-    </pattern>
+    <pattern>PERSON *</pattern>
     <template>
       <person><star/></person>
     </template>
   </category>
 
   <category>
-    <pattern>
-      PREDECESSOR <set>number</set>
-    </pattern>
+    <pattern>PREDECESSOR <set>number</set></pattern>
     <template>
       <map><name>predecessor</name><star/></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RANDOMCHAR
-    </pattern>
+    <pattern>RANDOMCHAR</pattern>
     <template>
       <think><set name="randomchar">
       <random>
@@ -1173,9 +975,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      RANDOMLETTER
-    </pattern>
+    <pattern>RANDOMLETTER</pattern>
     <template>
       <random>
       <li>A</li>
@@ -1209,306 +1009,238 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      REMAININGWORDS
-    </pattern>
+    <pattern>REMAININGWORDS</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMAININGWORDS *
-    </pattern>
+    <pattern>REMAININGWORDS *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      REMAININGWORDS * *
-    </pattern>
+    <pattern>REMAININGWORDS * *</pattern>
     <template>
       <star index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTWORD
-    </pattern>
+    <pattern>FIRSTWORD</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTWORD *
-    </pattern>
+    <pattern>FIRSTWORD *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      FIRSTWORD * *
-    </pattern>
+    <pattern>FIRSTWORD * *</pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REQUEST
-    </pattern>
+    <pattern>REQUEST</pattern>
     <template>
       <request index="1"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REQUEST 2
-    </pattern>
+    <pattern>REQUEST 2</pattern>
     <template>
       <request index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REQUEST 3
-    </pattern>
+    <pattern>REQUEST 3</pattern>
     <template>
       <request index="3"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      REQUEST 4
-    </pattern>
+    <pattern>REQUEST 4</pattern>
     <template>
       <request index="4"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESPONSE
-    </pattern>
+    <pattern>RESPONSE</pattern>
     <template>
       <response index="1"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESPONSE 2
-    </pattern>
+    <pattern>RESPONSE 2</pattern>
     <template>
       <response index="2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESPONSE 3
-    </pattern>
+    <pattern>RESPONSE 3</pattern>
     <template>
       <response index="3"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      RESPONSE 4
-    </pattern>
+    <pattern>RESPONSE 4</pattern>
     <template>
       <response index="4"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SENTENCELENGTH
-    </pattern>
+    <pattern>SENTENCELENGTH</pattern>
     <template>
       0
     </template>
   </category>
 
   <category>
-    <pattern>
-      SENTENCELENGTH ALICE
-    </pattern>
+    <pattern>SENTENCELENGTH ALICE</pattern>
     <template>
       5
     </template>
   </category>
 
   <category>
-    <pattern>
-      SENTENCELENGTH *
-    </pattern>
+    <pattern>SENTENCELENGTH *</pattern>
     <template>
       1
     </template>
   </category>
 
   <category>
-    <pattern>
-      SENTENCELENGTH * *
-    </pattern>
+    <pattern>SENTENCELENGTH * *</pattern>
     <template>
       <map><name>successor</name><srai>SENTENCELENGTH <star index="2"/></srai></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      SUCCESSOR
-    </pattern>
+    <pattern>SUCCESSOR</pattern>
     <template>
       0
     </template>
   </category>
 
   <category>
-    <pattern>
-      SUCCESSOR <set>number</set>
-    </pattern>
+    <pattern>SUCCESSOR <set>number</set></pattern>
     <template>
       <map><name>successor</name><star/></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT
-    </pattern>
+    <pattern>THAT</pattern>
     <template>
       <that/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 1 1
-    </pattern>
+    <pattern>THAT 1 1</pattern>
     <template>
       <that index="1,1"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 1 2
-    </pattern>
+    <pattern>THAT 1 2</pattern>
     <template>
       <that index="1,2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 1 3
-    </pattern>
+    <pattern>THAT 1 3</pattern>
     <template>
       <that index="1,3"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 1 4
-    </pattern>
+    <pattern>THAT 1 4</pattern>
     <template>
       <that index="1,4"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 2 1
-    </pattern>
+    <pattern>THAT 2 1</pattern>
     <template>
       <that index="2,1"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 2 2
-    </pattern>
+    <pattern>THAT 2 2</pattern>
     <template>
       <that index="2,2"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 2 3
-    </pattern>
+    <pattern>THAT 2 3</pattern>
     <template>
       <that index="2,3"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      THAT 2 4
-    </pattern>
+    <pattern>THAT 2 4</pattern>
     <template>
       <that index="2,4"/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      XMLITEMIZE *
-    </pattern>
+    <pattern>XMLITEMIZE *</pattern>
     <template>
       undefined
     </template>
   </category>
 
   <category>
-    <pattern>
-      XMLITEMIZE CONS * CONS *
-    </pattern>
+    <pattern>XMLITEMIZE CONS * CONS *</pattern>
     <template>
       <item><star/></item><srai>XMLITEMIZE CONS <star index="2"/></srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      XMLITEMIZE CONS * NIL
-    </pattern>
+    <pattern>XMLITEMIZE CONS * NIL</pattern>
     <template>
       <item><star/></item>
     </template>
   </category>
 
   <category>
-    <pattern>
-      XMLITEMIZE NIL
-    </pattern>
+    <pattern>XMLITEMIZE NIL</pattern>
     <template>
       Your list is empty.
     </template>
   </category>
 
   <category>
-    <pattern>
-      WHAT IS THE SQUARE ROOT OF *
-    </pattern>
+    <pattern>WHAT IS THE SQUARE ROOT OF *</pattern>
     <template>
       <think>
       <set var="formula"><srai>MATHFORMULA <star/></srai></set>
@@ -1526,135 +1258,105 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      MATHTERM <set>number</set>
-    </pattern>
+    <pattern>MATHTERM <set>number</set></pattern>
     <template>
       <star/>
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM <set>numbername</set>
-    </pattern>
+    <pattern>MATHTERM <set>numbername</set></pattern>
     <template>
       <map><name>name2number</name><star/></map>
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM PI
-    </pattern>
+    <pattern>MATHTERM PI</pattern>
     <template>
       3.14159265359
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM PLUS
-    </pattern>
+    <pattern>MATHTERM PLUS</pattern>
     <template>
       +
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM STAR
-    </pattern>
+    <pattern>MATHTERM STAR</pattern>
     <template>
       *
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM TIMES
-    </pattern>
+    <pattern>MATHTERM TIMES</pattern>
     <template>
       *
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM SLASH
-    </pattern>
+    <pattern>MATHTERM SLASH</pattern>
     <template>
       /
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM POINT
-    </pattern>
+    <pattern>MATHTERM POINT</pattern>
     <template>
       .
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM MINUS
-    </pattern>
+    <pattern>MATHTERM MINUS</pattern>
     <template>
       -
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM DASH
-    </pattern>
+    <pattern>MATHTERM DASH</pattern>
     <template>
       -
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM LPAREN
-    </pattern>
+    <pattern>MATHTERM LPAREN</pattern>
     <template>
       (
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM RPAREN
-    </pattern>
+    <pattern>MATHTERM RPAREN</pattern>
     <template>
       )
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHTERM *
-    </pattern>
+    <pattern>MATHTERM *</pattern>
     <template>
       NOT A MATH TERM
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHFORMULA _ SQUARED
-    </pattern>
+    <pattern>MATHFORMULA _ SQUARED</pattern>
     <template>
       <srai>MATHFORMULA <star/> UPARROW 2</srai>
     </template>
   </category>
 
   <category>
-    <pattern>
-      MATHFORMULA _ UPARROW *
-    </pattern>
+    <pattern>MATHFORMULA _ UPARROW *</pattern>
     <template>
       <think>
       <set var="f1"><srai>MATHFORMULA <star/></srai></set>
@@ -1673,9 +1375,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      MATHFORMULA *
-    </pattern>
+    <pattern>MATHFORMULA *</pattern>
     <template>
       <think>
       <set var="list"><star/> END</set>
@@ -1698,9 +1398,7 @@ For more information see http://www.alicebot.org
   </category>
 
   <category>
-    <pattern>
-      ROUND *
-    </pattern>
+    <pattern>ROUND *</pattern>
     <template>
       <first><normalize><star/></normalize></first>
     </template>
