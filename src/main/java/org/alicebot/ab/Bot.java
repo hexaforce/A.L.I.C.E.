@@ -56,7 +56,7 @@ public class Bot {
 
 	final Properties properties = new Properties();
 	final PreProcessor preProcessor;
-	
+
 	public final Graphmaster brain;
 	Graphmaster learnfGraph;
 	Graphmaster learnGraph;
@@ -82,7 +82,7 @@ public class Bot {
 	 * @param action Program AB action
 	 * @throws IOException
 	 */
-	public Bot(String workingDirectory, String botName){
+	public Bot(String workingDirectory, String botName) {
 		int cnt = 0;
 		this.botName = botName;
 		String currentDirectory = workingDirectory + "/bots/" + botName;
@@ -93,15 +93,12 @@ public class Bot {
 		this.sets_path = new File(currentDirectory + "/sets");
 		this.maps_path = new File(currentDirectory + "/maps");
 
-//		setAllPaths(path, name);
 		this.brain = new Graphmaster(this);
 		this.learnfGraph = new Graphmaster(this);
 		this.learnGraph = new Graphmaster(this);
-		// this.unfinishedGraph = new Graphmaster(this);
-		// this.categories = new ArrayList<Category>();
 
 		preProcessor = new PreProcessor(this);
-//		addProperties();
+
 		properties.getProperties(config_path + "/properties.txt");
 		cnt = addAIMLSets();
 		log.debug("Loaded " + cnt + " set elements.");
@@ -169,9 +166,12 @@ public class Bot {
 	 * @param moreCategories list of categories
 	 */
 	private void addMoreCategories(String file, ArrayList<Category> moreCategories) {
-		if (file.contains(Properties.deleted_aiml_file)) {
 
-		} else if (file.contains(Properties.learnf_aiml_file)) {
+		if (file.contains(Properties.deleted_aiml_file)) {
+			return;
+		}
+
+		if (file.contains(Properties.learnf_aiml_file)) {
 			log.debug("Reading Learnf file");
 			for (final Category c : moreCategories) {
 				brain.addCategory(c);
@@ -286,18 +286,24 @@ public class Bot {
 			final HashMap<String, BufferedWriter> fileBuffer = new HashMap<String, BufferedWriter>();
 
 			for (final Category category : brainCategories) {
+
 				BufferedWriter writer;
 				final String fileName = category.getFilename();
 				if (fileBuffer.containsKey(fileName)) {
+
 					writer = fileBuffer.get(fileName);
+
 				} else {
+
 					final String filePath = aimlif_path + "/" + fileName + Properties.aimlif_file_suffix;
 					log.debug("writeAIMLIFFiles {}", filePath);
 					writer = new BufferedWriter(new FileWriter(new File(filePath)));
 					fileBuffer.put(fileName, writer);
 				}
+
 				writer.write(AIMLIF.toIF(category));
 				writer.newLine();
+
 			}
 
 			for (final String key : fileBuffer.keySet()) {
@@ -332,39 +338,52 @@ public class Bot {
 
 		final ArrayList<Category> brainCategories = brain.getCategories();
 		Collections.sort(brainCategories, Category.CATEGORY_NUMBER_COMPARATOR);
+
 		String NL = System.getProperty("line.separator");
+
 		try {
-			for (final Category c : brainCategories) {
-				if (!c.getFilename().equals(Properties.null_aiml_file)) {
-					BufferedWriter bw;
-					final String fileName = c.getFilename();
+			for (final Category category : brainCategories) {
+
+				if (!category.getFilename().equals(Properties.null_aiml_file)) {
+
+					BufferedWriter writer;
+					final String fileName = category.getFilename();
+
 					if (fileMap.containsKey(fileName)) {
-						bw = fileMap.get(fileName);
+
+						writer = fileMap.get(fileName);
+
 					} else {
+
 						final String copyright = Utilities.getCopyright(this, fileName);
-						File f = new File(aiml_path + "/" + fileName);
-						log.debug("writeAIMLFiles {}", f.getPath());
-						bw = new BufferedWriter(new FileWriter(f));
-						fileMap.put(fileName, bw);
-						bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<aiml version=\"2.1\">" + NL);
-						bw.write("<!--" + NL);
-						bw.write(copyright + NL);
-						bw.write("-->" + NL);
-						bw.newLine();
+						File file = new File(aiml_path + "/" + fileName);
+						log.debug("writeAIMLFiles {}", file.getPath());
+
+						writer = new BufferedWriter(new FileWriter(file));
+						writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<aiml version=\"2.1\">" + NL);
+						writer.write("<!--" + NL);
+						writer.write(copyright + NL);
+						writer.write("-->" + NL);
+						writer.newLine();
+
+						fileMap.put(fileName, writer);
 					}
-					bw.write(CategoryToAIML.toAIML(c));
-					bw.newLine();
+
+					writer.write(CategoryToAIML.toAIML(category));
+					writer.newLine();
+
 				}
 			}
+
 			for (final String key : fileMap.keySet()) {
-				final BufferedWriter bw = fileMap.get(key);
-				// Close the bw
-				if (bw != null) {
-					bw.write("</aiml>" + NL);
-					bw.flush();
-					bw.close();
+				final BufferedWriter writer = fileMap.get(key);
+				if (writer != null) {
+					writer.write("</aiml>" + NL);
+					writer.flush();
+					writer.close();
 				}
 			}
+
 		} catch (final IOException ex) {
 			log.error(ex.getMessage(), ex);
 		}
