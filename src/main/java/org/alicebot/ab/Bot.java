@@ -360,10 +360,7 @@ public class Bot {
 						log.debug("writeAIMLFiles {}", file.getPath());
 
 						writer = new BufferedWriter(new FileWriter(file));
-						writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<aiml version=\"2.1\">" + NL);
-						writer.write("<!--" + NL);
-						writer.write(copyright + NL);
-						writer.write("-->" + NL);
+						writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<aiml version=\"2.1\">" + NL + "<!--" + NL + copyright + NL + "-->" + NL);
 						writer.newLine();
 
 						fileMap.put(fileName, writer);
