@@ -254,7 +254,7 @@ public class Bot {
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
 			for (final Category category : cats) {
-				writer.write(Category.categoryToIF(category));
+				writer.write(AIMLIF.toIF(category));
 				writer.newLine();
 			}
 			writer.flush();
@@ -296,7 +296,7 @@ public class Bot {
 					writer = new BufferedWriter(new FileWriter(new File(filePath)));
 					fileBuffer.put(fileName, writer);
 				}
-				writer.write(Category.categoryToIF(category));
+				writer.write(AIMLIF.toIF(category));
 				writer.newLine();
 			}
 
@@ -383,7 +383,7 @@ public class Bot {
 		try (final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)))) {
 			String strLine;
 			while ((strLine = reader.readLine()) != null) {
-				categories.add(Category.IFToCategory(strLine));
+				categories.add(AIMLIF.toCategory(strLine));
 			}
 		} catch (final Exception e) {
 			log.error("Error: " + e.getMessage());
